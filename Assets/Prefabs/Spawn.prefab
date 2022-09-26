@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2584784296285782917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2584784296285782923}
+  - component: {fileID: 2584784296285782922}
+  m_Layer: 0
+  m_Name: Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2584784296285782923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584784296285782917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2584784296285782922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584784296285782917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f897e6bc23408f844a9fb90a57f3e7cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  obstacles:
+  - {fileID: 7945080231614276920, guid: 9f5b9697c553cf14dbdea788235ab7a0, type: 3}
+  - {fileID: 7945080231614276920, guid: 37f78d8d707ffe24cad8224fea2e73fd, type: 3}
+  - {fileID: 7945080231614276920, guid: 1d4f570a666aa014eb0ad3f8519ed18f, type: 3}
+  - {fileID: 17793902453122039, guid: 16753753dc79b384489fd5b08e5c9c96, type: 3}
+  - {fileID: 4040624392445210621, guid: 1c5f26d3e899b9940b76354381ab2224, type: 3}
+  - {fileID: 8545577923715099570, guid: cbeee485367ce5b459c5c8d36a79c512, type: 3}
+  - {fileID: 2747706805556344601, guid: 7481c0bb3debce84fb93423215893af4, type: 3}
+  - {fileID: 2747706805556344601, guid: 9a5cca7c5346f94429806020b8aadee2, type: 3}
+  - {fileID: 8545577923715099570, guid: e86d632c4cbec2749bda2a1da4fdcd79, type: 3}
+  - {fileID: 8545577923715099570, guid: c60861ede3023f945a26fe9b9f5c538c, type: 3}
+  - {fileID: 8545577923715099570, guid: ed93c5bd2a5cc114a93b814033c57987, type: 3}
+  interval: 0
+  nextSpawn: 0
+  onlySpawnDownObs: 0
+  onlySpawnMidObs: 0
+  onlySpawnUpObs: 0
+  gameManager: {fileID: 0}
