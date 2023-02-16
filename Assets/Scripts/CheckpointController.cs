@@ -19,17 +19,17 @@ public class CheckpointController : ObstacleController
         if(other.gameObject.tag == "Player"){
             switch (tutorialManager.GetTutorialStage())
             {
-                case TutorialManager.TutorialStage.First:
+                case TutorialManager.TutorialStage.MainObs:
                     tutorialManager.getPlayer().GetComponent<PlayerTutorialController>().SetMove(false);
                     canvasController.tutSecondStage();
-                    tutorialManager.SetSecond();
+                    tutorialManager.SetDownObs();
                     break;
-                case TutorialManager.TutorialStage.Second:
+                case TutorialManager.TutorialStage.DownObs:
                     tutorialManager.getPlayer().GetComponent<PlayerTutorialController>().SetMove(false);
                     canvasController.tutThirdStage();
-                    tutorialManager.SetThird();
+                    tutorialManager.SetUpObs();
                     break;
-                case TutorialManager.TutorialStage.Third:
+                case TutorialManager.TutorialStage.UpObs:
                     tutorialManager.SetFinal();
                     canvasController.EndUI();
                     break;

@@ -39,7 +39,6 @@ public class SpawnTutorial : SpawnObstacles
 
     public IEnumerator SpawnStage(){
         yield return new WaitForSeconds(20);
-        Debug.Log("Finished First Stage");
         SpawnSpecificObject(11);
         setActive(false);
     }

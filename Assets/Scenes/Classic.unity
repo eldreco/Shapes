@@ -1299,6 +1299,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8725675958558607418, guid: 50b3b1ab5343b144babfb1fbb2166242,
         type: 3}
+      propertyPath: _dieEffect
+      value: 
+      objectReference: {fileID: 5410792361581034529, guid: 4e20a88f64c04434888d2b5ce10dc51d,
+        type: 3}
+    - target: {fileID: 8725675958558607418, guid: 50b3b1ab5343b144babfb1fbb2166242,
+        type: 3}
       propertyPath: timerValueUp
       value: 0.75
       objectReference: {fileID: 0}
