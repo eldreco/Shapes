@@ -14,8 +14,6 @@ public class TutorialCanvasController : CanvasManager
     public GameObject endUI;
     public GameObject gameManager;
 
-    [SerializeField] SaveData saveData;
-
     static bool firstPlay;
     static int highScore;
     public int score;

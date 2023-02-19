@@ -15,8 +15,6 @@ public class CanvasController : MonoBehaviour
 
     public GameObject gameManager;
 
-    [SerializeField] SaveData saveData;
-
     private Animator anim;
 
     static int highScore;
@@ -25,7 +23,7 @@ public class CanvasController : MonoBehaviour
     private bool gamePaused = false;
 
     private void Awake() {
-        saveData.StartGameFirstTime();
+        highScore = DataManager.Instance._highScore;
     }
 
     private void Start() {
@@ -49,8 +47,10 @@ public class CanvasController : MonoBehaviour
 
     private void SetHighScore(){
         highScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = highScore.ToString();
-        if(score >= highScore)
+        if(score >= highScore){
             highScore = score;
+            DataManager.Instance.SetHighScore(highScore);
+        }
     }
 
     public int GetHighScore(){
@@ -85,6 +85,5 @@ public class CanvasController : MonoBehaviour
         pauseButton.SetActive(false);
         levelEndedUI.SetActive(true);
         yourScoreText.SetActive(true);
-        saveData.SetHighScore(highScore);
     }
 }
