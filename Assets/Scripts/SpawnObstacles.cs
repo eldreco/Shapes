@@ -24,6 +24,8 @@ public class SpawnObstacles : MonoBehaviour
 
     public GameManager gameManager;
 
+    protected int _obstaclesSpawnedCount = 0;
+
     private void Start() {
         tf = gameObject.transform; 
         nextSpawn = Mathf.RoundToInt(Time.time);
@@ -125,6 +127,7 @@ public class SpawnObstacles : MonoBehaviour
 
             }
 
+            _obstaclesSpawnedCount++;
         }else{
             Spawn(); //Repeat if its the same index
         }
@@ -157,5 +160,9 @@ public class SpawnObstacles : MonoBehaviour
         onlySpawnDownObs = spawnDown;
         onlySpawnMidObs = spawnMid;
         onlySpawnUpObs = spawnUp;
+    }
+
+    public void ResetCount(){
+        _obstaclesSpawnedCount = 0;
     }
 }

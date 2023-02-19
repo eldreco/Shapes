@@ -99,7 +99,7 @@ public class TutorialManager : GameManager
         _spawnObstacles.setSpawnType(false, true, false);
         SetBaseVelocity();
         _spawnObstacles.GetComponent<SpawnTutorial>().setActive(true);
-        StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
+        // StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
 
     }
 
@@ -108,9 +108,10 @@ public class TutorialManager : GameManager
         _activeStage = TutorialStage.DownObs;
         Debug.Log("Second Stage");
         _spawnObstacles.setSpawnType(true, false, false);
+        _spawnObstacles.ResetCount();
         SetBaseVelocity();
         _spawnObstacles.GetComponent<SpawnTutorial>().setActive(true);
-        StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
+        // StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
     }
 
     public void SetUpObs(){
@@ -118,9 +119,10 @@ public class TutorialManager : GameManager
         _activeStage = TutorialStage.UpObs;
         Debug.Log("Third Stage");
         _spawnObstacles.setSpawnType(false, false, true);
+        _spawnObstacles.ResetCount();
         SetBaseVelocity();
         _spawnObstacles.GetComponent<SpawnTutorial>().setActive(true);
-        StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
+        // StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
     }
 
     public void SetFinal(){
@@ -136,6 +138,8 @@ public class TutorialManager : GameManager
         _tutorialCanvasController.ActivateUI(_tutorialCanvasController.playerDiedUI);
         _tutorialCanvasController.GetComponent<Animator>().SetTrigger("PlayerDied");
 
+        _spawnObstacles.ResetCount();
+        _spawn.GetComponent<SpawnTutorial>().ResetCheckpoint();
         GameObject[] obs = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach(GameObject o in obs)
             Destroy(o);

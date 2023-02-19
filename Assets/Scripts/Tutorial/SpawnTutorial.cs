@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class SpawnTutorial : SpawnObstacles
 {
-    public bool isActive;
-
-    private void Update() {
-        SetInterval();
-    }
+    public bool _isActive;
+    private bool _spawnedCheckpoint;
 
     private void Start() {
         tf = gameObject.transform; 
         nextSpawn = Mathf.RoundToInt(Time.time);
-        isActive = false;
+        _isActive = false;
+        _spawnedCheckpoint = false;
         // StartCoroutine(FirstStage());
     }
 
+    private void Update() {
+        SetInterval();
+        Debug.Log(_obstaclesSpawnedCount);
+    }
+
     public new void SetInterval(){
-        if(isActive){
+        if(_isActive){
             if(!player.GetComponent<PlayerController>().GetLevelEnded()){
                 interval = 2;
                 TimerController();
@@ -27,19 +30,28 @@ public class SpawnTutorial : SpawnObstacles
     }
 
     public void setActive(bool active){
-        isActive = active;
+        _isActive = active;
     }
 
     private new void TimerController(){
         if (Time.time >= nextSpawn){
             nextSpawn = Mathf.RoundToInt(Time.time + interval);
-            Spawn();
+            if(_obstaclesSpawnedCount < 10)
+                Spawn();
+            else if (_obstaclesSpawnedCount == 10 && !_spawnedCheckpoint){
+                StartCoroutine(SpawnStage());
+                _spawnedCheckpoint = true;
+            }
         }
     }
 
     public IEnumerator SpawnStage(){
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(1);
         SpawnSpecificObject(11);
         setActive(false);
+    }
+
+    public void ResetCheckpoint(){
+        _spawnedCheckpoint = false;
     }
 }
