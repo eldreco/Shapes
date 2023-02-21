@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class TutorialManager : GameManager
 {
-    //Check in which stage the of the tutorial the 
-    //player is
     public enum TutorialStage
     {
         Start,
@@ -16,16 +14,26 @@ public class TutorialManager : GameManager
         End
     }
 
-    public GameObject _spawn;
+    public static TutorialManager Instance;
+
+    [SerializeField] private GameObject _spawn;
     private SpawnObstacles _spawnObstacles;
 
-    public TutorialStage _activeStage;
+    public TutorialStage _activeStage{get;private set;}
 
-    private bool _checkTimer = false;
+    public bool _checkTimer {get; set;} = false;
     private float _timerDeadVal = 5f;
     private float _timerDead = 0;
 
     private TutorialCanvasController _tutorialCanvasController;
+
+    private void Awake()
+    {
+        if (Instance != null)
+            Destroy(gameObject);
+        
+        Instance = this;
+    }
 
     private void SetObjects(){
         canvas = GameObject.Find("Tutorial Canvas");
@@ -43,13 +51,9 @@ public class TutorialManager : GameManager
     void Update()
     {
         UpdateStage();
-        //levelEnded = player.GetComponent<PlayerController>().GetLevelEnded();        
-        // if(levelEnded)
-        //     obstacleVelocity = 0;
     }
 
     public void UpdateStage(){
-        // activeStage = stage;
         PlayerDeadTimer();
         if(_activeStage == TutorialStage.Start){
             if(player.GetComponent<PlayerController>().getPos() == 0 || player.GetComponent<PlayerController>().getPos() == 2)
@@ -59,14 +63,14 @@ public class TutorialManager : GameManager
             if(player.GetComponent<PlayerController>().getIsDown()){
                 Time.timeScale = 1;
                 player.GetComponent<PlayerTutorialController>().SetMove(true);
-                _tutorialCanvasController.DeActivateUI(_tutorialCanvasController.secondStageUI);
+                _tutorialCanvasController.DeActivateUI(_tutorialCanvasController._secondStageUI);
             }
         }
         else if(_activeStage == TutorialStage.UpObs){
             if(player.GetComponent<PlayerController>().getIsUp()){
                 player.GetComponent<PlayerTutorialController>().SetMove(true);
                 Time.timeScale = 1;
-                _tutorialCanvasController.DeActivateUI(_tutorialCanvasController.thirdStageUI);
+                _tutorialCanvasController.DeActivateUI(_tutorialCanvasController._thirdStageUI);
             }
         }
     }
@@ -98,31 +102,25 @@ public class TutorialManager : GameManager
         Time.timeScale = 1;
         _spawnObstacles.setSpawnType(false, true, false);
         SetBaseVelocity();
-        _spawnObstacles.GetComponent<SpawnTutorial>().setActive(true);
-        // StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
-
+        SpawnTutorial.Instance._isActive = true;
     }
 
     public void SetDownObs(){
-        //Time.timeScale = 0;
         _activeStage = TutorialStage.DownObs;
         Debug.Log("Second Stage");
         _spawnObstacles.setSpawnType(true, false, false);
         _spawnObstacles.ResetCount();
         SetBaseVelocity();
-        _spawnObstacles.GetComponent<SpawnTutorial>().setActive(true);
-        // StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
+        SpawnTutorial.Instance._isActive = true;
     }
 
     public void SetUpObs(){
-        //Time.timeScale = 0;
         _activeStage = TutorialStage.UpObs;
         Debug.Log("Third Stage");
         _spawnObstacles.setSpawnType(false, false, true);
         _spawnObstacles.ResetCount();
         SetBaseVelocity();
-        _spawnObstacles.GetComponent<SpawnTutorial>().setActive(true);
-        // StartCoroutine(_spawnObstacles.GetComponent<SpawnTutorial>().SpawnStage());
+        SpawnTutorial.Instance._isActive = true;
     }
 
     public void SetFinal(){
@@ -132,19 +130,14 @@ public class TutorialManager : GameManager
     }
     
     public void PlayerDead(){
-        // tutorialCanvasController.playerIsDeadUI();
-        //SetVelocity(0);
         player.SetActive(false);
-        _tutorialCanvasController.ActivateUI(_tutorialCanvasController.playerDiedUI);
+        _tutorialCanvasController.ActivateUI(_tutorialCanvasController._playerDiedUI);
         _tutorialCanvasController.GetComponent<Animator>().SetTrigger("PlayerDied");
-
         _spawnObstacles.ResetCount();
         _spawn.GetComponent<SpawnTutorial>().ResetCheckpoint();
         GameObject[] obs = GameObject.FindGameObjectsWithTag("Obstacle");
-        foreach(GameObject o in obs)
-            Destroy(o);
+        foreach(GameObject o in obs) Destroy(o);
         Destroy(GameObject.FindGameObjectWithTag("Checkpoint"));
-        // player.SetActive(true);
         _checkTimer = true;
     }
 
@@ -158,20 +151,14 @@ public class TutorialManager : GameManager
                 _timerDead = _timerDeadVal;
             }
         }
-        
-    }
-
-    public void setTimer(bool value){
-        _checkTimer = value;
     }
 
     private void ReloadStage(){
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         player.SetActive(true);
         player.GetComponent<PlayerController>().setPos(1);
-        SetTutorialStage(GetTutorialStage());
+        SetTutorialStage(this._activeStage);
         SetBaseVelocity();
-        _tutorialCanvasController.DeActivateUI(_tutorialCanvasController.playerDiedUI);
+        _tutorialCanvasController.DeActivateUI(_tutorialCanvasController._playerDiedUI);
     }
 
     public void SetTutorialStage(TutorialStage stage){
@@ -188,9 +175,4 @@ public class TutorialManager : GameManager
                 break;
         }
     }
-
-    public TutorialStage GetTutorialStage(){
-        return _activeStage;
-    }
-
 }

@@ -4,27 +4,22 @@ using UnityEngine;
 
 public class PlayerTutorialController : PlayerController
 {
+    private bool _move;
 
-    private bool move;
-    private TutorialManager tutorialManager;
     private void Start() {
-        move = true;
+        _move = true;
         _anim = GetComponent<Animator>();
-        tutorialManager = GameObject.Find("TutorialManager").GetComponent<TutorialManager>();
     }
 
     private void Update() {
         SwipeCheck();
-        // SwipeControl();
         PCControl();
         PosControl();
         IsDownTimer();
         IsUpTimer();
-
     }
 
-    //New SwipeControl to ignore parent one,
-    //checks the tutorialStage
+    //New SwipeControl to ignore parent one, checks the tutorialStage
     public new void SwipeControl(){
         Vector2 Length = _swipeEndPos - _swipeStartPos;
         float xLength = Mathf.Abs(Length.x);
@@ -32,26 +27,22 @@ public class PlayerTutorialController : PlayerController
 
         if(!_gamePaused){
             if(xLength > yLength){
-                if(Length.x > 0 && !_isUp && move){
+                if(Length.x > 0 && !_isUp && _move)
                     goRight();
-                    Debug.Log("Go right");
-                } else if( Length.x < 0 && !_isUp && move){
-                    goLeft();
-                    Debug.Log("Go left");
-                }
+                else if( Length.x < 0 && !_isUp && _move)
+                    goLeft();    
             } else if(xLength < yLength){
-                if(Length.y > 0 && (IsActiveStage(TutorialManager.TutorialStage.UpObs) || _isDown)){
+                if(Length.y > 0 && (IsActiveStage(TutorialManager.TutorialStage.UpObs) || _isDown))
                     goUP();
-                } else if(Length.y < 0 && !_isDown && IsActiveStage(TutorialManager.TutorialStage.DownObs)){
-                    goDown();
-                }
+                else if(Length.y < 0 && !_isDown && IsActiveStage(TutorialManager.TutorialStage.DownObs))
+                    goDown();     
             }
         }
     }
 
     private new void PCControl(){
         if(!_gamePaused){
-            if(!_isUp && move){
+            if(!_isUp && _move){
                 if(Input.GetKeyDown(KeyCode.LeftArrow))
                     goLeft();
                 else if(Input.GetKeyDown(KeyCode.RightArrow))
@@ -68,21 +59,16 @@ public class PlayerTutorialController : PlayerController
         Vector3 diePos = new Vector3(transform.position.x , 0.5f , transform.position.z);
         if(other.gameObject.tag == "Obstacle"){
             Instantiate(_dieEffect , diePos , transform.rotation);
-            // gameObject.SetActive(false);
-            // levelEnded = true;
-            
-            // tutorialManager.ReloadStage();
-            // tutorialManager.PlayerDead();
-            tutorialManager.setTimer(true);
-            tutorialManager.PlayerDead();
+            TutorialManager.Instance._checkTimer = true;
+            TutorialManager.Instance.PlayerDead();
         }
     }
 
     private bool IsActiveStage(TutorialManager.TutorialStage stage){
-        return tutorialManager.GetTutorialStage() == stage;
+        return TutorialManager.Instance._activeStage == stage;
     }
 
     public void SetMove(bool val){
-        move = val;
+        _move = val;
     }
 }

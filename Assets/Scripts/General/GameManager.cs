@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Classic", LoadSceneMode.Single);
     }
     
-    public GameObject getPlayer(){
+    public GameObject GetPlayer(){
         return player;
     }
 

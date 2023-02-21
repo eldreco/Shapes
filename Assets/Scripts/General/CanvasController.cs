@@ -41,7 +41,7 @@ public class CanvasController : MonoBehaviour
     }
 
     private void SetScore(){
-        score = gameManager.GetComponent<GameManager>().getPlayer().GetComponent<PlayerController>().getScore();
+        score = gameManager.GetComponent<GameManager>().GetPlayer().GetComponent<PlayerController>().getScore();
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = score.ToString();
     }
 

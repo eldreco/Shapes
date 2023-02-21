@@ -537,7 +537,6 @@ MonoBehaviour:
   onlySpawnMidObs: 0
   onlySpawnUpObs: 0
   gameManager: {fileID: 153483153}
-  isActive: 0
 --- !u!4 &155950649
 Transform:
   m_ObjectHideFlags: 0
@@ -2235,7 +2234,7 @@ Transform:
   m_Children:
   - {fileID: 3946036599296330723}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1227476344
 Animator:
@@ -2804,7 +2803,7 @@ GameObject:
   - component: {fileID: 1403661740}
   - component: {fileID: 1403661739}
   m_Layer: 0
-  m_Name: Main Camera (1)
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3611,7 +3610,7 @@ Transform:
   - {fileID: 705507995}
   - {fileID: 1945479803}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070122345
 GameObject:
@@ -4049,7 +4048,7 @@ PrefabInstance:
     - target: {fileID: 912732756509750064, guid: bd7f4a4e94d55ff4991307f475b017b4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 912732756509750064, guid: bd7f4a4e94d55ff4991307f475b017b4,
         type: 3}
@@ -5037,16 +5036,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f661fc9aa30cb64082f56a08c3f74d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 5773120561400633977}
-  gamePausedUI: {fileID: 5773120561827853338}
-  pauseButton: {fileID: 5773120561355494380}
-  playerDiedUI: {fileID: 1109820909}
-  secondStageUI: {fileID: 406051737}
-  thirdStageUI: {fileID: 1396985516}
-  endUI: {fileID: 199435516}
-  gameManager: {fileID: 153483152}
-  score: 0
-  startStageUI: {fileID: 849428826}
+  _panel: {fileID: 5773120561400633977}
+  _gamePausedUI: {fileID: 5773120561827853338}
+  _pauseButton: {fileID: 5773120561355494380}
+  _endUI: {fileID: 199435516}
+  _startStageUI: {fileID: 849428826}
+  _gameManager: {fileID: 153483152}
 --- !u!95 &5773120561444948957
 Animator:
   serializedVersion: 5

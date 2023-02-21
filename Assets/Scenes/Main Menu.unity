@@ -129,7 +129,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2751959767261124145}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519223958}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb9853ecb1b67144a91087097464ae2b, type: 3}
@@ -952,18 +952,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464177396}
   m_CullTransparentMesh: 1
---- !u!1 &519223958 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2751959767212017874, guid: 2838d37dea1dab94ba646d0077ea64ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 2751959767261124145}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &657167897 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 912732756509750067, guid: bd7f4a4e94d55ff4991307f475b017b4,
-    type: 3}
-  m_PrefabInstance: {fileID: 912732757737712202}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &694337366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,8 +1625,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1745840029}
-        m_TargetAssemblyTypeName: MainMenuCanvasController, Assembly-CSharp
+      - m_Target: {fileID: 1452354294}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
         m_MethodName: startClassic
         m_Mode: 1
         m_Arguments:
@@ -2377,12 +2365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8195436724b1479eabe48be67858a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 289291786}
-  floor: {fileID: 657167897}
-  gameManager: {fileID: 519223958}
-  tutorialObs: {fileID: 7945080231614276920, guid: b9009e4e802dd204dbd35a23576bd0eb,
-    type: 3}
-  mainMenu: {fileID: 1745840024}
 --- !u!4 &1452354295
 Transform:
   m_ObjectHideFlags: 0
@@ -3076,17 +3058,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e0a1dfd89172149917b48bafdfaeb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 51568356}
-  panel: {fileID: 1724529946}
-  menuButton: {fileID: 1830158178}
-  settingsButton: {fileID: 360235596}
-  menuOpenUI: {fileID: 1839773240}
-  settingsOpenUI: {fileID: 1248624134}
-  tutorialUI: {fileID: 1647197133}
-  mainMenuText: {fileID: 760209712}
-  menuOpened: 0
-  settingsOpened: 0
-  firstEnterMenu: 0
+  _gameManager: {fileID: 51568356}
+  _panel: {fileID: 1724529946}
+  _menuButton: {fileID: 1830158178}
+  _settingsButton: {fileID: 360235596}
+  _menuOpenUI: {fileID: 1839773240}
+  _settingsOpenUI: {fileID: 1248624134}
+  _tutorialUI: {fileID: 1647197133}
+  _mainMenuText: {fileID: 760209712}
 --- !u!95 &1745840030
 Animator:
   serializedVersion: 5

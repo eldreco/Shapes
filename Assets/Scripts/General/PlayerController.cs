@@ -8,16 +8,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     protected Animator _anim;
 
-    private GameObject _mainMenuManager;
-    private MainMenuManager _mMenuManager;
-
     private GameObject _playersBack;
 
     public bool _isUp;
     public bool _isDown;
-
     public bool _gamePaused;
-
     public int _pos = 1;
 
     //Check Position of the swipe to do the check

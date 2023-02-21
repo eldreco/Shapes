@@ -5,7 +5,6 @@ using System.IO;
 
 public class DataManager : MonoBehaviour
 {
-
     public static DataManager Instance;
 
     public int _highScore{get; private set;}
@@ -13,19 +12,11 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        //Make this object a SINGLETON
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-		
+        if (Instance != null) Destroy(gameObject);
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
         LoadHighScore();
     }
-
 
     public void SetHighScore(int hs){
         _highScore = hs;
