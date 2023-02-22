@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+
     private Rigidbody _rb;
     protected Animator _anim;
 
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject _dieEffect;
 
-    private bool _levelEnded;
+    public bool _levelEnded {get; private set;}
 
     private float _timerDown = 0;
     public float _timerDownValue = 1f;
@@ -36,6 +38,11 @@ public class PlayerController : MonoBehaviour
     public int _score = 0;
 
     private bool _canMove;
+
+    private void Awake() {
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
+    }
 
     private void Start() {
         _canMove = true;
@@ -50,8 +57,6 @@ public class PlayerController : MonoBehaviour
             _swipeDistance = 25;
         else
             _swipeDistance = 5;
-        // mainMenuManager = GameObject.Find("Main Menu Manager");
-        // mMenuManager = mainMenuManager.GetComponent<MainMenuManager>();
     }
 
     private void Update() {
@@ -68,9 +73,6 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "Obstacle"){
             _timerDown = _timerDownValue; //Reset timer if it starts passing an obstacle
             _timerUp = _timerUpValue;
-            Debug.Log(other.name);
-        }else if (SceneManager.GetActiveScene () == SceneManager.GetSceneByName ("Main Menu")) {
-            // mMenuManager.playerEnterTrigger(other); //Call function from MainMenuManager
         }
     }
 
@@ -83,8 +85,6 @@ public class PlayerController : MonoBehaviour
                 goDown();
                 _timerUp = _timerUpValue;
             }
-        }else if (SceneManager.GetActiveScene () == SceneManager.GetSceneByName ("Main Menu")) {
-            // mMenuManager.playerExitTrigger(other); //Call function from MainMenuManager
         }
         _obsPassed = other.gameObject.name;
     }
@@ -135,7 +135,6 @@ public class PlayerController : MonoBehaviour
         Vector2 Length = _swipeEndPos - _swipeStartPos;
         float xLength = Mathf.Abs(Length.x);
         float yLength = Mathf.Abs(Length.y);
-        Debug.Log(_swipeStartPos+ " ; " + _swipeEndPos + " ; " + xLength + " ; " + yLength);
 
         if(!_gamePaused){
             if(xLength > yLength){
@@ -152,10 +151,6 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-    }
- 
-    public bool GetLevelEnded(){
-        return _levelEnded;
     }
 
     protected void goDown(){ //When its up it goes down with isUpTimer()
@@ -188,7 +183,6 @@ public class PlayerController : MonoBehaviour
                 _anim.SetTrigger("DtoM");
             else
                 _anim.SetTrigger("DtoR");
-
         }
         else if(!_isUp){ //if its middle
             if(_pos == 0)

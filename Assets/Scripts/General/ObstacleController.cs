@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class ObstacleController : MonoBehaviour
 {   
-    protected Rigidbody rb;
-    protected Animator anim;
-
-    protected GameObject gameManager;
+    protected Rigidbody _rb;
+    protected Animator _anim;
 
     protected void Start() {
-        rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
-        gameManager = FindObjectOfType<GameManager>().gameObject;
+        _rb = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
     }
 
     protected void Update() {
-        MoveObstacle(gameManager.GetComponent<GameManager>().GetVelocity());
+        MoveObstacle(GameManager.Instance._obstacleVelocity);
     }
 
     protected void MoveObstacle(float speed){
-        rb.velocity = new Vector3(speed , 0 , 0);
+        _rb.velocity = new Vector3(speed , 0 , 0);
     }
 }

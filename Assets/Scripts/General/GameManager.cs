@@ -5,55 +5,55 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject player;
+    public static GameManager Instance;
 
-    public GameObject canvas;
+    [SerializeField] protected GameObject _player {get; private set;}
 
-    public bool levelEnded;
+    public bool _levelEnded {get; private set;}
+    public float _obstacleVelocity {get; private set;}
+    private float _topVelocity;
+    private float _acceleration = 0.5f;
+    private float _timer = 0;
+    private float _increaseInterval = 1.0f;
 
-    public float obstacleVelocity;
-    private float topVelocity;
-    private float acceleration = 0.5f;
-
-    public float timer;
-    private float increaseInterval = 1.0f;
-
+    private void Awake() {
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
+    }
 
     private void Start() {
         SetBaseVelocity();
-        timer = 0;
     }
 
     private void Update() {
-        levelEnded = player.GetComponent<PlayerController>().GetLevelEnded();        
-        if(Time.time >= timer && obstacleVelocity <= topVelocity){
-            timer = (int)(Time.time + increaseInterval);
-            obstacleVelocity *= 1.01f ;
+        _levelEnded = PlayerController.Instance._levelEnded;        
+        if(Time.time >= _timer && _obstacleVelocity <= _topVelocity){
+            _timer = (int)(Time.time + _increaseInterval);
+            _obstacleVelocity *= 1.01f ;
         }
-        if(obstacleVelocity > topVelocity)
-            obstacleVelocity = topVelocity;
-        if(levelEnded)
-            obstacleVelocity = 0;
+        if(_obstacleVelocity > _topVelocity)
+            _obstacleVelocity = _topVelocity;
+        if(_levelEnded)
+            _obstacleVelocity = 0;
     }
     
     public void pauseGame(){
-        canvas.GetComponent<CanvasController>().pauseGame();
-        player.GetComponent<PlayerController>().setPause(true);
+        CanvasController.Instance.pauseGame();
+        PlayerController.Instance.setPause(true);
         Time.timeScale = 0;
-        Debug.Log("Game Paused");
     }
+
     public void resumeGame(){
-        canvas.GetComponent<CanvasController>().resumeGame();
-        player.GetComponent<PlayerController>().setPause(false);
+        CanvasController.Instance.resumeGame();
+        PlayerController.Instance.setPause(false);
         Time.timeScale = 1;
     }
 
-
     public void ReloadCurrentLevel(){
-        if(player.GetComponent<PlayerController>().GetLevelEnded() || canvas.GetComponent<CanvasController>().gameIsPaused()){
+        if(PlayerController.Instance._levelEnded || CanvasController.Instance._gamePaused){
             Time.timeScale = 1; //Because of restarting when paused
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            canvas.GetComponent<CanvasController>().LevelStarted();
+            CanvasController.Instance.LevelStarted();
         }
     }
 
@@ -67,35 +67,21 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
     }
 
-    
-
     public void OpenClassic(){
         Time.timeScale = 1; //Because it's clicked when menus are opened
         SceneManager.LoadScene("Classic", LoadSceneMode.Single);
     }
-    
-    public GameObject GetPlayer(){
-        return player;
-    }
 
     public void SetBaseVelocity(){
-        obstacleVelocity = 5f; //CHANGE IF NEEDED
-        topVelocity = 15f;
-    }
-
-    public float GetVelocity(){
-        return obstacleVelocity;
+        _obstacleVelocity = 5f; //CHANGE IF NEEDED
+        _topVelocity = 15f;
     }
 
     public void SetVelocity(float v){
-        obstacleVelocity = v;
+        _obstacleVelocity = v;
     }
 
     public void SetTopVelocity(float v){
-        topVelocity = v;
-    }
-
-    public bool GetLevelEnded(){
-        return levelEnded;
+        _topVelocity = v;
     }
 }

@@ -5,85 +5,78 @@ using UnityEngine.UI;
 
 public class CanvasController : MonoBehaviour
 {
-    public Image panel;
-    public GameObject levelEndedUI;
-    public GameObject scoreText;
-    public GameObject highScoreText;
-    public GameObject yourScoreText;
-    public GameObject gamePausedUI;
-    public GameObject pauseButton;
+    public static CanvasController Instance;
 
-    public GameObject gameManager;
+    [SerializeField] private Image _panel;
+    [SerializeField] private GameObject _levelEndedUI;
+    [SerializeField] private GameObject _scoreText;
+    [SerializeField] private GameObject _highScoreText;
+    [SerializeField] private GameObject _yourScoreText;
+    [SerializeField] private GameObject _gamePausedUI;
+    [SerializeField] private GameObject _pauseButton;
 
-    private Animator anim;
+    private Animator _anim;
 
-    static int highScore;
-    public int score;
+    private int _highScore;
+    private int _score;
 
-    private bool gamePaused = false;
+    public bool _gamePaused {get; private set;} = false;
 
     private void Awake() {
-        highScore = DataManager.Instance._highScore;
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
+        _highScore = DataManager.Instance._highScore;
     }
 
     private void Start() {
-        anim = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
         LevelStarted();
     }
 
     private void Update() {
-        if(!gameManager.GetComponent<GameManager>().GetLevelEnded()){
+        if(!GameManager.Instance._levelEnded){
             SetScore();
             SetHighScore();
-        }else{
+        }else
             LevelEnded();
-        }
     }
 
     private void SetScore(){
-        score = gameManager.GetComponent<GameManager>().GetPlayer().GetComponent<PlayerController>().getScore();
-        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = score.ToString();
+        _score = PlayerController.Instance.getScore();
+        _scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = _score.ToString();
     }
 
     private void SetHighScore(){
-        highScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = highScore.ToString();
-        if(score >= highScore){
-            highScore = score;
-            DataManager.Instance.SetHighScore(highScore);
+        _highScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = _highScore.ToString();
+        if(_score >= _highScore){
+            _highScore = _score;
+            DataManager.Instance.SetHighScore(_highScore);
         }
     }
 
-    public int GetHighScore(){
-        return highScore;
-    }
-
     public void LevelStarted(){
-        gamePausedUI.SetActive(false);
+        _gamePausedUI.SetActive(false);
         gameObject.SetActive(true);
-        anim.SetTrigger("LevelStarted");
-        scoreText.SetActive(true);
-        levelEndedUI.SetActive(false);
-        yourScoreText.SetActive(false);
+        _anim.SetTrigger("LevelStarted");
+        _scoreText.SetActive(true);
+        _levelEndedUI.SetActive(false);
+        _yourScoreText.SetActive(false);
     }
 
     public void pauseGame(){
-        gamePaused = true;
-        gamePausedUI.SetActive(true);
+        _gamePaused = true;
+        _gamePausedUI.SetActive(true);
     }
 
     public void resumeGame(){
-        gamePaused = false;
-        gamePausedUI.SetActive(false);
-    }
-    
-    public bool gameIsPaused(){
-        return gamePaused;
+        _gamePaused = false;
+        _gamePausedUI.SetActive(false);
     }
 
     private void LevelEnded(){
-        anim.SetTrigger("LevelEnded");
-        pauseButton.SetActive(false);
-        levelEndedUI.SetActive(true);
-        yourScoreText.SetActive(true);
+        _anim.SetTrigger("LevelEnded");
+        _pauseButton.SetActive(false);
+        _levelEndedUI.SetActive(true);
+        _yourScoreText.SetActive(true);
     }
 }

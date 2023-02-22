@@ -4,31 +4,28 @@ using UnityEngine;
 
 public class SpawnObstacles : MonoBehaviour
 {
-    public GameObject player;
-    protected static Transform tf;
+    protected static Transform _tf;
 
-    public GameObject[] obstacles; //Array with type of obstacles there are
-    private int lastSpawnedIndex = -1; //var to make it more random
+    [SerializeField] private GameObject[] obstacles; //Array with type of obstacles there are
+    private int _lastSpawnedIndex = -1; //var to make it more random
 
     //Keep track of the index of the obstacle in the array
-    private int obstacleIndex;
+    private int _obstacleIndex;
 
     //Variables to separate spawn times
-    public float interval; 
-    public float nextSpawn;
+    protected float _interval; 
+    protected float _nextSpawn;
 
     //Variables to spawn 1 type of obstacles
-    public bool onlySpawnDownObs = false;
-    public bool onlySpawnMidObs = false;
-    public bool onlySpawnUpObs = false;
-
-    public GameManager gameManager;
+    private bool _onlySpawnDownObs = false;
+    private bool _onlySpawnMidObs = false;
+    private bool _onlySpawnUpObs = false;
 
     protected int _obstaclesSpawnedCount = 0;
 
     private void Start() {
-        tf = gameObject.transform; 
-        nextSpawn = Mathf.RoundToInt(Time.time);
+        _tf = gameObject.transform; 
+        _nextSpawn = Mathf.RoundToInt(Time.time);
     }
 
     private void Update() { 
@@ -36,94 +33,94 @@ public class SpawnObstacles : MonoBehaviour
     }
 
     protected void SetInterval(){
-        if(!player.GetComponent<PlayerController>().GetLevelEnded()){
-            interval = 10 / gameManager.GetVelocity();
+        if(!PlayerController.Instance._levelEnded){
+            _interval = 10 / GameManager.Instance._obstacleVelocity;
             TimerController();
         }
     }
 
     protected void TimerController(){
-        if (Time.time >= nextSpawn){
-            nextSpawn = Mathf.RoundToInt(Time.time + interval);
-            Debug.Log(nextSpawn);
+        if (Time.time >= _nextSpawn){
+            _nextSpawn = Mathf.RoundToInt(Time.time + _interval);
+            Debug.Log(_nextSpawn);
             Spawn();
         }
     }
 
     protected void Spawn(){
 
-        obstacleIndex = generateSpawnIndex(); //Change index or set one for testing or tutorials
+        _obstacleIndex = generateSpawnIndex(); //Change index or set one for testing or tutorials
 
-        if(lastSpawnedIndex != obstacleIndex){//Obstacle A
-            if(obstacleIndex == 0){
+        if(_lastSpawnedIndex != _obstacleIndex){//Obstacle A
+            if(_obstacleIndex == 0){
 
-                instantiateObstacle(tf.position,tf.rotation);
+                instantiateObstacle(_tf.position,_tf.rotation);
 
-            } else if(obstacleIndex == 1){ //Obstacle L
+            } else if(_obstacleIndex == 1){ //Obstacle L
 
-                Vector3 posL1 = new Vector3(tf.position.x , tf.position.y , -0.25f);
-                Vector3 posL2 = new Vector3(tf.position.x , tf.position.y , 0.25f);
+                Vector3 posL1 = new Vector3(_tf.position.x , _tf.position.y , -0.25f);
+                Vector3 posL2 = new Vector3(_tf.position.x , _tf.position.y , 0.25f);
                 int rndLPos = Random.Range(0 , 2);
 
                 if(rndLPos == 0){
-                    instantiateObstacle(posL1,tf.rotation);
+                    instantiateObstacle(posL1,_tf.rotation);
                 }else if(rndLPos == 1){
-                    instantiateObstacle(posL2,tf.rotation);
+                    instantiateObstacle(posL2,_tf.rotation);
                 }
 
-            } else if(obstacleIndex == 2){ //Obstacle T
+            } else if(_obstacleIndex == 2){ //Obstacle T
 
-                Vector3 posT1 = new Vector3(tf.position.x , tf.position.y , -0.75f);
-                Vector3 posT2 = new Vector3(tf.position.x , tf.position.y , 0.75f);
+                Vector3 posT1 = new Vector3(_tf.position.x , _tf.position.y , -0.75f);
+                Vector3 posT2 = new Vector3(_tf.position.x , _tf.position.y , 0.75f);
                 int randIndex = Random.Range(0 , 3);
 
                 if(randIndex == 0 || randIndex == 1){
-                    instantiateObstacle(posT1,tf.rotation);
-                    instantiateObstacle(posT2,tf.rotation);
+                    instantiateObstacle(posT1,_tf.rotation);
+                    instantiateObstacle(posT2,_tf.rotation);
                 } else if(randIndex == 2){
                     int rndObsPos = Random.Range(0 , 2);
                     if(rndObsPos == 0){
-                        instantiateObstacle(posT1,tf.rotation);
+                        instantiateObstacle(posT1,_tf.rotation);
                     }else if(rndObsPos == 1){
-                        instantiateObstacle(posT2,tf.rotation);
+                        instantiateObstacle(posT2,_tf.rotation);
                     }
                 }
-            } else if(obstacleIndex == 3 || obstacleIndex == 4 || obstacleIndex == 5){//Obstacles DL, DM, DR
+            } else if(_obstacleIndex == 3 || _obstacleIndex == 4 || _obstacleIndex == 5){//Obstacles DL, DM, DR
 
-                instantiateObstacle(tf.position,tf.rotation);
+                instantiateObstacle(_tf.position,_tf.rotation);
 
-            }else if(obstacleIndex == 6){//Obstacle UL
+            }else if(_obstacleIndex == 6){//Obstacle UL
 
-                Vector3 obstaclePos1 = new Vector3(tf.position.x , 0f , -0.75f);
-                Vector3 obstaclePos2 = new Vector3(tf.position.x , 0f , 0.75f);
+                Vector3 obstaclePos1 = new Vector3(_tf.position.x , 0f , -0.75f);
+                Vector3 obstaclePos2 = new Vector3(_tf.position.x , 0f , 0.75f);
                 int randIndex = Random.Range(0 , 3);
 
                 if(randIndex == 0 || randIndex == 1){ //Spawn two
-                    instantiateObstacle(obstaclePos1,tf.rotation);
-                    instantiateObstacle(obstaclePos2,tf.rotation);
+                    instantiateObstacle(obstaclePos1,_tf.rotation);
+                    instantiateObstacle(obstaclePos2,_tf.rotation);
                 } else if(randIndex == 2){//Spawn one
                     int rndObsPos = Random.Range(0 , 2);
                     if(rndObsPos == 0){
-                        instantiateObstacle(obstaclePos1,tf.rotation);//Spawn left
+                        instantiateObstacle(obstaclePos1,_tf.rotation);//Spawn left
                     }else if(rndObsPos == 1){
-                        instantiateObstacle(obstaclePos2,tf.rotation);//Spawn right
+                        instantiateObstacle(obstaclePos2,_tf.rotation);//Spawn right
                     }
                 }
 
-            }else if(obstacleIndex == 7){ //Obstacle UM
+            }else if(_obstacleIndex == 7){ //Obstacle UM
 
-                Vector3 obstaclePos = new Vector3(tf.position.x , -0.114f , tf.position.z);
-                instantiateObstacle(obstaclePos,tf.rotation);
+                Vector3 obstaclePos = new Vector3(_tf.position.x , -0.114f , _tf.position.z);
+                instantiateObstacle(obstaclePos,_tf.rotation);
 
-            }else if(obstacleIndex == 8){ //Obstacle UM2
+            }else if(_obstacleIndex == 8){ //Obstacle UM2
 
-                Vector3 obstaclePos = new Vector3(tf.position.x , 0.13f , tf.position.z);
-                instantiateObstacle(obstaclePos,tf.rotation);
+                Vector3 obstaclePos = new Vector3(_tf.position.x , 0.13f , _tf.position.z);
+                instantiateObstacle(obstaclePos,_tf.rotation);
 
-            }else if(obstacleIndex == 9 || obstacleIndex == 10){ //Obtacles UL2, UR2
+            }else if(_obstacleIndex == 9 || _obstacleIndex == 10){ //Obtacles UL2, UR2
 
-                Vector3 obstaclePos = new Vector3(tf.position.x , 0.25f , tf.position.z);
-                instantiateObstacle(obstaclePos,tf.rotation);
+                Vector3 obstaclePos = new Vector3(_tf.position.x , 0.25f , _tf.position.z);
+                instantiateObstacle(obstaclePos,_tf.rotation);
 
             }
 
@@ -134,32 +131,32 @@ public class SpawnObstacles : MonoBehaviour
     }
 
     protected void SpawnSpecificObject(int objectIndex){
-        obstacleIndex = objectIndex;
-        instantiateObstacle(tf.position,tf.rotation);
+        _obstacleIndex = objectIndex;
+        instantiateObstacle(_tf.position,_tf.rotation);
     }
     
     protected int generateSpawnIndex(){
 
-        if(!onlySpawnDownObs && onlySpawnMidObs && !onlySpawnUpObs) //Spawn Mid Obstacles
+        if(!_onlySpawnDownObs && _onlySpawnMidObs && !_onlySpawnUpObs) //Spawn Mid Obstacles
             return Random.Range(0 , 3);
-        else if(onlySpawnDownObs && !onlySpawnMidObs && !onlySpawnUpObs)//Spawn Down Obstacles
+        else if(_onlySpawnDownObs && !_onlySpawnMidObs && !_onlySpawnUpObs)//Spawn Down Obstacles
             return Random.Range(3 , 6);
-        else if(!onlySpawnDownObs && !onlySpawnMidObs && onlySpawnUpObs)//Spawn Up Obstacles
+        else if(!_onlySpawnDownObs && !_onlySpawnMidObs && _onlySpawnUpObs)//Spawn Up Obstacles
             return Random.Range(6 , 12);
         else
             return Random.Range(0 , obstacles.Length); //Spawn every type
     }
 
     protected void instantiateObstacle(Vector3 pos, Quaternion rot){
-        Instantiate(obstacles[obstacleIndex], pos, rot);
+        Instantiate(obstacles[_obstacleIndex], pos, rot);
 
-        lastSpawnedIndex = obstacleIndex; //Update the lastSpawnedIndex
+        _lastSpawnedIndex = _obstacleIndex; //Update the lastSpawnedIndex
     }
 
     public void setSpawnType(bool spawnDown, bool spawnMid, bool spawnUp){ //For other classes, i.e tutorial
-        onlySpawnDownObs = spawnDown;
-        onlySpawnMidObs = spawnMid;
-        onlySpawnUpObs = spawnUp;
+        _onlySpawnDownObs = spawnDown;
+        _onlySpawnMidObs = spawnMid;
+        _onlySpawnUpObs = spawnUp;
     }
 
     public void ResetCount(){

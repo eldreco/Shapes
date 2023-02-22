@@ -15,7 +15,6 @@ public class TutorialCanvasController : CanvasManager
     [SerializeField] public GameObject _thirdStageUI {get; private set;}
     [SerializeField] private GameObject _endUI;
     [SerializeField] private GameObject _startStageUI;
-    [SerializeField] private GameObject _gameManager;
 
     private bool gamePaused = false;
 
@@ -35,11 +34,8 @@ public class TutorialCanvasController : CanvasManager
     }
 
     private void Update() {
-        if(!_gameManager.GetComponent<GameManager>().GetLevelEnded()){
-
-        }else{
+        if(GameManager.Instance._levelEnded)
             LevelEnded();
-        }
     }
 
     public void TutStartStage(){

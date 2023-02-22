@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyOverTime : MonoBehaviour
 {
-    public float lifeTime = 1;
+    private float lifeTime = 1;
 
     private void Update() {
         lifeTime -= Time.deltaTime; //Set up the countdown

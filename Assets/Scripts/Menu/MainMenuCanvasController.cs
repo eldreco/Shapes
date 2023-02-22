@@ -6,10 +6,8 @@ using UnityEngine.UI;
 
 public class MainMenuCanvasController : CanvasManager
 {   
-
     public static MainMenuCanvasController Instance;
 
-    [SerializeField] private GameManager _gameManager;
     [SerializeField] private Image _panel;
     [SerializeField] private GameObject _menuButton;
     [SerializeField] private GameObject _settingsButton;
@@ -24,9 +22,7 @@ public class MainMenuCanvasController : CanvasManager
     private bool _firstEnterMenu;
 
     private void Awake() {
-         if (Instance != null)
-            Destroy(gameObject);
-        
+        if (Instance != null) Destroy(gameObject);
         Instance = this;
     }
 
@@ -54,7 +50,7 @@ public class MainMenuCanvasController : CanvasManager
         DeActivateUI(_mainMenuText);
         Time.timeScale = 0; 
         _menuOpened = true;
-        _gameManager.GetPlayer().GetComponent<PlayerController>().SetCanMove(false);
+        PlayerController.Instance.SetCanMove(false);
     }
 
     private void closeMenu(){
@@ -62,18 +58,18 @@ public class MainMenuCanvasController : CanvasManager
         ActivateUI(_mainMenuText);
         Time.timeScale = 1; 
         _menuOpened = false;
-        _gameManager.GetPlayer().GetComponent<PlayerController>().SetCanMove(true);
+        PlayerController.Instance.SetCanMove(true);
     }
 
     public void clickSettingsButton(){
         if(!_settingsOpened){
             openSettings();
             DeActivateUI(_mainMenuText);
-            _gameManager.GetPlayer().GetComponent<PlayerController>().SetCanMove(false);
+            PlayerController.Instance.SetCanMove(false);
         }else {
             closeSettings();
             ActivateUI(_mainMenuText);
-            _gameManager.GetPlayer().GetComponent<PlayerController>().SetCanMove(true);
+            PlayerController.Instance.SetCanMove(true);
         }
     }
 

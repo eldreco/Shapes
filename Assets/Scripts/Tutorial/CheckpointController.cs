@@ -13,9 +13,8 @@ public class CheckpointController : ObstacleController
     }
 
     private new void Start() {
-        rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
-        gameManager = FindObjectOfType<GameManager>().gameObject;
+        _rb = GetComponent<Rigidbody>();
+        _anim = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -23,12 +22,12 @@ public class CheckpointController : ObstacleController
             switch (TutorialManager.Instance._activeStage)
             {
                 case TutorialManager.TutorialStage.MainObs:
-                    TutorialManager.Instance.GetPlayer().GetComponent<PlayerTutorialController>().SetMove(false);
+                    PlayerTutorialController.Instance.SetMove(false);
                     TutorialCanvasController.Instance.tutSecondStage();
                     TutorialManager.Instance.SetDownObs();
                     break;
                 case TutorialManager.TutorialStage.DownObs:
-                    TutorialManager.Instance.GetPlayer().GetComponent<PlayerTutorialController>().SetMove(false);
+                    PlayerTutorialController.Instance.SetMove(false);
                     TutorialCanvasController.Instance.tutThirdStage();
                     TutorialManager.Instance.SetUpObs();
                     break;

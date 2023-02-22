@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class FloorController : MonoBehaviour
 {
-    public GameObject floorLeft;
-    public GameObject floorMiddle;
-    public GameObject floorRight;
+    [SerializeField] private GameObject _floorLeft;
+    [SerializeField] GameObject _floorMiddle;
+    [SerializeField] GameObject _floorRight;
+    [SerializeField] GameObject _player;
 
-    public GameObject player;
-
-    private Renderer middleRenderer;
-    private Renderer leftRenderer;
-    private Renderer rightRenderer;
+    private Renderer _middleRenderer;
+    private Renderer _leftRenderer;
+    private Renderer _rightRenderer;
 
     private void Start() {
-        middleRenderer = floorMiddle.GetComponent<Renderer>();
-        leftRenderer = floorLeft.GetComponent<Renderer>();
-        rightRenderer = floorRight.GetComponent<Renderer>();
+        _middleRenderer = _floorMiddle.GetComponent<Renderer>();
+        _leftRenderer = _floorLeft.GetComponent<Renderer>();
+        _rightRenderer = _floorRight.GetComponent<Renderer>();
     }
 
     private void Update() {
@@ -25,18 +24,18 @@ public class FloorController : MonoBehaviour
     }
 
     private void PlayerPosCheck(){
-        if(player.GetComponent<PlayerController>().getPos() == 1){
-            leftRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
-            middleRenderer.material.color = Color.white;
-            rightRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
-        } else if(player.GetComponent<PlayerController>().getPos() == 0){
-            leftRenderer.material.color = Color.white;
-            middleRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
-            rightRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
-        } else if(player.GetComponent<PlayerController>().getPos() == 2){
-            leftRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
-            middleRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
-            rightRenderer.material.color = Color.white;
+        if(_player.GetComponent<PlayerController>().getPos() == 1){
+            _leftRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
+            _middleRenderer.material.color = Color.white;
+            _rightRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
+        } else if(_player.GetComponent<PlayerController>().getPos() == 0){
+            _leftRenderer.material.color = Color.white;
+            _middleRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
+            _rightRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
+        } else if(_player.GetComponent<PlayerController>().getPos() == 2){
+            _leftRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
+            _middleRenderer.material.color = new Color(0.15f, 0.15f, 0.15f);
+            _rightRenderer.material.color = Color.white;
         }
     }
 

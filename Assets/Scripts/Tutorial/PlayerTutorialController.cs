@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerTutorialController : PlayerController
 {
+    public static new PlayerTutorialController Instance;
+
     private bool _move;
 
     private void Start() {

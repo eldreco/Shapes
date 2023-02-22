@@ -16,8 +16,8 @@ public class SpawnTutorial : SpawnObstacles
     }
 
     private void Start() {
-        tf = gameObject.transform; 
-        nextSpawn = Mathf.RoundToInt(Time.time);
+        _tf = gameObject.transform; 
+        _nextSpawn = Mathf.RoundToInt(Time.time);
         _isActive = false;
         _spawnedCheckpoint = false;
     }
@@ -28,16 +28,16 @@ public class SpawnTutorial : SpawnObstacles
 
     public new void SetInterval(){
         if(_isActive){
-            if(!player.GetComponent<PlayerController>().GetLevelEnded()){
-                interval = 2;
+            if(!PlayerController.Instance._levelEnded){
+                _interval = 2;
                 TimerController();
             }
         }
     }
 
     private new void TimerController(){
-        if (Time.time >= nextSpawn){
-            nextSpawn = Mathf.RoundToInt(Time.time + interval);
+        if (Time.time >= _nextSpawn){
+            _nextSpawn = Mathf.RoundToInt(Time.time + _interval);
             if(_obstaclesSpawnedCount < 10)
                 Spawn();
             else if (_obstaclesSpawnedCount == 10 && !_spawnedCheckpoint){
