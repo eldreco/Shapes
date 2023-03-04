@@ -1840,8 +1840,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 51568356}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: ReloadCurrentLevel
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OpenShapes
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3058,7 +3058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e0a1dfd89172149917b48bafdfaeb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 51568356}
   _panel: {fileID: 1724529946}
   _menuButton: {fileID: 1830158178}
   _settingsButton: {fileID: 360235596}
@@ -3267,16 +3266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aea0c40994aadb46be05c711b916495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 289291786}
-  gameManager: {fileID: 51568356}
   obstacles:
   - {fileID: 7945080231614276920, guid: b9009e4e802dd204dbd35a23576bd0eb, type: 3}
   - {fileID: 7945080231614276920, guid: 283d4c8f4256d8746b6622aeb2b365fb, type: 3}
   - {fileID: 7945080231614276920, guid: 5d08f335ffae9dc478f14c1019c3fdb9, type: 3}
-  obstacleIndex: 0
-  interval: 2
-  nextSpawn: 0
-  menuVelocity: 10
 --- !u!4 &1805772603
 Transform:
   m_ObjectHideFlags: 0
@@ -3347,7 +3340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1839773241
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3908,6 +3901,11 @@ PrefabInstance:
       objectReference: {fileID: 289291786}
     - target: {fileID: 912732756509750065, guid: bd7f4a4e94d55ff4991307f475b017b4,
         type: 3}
+      propertyPath: _floorLeft
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 912732756509750065, guid: bd7f4a4e94d55ff4991307f475b017b4,
+        type: 3}
       propertyPath: playerAnim
       value: 
       objectReference: {fileID: 1016750054}
@@ -4014,6 +4012,11 @@ PrefabInstance:
     - target: {fileID: 2751959767212017877, guid: 2838d37dea1dab94ba646d0077ea64ca,
         type: 3}
       propertyPath: player
+      value: 
+      objectReference: {fileID: 289291786}
+    - target: {fileID: 2751959767212017877, guid: 2838d37dea1dab94ba646d0077ea64ca,
+        type: 3}
+      propertyPath: _player
       value: 
       objectReference: {fileID: 289291786}
     m_RemovedComponents: []

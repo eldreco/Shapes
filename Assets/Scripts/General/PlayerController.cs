@@ -12,10 +12,10 @@ public class PlayerController : MonoBehaviour
 
     private GameObject _playersBack;
 
-    public bool _isUp;
-    public bool _isDown;
-    public bool _gamePaused;
-    public int _pos = 1;
+    protected bool _isUp;
+    protected bool _isDown;
+    protected bool _gamePaused;
+    protected int _pos = 1;
 
     //Check Position of the swipe to do the check
     private float _swipeStartTime;
@@ -24,18 +24,18 @@ public class PlayerController : MonoBehaviour
     protected Vector2 _swipeEndPos;
     private int _swipeDistance;
 
-    public GameObject _dieEffect;
+    [SerializeField]protected GameObject _dieEffect;
 
     public bool _levelEnded {get; private set;}
 
     private float _timerDown = 0;
-    public float _timerDownValue = 1f;
-    public float _timerUp = 0;
-    public float _timerUpValue = 1f;
+    private float _timerDownValue = 1f;
+    private float _timerUp = 0;
+    private float _timerUpValue = 1f;
 
     private string _obsPassed = "";
 
-    public int _score = 0;
+    private int _score = 0;
 
     private bool _canMove;
 

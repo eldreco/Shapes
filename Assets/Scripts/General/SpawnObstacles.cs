@@ -42,7 +42,6 @@ public class SpawnObstacles : MonoBehaviour
     protected void TimerController(){
         if (Time.time >= _nextSpawn){
             _nextSpawn = Mathf.RoundToInt(Time.time + _interval);
-            Debug.Log(_nextSpawn);
             Spawn();
         }
     }

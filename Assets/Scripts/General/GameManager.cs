@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] protected GameObject _player {get; private set;}
+    public GameObject _player;
 
     public bool _levelEnded {get; private set;}
     public float _obstacleVelocity {get; private set;}
@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
     public void OpenClassic(){
         Time.timeScale = 1; //Because it's clicked when menus are opened
         SceneManager.LoadScene("Classic", LoadSceneMode.Single);
+    }
+
+    public void OpenShapes(){
+        Time.timeScale = 1; //Because it's clicked when menus are opened
+        SceneManager.LoadScene("Shapes", LoadSceneMode.Single);
     }
 
     public void SetBaseVelocity(){

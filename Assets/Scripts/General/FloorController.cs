@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class FloorController : MonoBehaviour
 {
-    [SerializeField] private GameObject _floorLeft;
-    [SerializeField] GameObject _floorMiddle;
-    [SerializeField] GameObject _floorRight;
-    [SerializeField] GameObject _player;
+    private GameObject _player;
 
     private Renderer _middleRenderer;
     private Renderer _leftRenderer;
     private Renderer _rightRenderer;
 
     private void Start() {
+        GameObject _floorLeft = gameObject.transform.Find("FloorLeft").gameObject;
+        GameObject _floorMiddle = gameObject.transform.Find("FloorMiddle").gameObject;
+        GameObject _floorRight = gameObject.transform.Find("FloorRight").gameObject;
         _middleRenderer = _floorMiddle.GetComponent<Renderer>();
         _leftRenderer = _floorLeft.GetComponent<Renderer>();
         _rightRenderer = _floorRight.GetComponent<Renderer>();
+        _player = GameManager.Instance._player;
     }
 
     private void Update() {
