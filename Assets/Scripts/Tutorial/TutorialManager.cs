@@ -65,14 +65,14 @@ public class TutorialManager : GameManager
         }
     }
 
-    public new void pauseGame(){
+    public new void PauseGame(){
         PlayerTutorialController.Instance.setPause(true);
         Time.timeScale = 0;
         TutorialCanvasController.Instance.pauseGame();
         Debug.Log("Game Paused");
     }
 
-    public new void resumeGame(){
+    public new void ResumeGame(){
         PlayerTutorialController.Instance.setPause(false);
         TutorialCanvasController.Instance.resumeGame();
         Time.timeScale = 1;

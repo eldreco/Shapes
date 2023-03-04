@@ -25,10 +25,10 @@ public class CanvasController : MonoBehaviour
     private void Awake() {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
-        _highScore = DataManager.Instance._highScore;
     }
 
     private void Start() {
+        _highScore = DataManager.Instance._highScore;
         _anim = GetComponent<Animator>();
         LevelStarted();
     }

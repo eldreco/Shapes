@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
+        UpdateGame();
+    }
+    
+    protected void UpdateGame(){
         _levelEnded = PlayerController.Instance._levelEnded;        
         if(Time.time >= _timer && _obstacleVelocity <= _topVelocity){
             _timer = (int)(Time.time + _increaseInterval);
@@ -36,14 +40,14 @@ public class GameManager : MonoBehaviour
         if(_levelEnded)
             _obstacleVelocity = 0;
     }
-    
-    public void pauseGame(){
+
+    public void PauseGame(){
         CanvasController.Instance.pauseGame();
         PlayerController.Instance.setPause(true);
         Time.timeScale = 0;
     }
 
-    public void resumeGame(){
+    public void ResumeGame(){
         CanvasController.Instance.resumeGame();
         PlayerController.Instance.setPause(false);
         Time.timeScale = 1;

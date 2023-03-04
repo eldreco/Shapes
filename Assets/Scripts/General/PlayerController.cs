@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Start() {
+        Setup();
+    }
+
+    protected void Setup(){
         _canMove = true;
         _rb = GetComponent<Rigidbody>();
         _playersBack = gameObject.GetComponent<GameObject>();
