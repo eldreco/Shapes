@@ -23,8 +23,11 @@ public class SpawnObstacles : MonoBehaviour
 
     protected int _obstaclesSpawnedCount = 0;
 
+    private PlayerController _playerController;
+
     private void Start() {
         _tf = gameObject.transform; 
+        _playerController = GameManager.Instance._playerController;
         _nextSpawn = Mathf.RoundToInt(Time.time);
     }
 
@@ -33,7 +36,7 @@ public class SpawnObstacles : MonoBehaviour
     }
 
     protected void SetInterval(){
-        if(!PlayerController.Instance._levelEnded){
+        if(!_playerController._levelEnded){
             _interval = 10 / GameManager.Instance._obstacleVelocity;
             TimerController();
         }

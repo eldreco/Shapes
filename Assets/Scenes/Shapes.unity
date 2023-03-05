@@ -1531,7 +1531,6 @@ GameObject:
   - component: {fileID: 1430216844319230239}
   - component: {fileID: 1430216844319230238}
   - component: {fileID: 1430216844319230240}
-  - component: {fileID: 1430216844319230241}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1589,20 +1588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dieEffect: {fileID: 5410792361581034529, guid: 4e20a88f64c04434888d2b5ce10dc51d,
     type: 3}
---- !u!114 &1430216844319230241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430216844319230229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d7b69854793eaa409198140ab08216d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dieEffect: {fileID: 5410792361581034529, guid: 4e20a88f64c04434888d2b5ce10dc51d,
-    type: 3}
+  _activeShape: 0
 --- !u!65 &1607615917561345755
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1627,6 +1613,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584784296285782917, guid: f959f2d0a7159584faba9088eddd2f27,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2584784296285782922, guid: f959f2d0a7159584faba9088eddd2f27,
         type: 3}

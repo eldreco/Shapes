@@ -18,11 +18,11 @@ public class PlayerController : MonoBehaviour
     protected int _pos = 1;
 
     //Check Position of the swipe to do the check
-    private float _swipeStartTime;
-    private float _swipeEndTime;
+    protected float _swipeStartTime;
+    protected float _swipeEndTime;
     protected Vector2 _swipeStartPos;
     protected Vector2 _swipeEndPos;
-    private int _swipeDistance;
+    protected int _swipeDistance;
 
     [SerializeField]protected GameObject _dieEffect;
 
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private int _score = 0;
 
-    private bool _canMove;
+    protected bool _canMove;
 
     private void Awake() {
         if (Instance != null) Destroy(gameObject);
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             _swipeDistance = 5;
     }
 
-    private void Update() {
+    protected void Update() {
         if(_canMove){
             SwipeCheck();
             IsDownTimer(); //always checking timers
@@ -84,9 +84,9 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "Obstacle" && other.gameObject.name != _obsPassed){ //Second cond in order not to get 2 points for passing complex obs
             _score++;
             if(_isDown) //if player is down make the player go Up after passing an obstacle
-                goUP();
+                GoUP();
             else if(_isUp){
-                goDown();
+                GoDown();
                 _timerUp = _timerUpValue;
             }
         }
@@ -124,14 +124,14 @@ public class PlayerController : MonoBehaviour
         if(!_gamePaused){
             if(!_isUp){
                 if(Input.GetKeyDown(KeyCode.LeftArrow))
-                    goLeft();
+                    GoLeft();
                 else if(Input.GetKeyDown(KeyCode.RightArrow))
-                    goRight();
+                    GoRight();
             }
             if(Input.GetKeyDown(KeyCode.UpArrow))
-                goUP();
+                GoUP();
             else if(Input.GetKeyDown(KeyCode.DownArrow))
-                goDown();
+                GoDown();
         }
     }
 
@@ -143,21 +143,21 @@ public class PlayerController : MonoBehaviour
         if(!_gamePaused){
             if(xLength > yLength){
                 if(Length.x > _swipeDistance && !_isUp){
-                    goRight();
+                    GoRight();
                 } else if( Length.x < -_swipeDistance && !_isUp){
-                    goLeft();
+                    GoLeft();
                 }
             } else if(xLength < yLength){
                 if(Length.y > _swipeDistance){
-                    goUP();
+                    GoUP();
                 } else if(Length.y < -_swipeDistance && !_isDown){
-                    goDown();
+                    GoDown();
                 }
             }
         }
     }
 
-    protected void goDown(){ //When its up it goes down with isUpTimer()
+    protected void GoDown(){ //When its up it goes down with isUpTimer()
         if(!_isUp){ //if its in the middle
             _isDown = true;
             if(_pos == 0)
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    protected void goUP(){
+    protected void GoUP(){
 
         if(_isDown){
             _isDown = false;
@@ -199,27 +199,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    protected void IsDownTimer(){
-        if(_isDown){
-            _timerDown -= Time.deltaTime;
-            if(_timerDown <= 0){
-                goUP(); //when down you can go to middle before the full animation
-                _timerDown = _timerDownValue;
-            }
-        }
-    }
-
-    protected void IsUpTimer(){
-        if(_isUp){
-            _timerUp -= Time.deltaTime;
-            if(_timerUp <= 0){
-                goDown();
-                _timerUp = _timerUpValue;
-            }
-        }
-    }
-
-    protected void goLeft(){ 
+    protected void GoLeft(){ 
         _pos--;
         if(_isDown){
             if(_pos == 1){
@@ -234,7 +214,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    protected void goRight(){ 
+    protected void GoRight(){ 
         _pos++;
         if(_isDown){
             if(_pos == 1){
@@ -246,6 +226,26 @@ public class PlayerController : MonoBehaviour
                 _anim.SetTrigger("LtoM");
             }else if(_pos == 2)
                 _anim.SetTrigger("MtoR");
+        }
+    }
+
+    protected void IsDownTimer(){
+        if(_isDown){
+            _timerDown -= Time.deltaTime;
+            if(_timerDown <= 0){
+                GoUP(); //when down you can go to middle before the full animation
+                _timerDown = _timerDownValue;
+            }
+        }
+    }
+
+    protected void IsUpTimer(){
+        if(_isUp){
+            _timerUp -= Time.deltaTime;
+            if(_timerUp <= 0){
+                GoDown();
+                _timerUp = _timerUpValue;
+            }
         }
     }
 

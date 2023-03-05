@@ -8,6 +8,7 @@ public class ShapesManager : GameManager
 
     private void Awake()
     {
+        base.Start();
         if (Instance != null) Destroy(gameObject);
         Instance = this;
     }

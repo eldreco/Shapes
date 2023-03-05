@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject _player;
+    public PlayerController _playerController{get; private set;}
 
     public bool _levelEnded {get; private set;}
     public float _obstacleVelocity {get; private set;}
@@ -21,8 +22,9 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start() {
+    protected void Start() {
         SetBaseVelocity();
+        _playerController = _player.GetComponent<PlayerController>();
     }
 
     private void Update() {
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     }
     
     protected void UpdateGame(){
-        _levelEnded = PlayerController.Instance._levelEnded;        
+        _levelEnded = _playerController._levelEnded;        
         if(Time.time >= _timer && _obstacleVelocity <= _topVelocity){
             _timer = (int)(Time.time + _increaseInterval);
             _obstacleVelocity *= 1.01f ;
@@ -43,18 +45,18 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(){
         CanvasController.Instance.pauseGame();
-        PlayerController.Instance.setPause(true);
+        _playerController.setPause(true);
         Time.timeScale = 0;
     }
 
     public void ResumeGame(){
         CanvasController.Instance.resumeGame();
-        PlayerController.Instance.setPause(false);
+        _playerController.setPause(false);
         Time.timeScale = 1;
     }
 
     public void ReloadCurrentLevel(){
-        if(PlayerController.Instance._levelEnded || CanvasController.Instance._gamePaused){
+        if(_playerController._levelEnded || CanvasController.Instance._gamePaused){
             Time.timeScale = 1; //Because of restarting when paused
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             CanvasController.Instance.LevelStarted();

@@ -22,6 +22,8 @@ public class CanvasController : MonoBehaviour
 
     public bool _gamePaused {get; private set;} = false;
 
+    private PlayerController _playerController;
+
     private void Awake() {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
@@ -30,6 +32,8 @@ public class CanvasController : MonoBehaviour
     private void Start() {
         _highScore = DataManager.Instance._highScore;
         _anim = GetComponent<Animator>();
+        _playerController = GameManager.Instance._playerController;
+        Debug.Log("Player controller: " + _playerController);
         LevelStarted();
     }
 
@@ -42,7 +46,7 @@ public class CanvasController : MonoBehaviour
     }
 
     private void SetScore(){
-        _score = PlayerController.Instance.getScore();
+        _score = _playerController.getScore();
         _scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = _score.ToString();
     }
 

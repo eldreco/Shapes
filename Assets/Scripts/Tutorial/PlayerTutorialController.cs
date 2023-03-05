@@ -30,14 +30,14 @@ public class PlayerTutorialController : PlayerController
         if(!_gamePaused){
             if(xLength > yLength){
                 if(Length.x > 0 && !_isUp && _move)
-                    goRight();
+                    GoRight();
                 else if( Length.x < 0 && !_isUp && _move)
-                    goLeft();    
+                    GoLeft();    
             } else if(xLength < yLength){
                 if(Length.y > 0 && (IsActiveStage(TutorialManager.TutorialStage.UpObs) || _isDown))
-                    goUP();
+                    GoUP();
                 else if(Length.y < 0 && !_isDown && IsActiveStage(TutorialManager.TutorialStage.DownObs))
-                    goDown();     
+                    GoDown();     
             }
         }
     }
@@ -46,14 +46,14 @@ public class PlayerTutorialController : PlayerController
         if(!_gamePaused){
             if(!_isUp && _move){
                 if(Input.GetKeyDown(KeyCode.LeftArrow))
-                    goLeft();
+                    GoLeft();
                 else if(Input.GetKeyDown(KeyCode.RightArrow))
-                    goRight();
+                    GoRight();
             }
             if(Input.GetKeyDown(KeyCode.UpArrow)  && (IsActiveStage(TutorialManager.TutorialStage.UpObs) || _isDown))
-                goUP();
+                GoUP();
             else if(Input.GetKeyDown(KeyCode.DownArrow) && !_isDown && IsActiveStage(TutorialManager.TutorialStage.DownObs))
-                goDown();
+                GoDown();
         }
     }
 
