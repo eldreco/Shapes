@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour
 
     public bool _levelEnded {get; private set;}
 
-    private float _timerDown = 0;
-    private float _timerDownValue = 1f;
-    private float _timerUp = 0;
-    private float _timerUpValue = 1f;
+    [SerializeField]protected float _timerDown = 0;
+    protected float _timerDownValue = 1f;
+    [SerializeField]protected float _timerUp = 0;
+    protected float _timerUpValue = 1f;
 
     private string _obsPassed = "";
 
