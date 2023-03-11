@@ -44,8 +44,6 @@ public class ShapesPlayerController : PlayerController
         if(_isUp){
             _timerUp -= Time.deltaTime;
             if(_timerUp <= 0){
-                Debug.Log("here");
-
                 GoDown();
                 _timerUp = _timerUpValue;
             }
