@@ -140,10 +140,17 @@ public class ShapesPlayerController : PlayerController
                         }
                         break;
                     case Shape.SPHERE:
-                        if(_pos == 1){
-                            _anim.SetTrigger("SRtoSM");
-                        }else if(_pos == 0)
-                            _anim.SetTrigger("SMtoSL");
+                        if(_isDown){
+                            if(_pos == 1){
+                                _anim.SetTrigger("SRDtoSMD");
+                            }else if(_pos == 0)
+                                _anim.SetTrigger("SMDtoSLD");
+                        }else if(!_isUp){
+                            if(_pos == 1){
+                                _anim.SetTrigger("SRtoSM");
+                            }else if(_pos == 0)
+                                _anim.SetTrigger("SMtoSL");
+                        }
                         break;
                 }
                 break;
@@ -163,10 +170,17 @@ public class ShapesPlayerController : PlayerController
                     }
                     break;
                 case Shape.SPHERE:
-                    if(_pos == 1){
-                        _anim.SetTrigger("SLtoSM");
-                    }else if(_pos == 2)
-                        _anim.SetTrigger("SMtoSR");
+                    if(_isDown){
+                        if(_pos == 1){
+                            _anim.SetTrigger("SLDtoSMD");
+                        }else if(_pos == 2)
+                            _anim.SetTrigger("SMDtoSRD");
+                    }else if(!_isUp){
+                        if(_pos == 1){
+                            _anim.SetTrigger("SLtoSM");
+                        }else if(_pos == 2)
+                            _anim.SetTrigger("SMtoSR"); 
+                    }
                     break;
                 }
                 break;
