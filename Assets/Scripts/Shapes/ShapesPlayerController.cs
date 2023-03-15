@@ -290,6 +290,7 @@ public class ShapesPlayerController : PlayerController
 
     public void ChangeToPyramid(){
         if(_activeShape != Shape.PYRAMID && _pos == 1){
+            _anim.SetTrigger("PyramidM");
             _activeShape = Shape.PYRAMID; 
         }
     }
