@@ -20,11 +20,11 @@ public class GameManager : MonoBehaviour
     private void Awake() {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
+        _playerController = _player.GetComponent<PlayerController>();
     }
 
     protected void Start() {
         SetBaseVelocity();
-        _playerController = _player.GetComponent<PlayerController>();
     }
 
     private void Update() {

@@ -27,8 +27,12 @@ public class SpawnObstacles : MonoBehaviour
 
     private void Start() {
         _tf = gameObject.transform; 
-        _playerController = GameManager.Instance._playerController;
         _nextSpawn = Mathf.RoundToInt(Time.time);
+        SetUp();
+    }
+    
+    private void SetUp(){
+        _playerController = GameManager.Instance._playerController;
     }
 
     private void Update() { 
