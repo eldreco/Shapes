@@ -275,21 +275,21 @@ public class ShapesPlayerController : PlayerController
     }
 
     public void ChangeToShpere(){
-        if(_activeShape != Shape.SPHERE){
+        if(_activeShape != Shape.SPHERE && _pos == 1){
             _anim.SetTrigger("SphereM");
             _activeShape = Shape.SPHERE; 
         }
     }
 
     public void ChangeToCube(){
-        if(_activeShape != Shape.CUBE){
+        if(_activeShape != Shape.CUBE && _pos == 1){
             _anim.SetTrigger("CubeM");
             _activeShape = Shape.CUBE; 
         }
     }
 
     public void ChangeToPyramid(){
-        if(_activeShape != Shape.PYRAMID){
+        if(_activeShape != Shape.PYRAMID && _pos == 1){
             _activeShape = Shape.PYRAMID; 
         }
     }
