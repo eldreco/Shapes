@@ -33,7 +33,6 @@ public class CanvasController : MonoBehaviour
         _highScore = DataManager.Instance._highScore;
         _anim = GetComponent<Animator>();
         _playerController = GameManager.Instance._playerController;
-        Debug.Log("Player controller: " + _playerController);
         LevelStarted();
     }
 

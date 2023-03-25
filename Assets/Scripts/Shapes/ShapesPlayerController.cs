@@ -226,7 +226,27 @@ public class ShapesPlayerController : PlayerController
                             _isUp = true;
                         }
                         break;
-                }
+                    case Shape.PYRAMID:
+                        if(_isDown){
+                            _isDown = false;
+                            if(_pos == 0)
+                                _anim.SetTrigger("PDtoPL");
+                            else if(_pos == 1)
+                                _anim.SetTrigger("PDtoPM");
+                            else
+                                _anim.SetTrigger("PDtoPR");
+                        }
+                        else if(!_isUp){ //if its middle
+                            if(_pos == 0)
+                                _anim.SetTrigger("PLtoPU");
+                            else if(_pos == 1)
+                                _anim.SetTrigger("PMtoPU");
+                            else
+                                _anim.SetTrigger("PRtoPU");
+                            _isUp = true;
+                        }
+                        break;
+                    }
                 break;
 
                 case "DOWN":
@@ -269,6 +289,26 @@ public class ShapesPlayerController : PlayerController
                                     _anim.SetTrigger("SUtoSR");
                             }
                             break;
+
+                        case Shape.PYRAMID:
+                        if(!_isUp){ //if its in the middle
+                            _isDown = true;
+                            if(_pos == 0)
+                                _anim.SetTrigger("PLtoPD");
+                            else if(_pos == 1)
+                                _anim.SetTrigger("PMtoPD");
+                            else
+                                _anim.SetTrigger("PRtoPD");
+                        } else if(_isUp){ //if its up
+                            _isUp = false;
+                            if(_pos == 0)
+                                _anim.SetTrigger("PUtoPL");
+                            else if(_pos == 1)
+                                _anim.SetTrigger("PUtoPM");
+                            else
+                                _anim.SetTrigger("SPtoPR");
+                        }
+                        break;
                     }
                 break;
         }
