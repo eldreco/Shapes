@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         _playerController = _player.GetComponent<PlayerController>();
     }
 
-    protected void Start() {
+    private void Start() {
         SetBaseVelocity();
     }
 

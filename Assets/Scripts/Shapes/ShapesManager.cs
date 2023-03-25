@@ -6,17 +6,6 @@ public class ShapesManager : GameManager
 {
     // public static new ShapesManager Instance;
 
-    private void Awake()
-    {
-        base.Start();
-        if (Instance != null) Destroy(gameObject);
-        Instance = this;
-    }
-
-    private void Update() {
-        UpdateGame();
-    }
-
     public void PressCircle(){
         ShapesPlayerController.Instance.ChangeToShpere();
     }
