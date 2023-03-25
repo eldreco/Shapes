@@ -152,37 +152,65 @@ public class ShapesPlayerController : PlayerController
                                 _anim.SetTrigger("SMtoSL");
                         }
                         break;
+                    case Shape.PYRAMID:
+                        if(_isDown){
+                            if(_pos == 1){
+                                _anim.SetTrigger("PRDtoPMD");
+                            }else if(_pos == 0)
+                                _anim.SetTrigger("PMDtoPLD");
+                        }else if(!_isUp){
+                            if(_pos == 1){
+                                _anim.SetTrigger("PRtoPM");
+                            }else if(_pos == 0)
+                                _anim.SetTrigger("PMtoPL");
+                        }
+                        break;
                 }
                 break;
             case "RIGHT":
                 switch (_activeShape){
-                case Shape.CUBE:
-                    if(_isDown){
-                        if(_pos == 1){
-                            _anim.SetTrigger("LDtoMD");
-                        }else if(_pos == 2)
-                            _anim.SetTrigger("MDtoRD");
-                    } else if(!_isUp){
-                        if(_pos == 1){
-                            _anim.SetTrigger("LtoM");
-                        }else if(_pos == 2)
-                            _anim.SetTrigger("MtoR");
-                    }
-                    break;
-                case Shape.SPHERE:
-                    if(_isDown){
-                        if(_pos == 1){
-                            _anim.SetTrigger("SLDtoSMD");
-                        }else if(_pos == 2)
-                            _anim.SetTrigger("SMDtoSRD");
-                    }else if(!_isUp){
-                        if(_pos == 1){
-                            _anim.SetTrigger("SLtoSM");
-                        }else if(_pos == 2)
-                            _anim.SetTrigger("SMtoSR"); 
-                    }
-                    break;
+                    case Shape.CUBE:
+                        if(_isDown){
+                            if(_pos == 1){
+                                _anim.SetTrigger("LDtoMD");
+                            }else if(_pos == 2)
+                                _anim.SetTrigger("MDtoRD");
+                        } else if(!_isUp){
+                            if(_pos == 1){
+                                _anim.SetTrigger("LtoM");
+                            }else if(_pos == 2)
+                                _anim.SetTrigger("MtoR");
+                        }
+                        break;
+                    case Shape.SPHERE:
+                        if(_isDown){
+                            if(_pos == 1){
+                                _anim.SetTrigger("SLDtoSMD");
+                            }else if(_pos == 2)
+                                _anim.SetTrigger("SMDtoSRD");
+                        }else if(!_isUp){
+                            if(_pos == 1){
+                                _anim.SetTrigger("SLtoSM");
+                            }else if(_pos == 2)
+                                _anim.SetTrigger("SMtoSR"); 
+                        }
+                        break;
+                    
+                    case Shape.PYRAMID:
+                        if(_isDown){
+                            if(_pos == 1){
+                                _anim.SetTrigger("PLDtoPMD");
+                            }else if(_pos == 2)
+                                _anim.SetTrigger("PMDtoPRD");
+                        }else if(!_isUp){
+                            if(_pos == 1){
+                                _anim.SetTrigger("PLtoPM");
+                            }else if(_pos == 2)
+                                _anim.SetTrigger("PMtoPR"); 
+                        }
+                        break;
                 }
+                
                 break;
             case "UP":
                 switch(_activeShape){
