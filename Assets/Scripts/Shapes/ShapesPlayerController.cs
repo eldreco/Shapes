@@ -334,7 +334,7 @@ public class ShapesPlayerController : PlayerController
                             else if(_pos == 1)
                                 _anim.SetTrigger("PUtoPM");
                             else
-                                _anim.SetTrigger("SPtoPR");
+                                _anim.SetTrigger("PUtoPR");
                         }
                         break;
                     }
