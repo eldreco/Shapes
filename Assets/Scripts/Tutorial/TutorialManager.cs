@@ -88,14 +88,14 @@ public class TutorialManager : GameManager
         _activeStage = TutorialStage.MainObs;
         TutorialCanvasController.Instance.TutFirstStage();
         Time.timeScale = 1;
-        SpawnTutorial.Instance.setSpawnType(false, true, false);
+        SpawnTutorial.Instance.SetSpawnType(false, true, false);
         SetBaseVelocity();
         SpawnTutorial.Instance._isActive = true;
     }
 
     public void SetDownObs(){
         _activeStage = TutorialStage.DownObs;
-        SpawnTutorial.Instance.setSpawnType(true, false, false);
+        SpawnTutorial.Instance.SetSpawnType(true, false, false);
         SpawnTutorial.Instance.ResetCount();
         SetBaseVelocity();
         SpawnTutorial.Instance._isActive = true;
@@ -103,7 +103,7 @@ public class TutorialManager : GameManager
 
     public void SetUpObs(){
         _activeStage = TutorialStage.UpObs;
-        SpawnTutorial.Instance.setSpawnType(false, false, true);
+        SpawnTutorial.Instance.SetSpawnType(false, false, true);
         SpawnTutorial.Instance.ResetCount();
         SetBaseVelocity();
         SpawnTutorial.Instance._isActive = true;
