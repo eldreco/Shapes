@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class SpawnObstacles : MonoBehaviour
 {
@@ -56,11 +57,11 @@ public class SpawnObstacles : MonoBehaviour
     protected void Spawn(){
 
         obstacleIndex = GenerateSpawnIndex(); //Change index or set one for testing or tutorials
-
-        if(_lastSpawnedIndex != obstacleIndex && CanSpawnType(obstacleIndex)){
+            
+        if((obstacles.Length == 1 || _lastSpawnedIndex != obstacleIndex) && CanSpawnType(obstacleIndex)){
             ISpawnable spawnable = obstacles[obstacleIndex].GetComponent<ISpawnable>();
             spawnable.Spawn(_tf.position, _tf.rotation);
-
+            Debug.Log(obstacles[obstacleIndex].transform.rotation);
             _obstaclesSpawnedCount++;
             _lastSpawnedIndex = obstacleIndex; //Update the lastSpawnedIndex
         }else{
@@ -82,6 +83,9 @@ public class SpawnObstacles : MonoBehaviour
     
     protected int GenerateSpawnIndex(){
 
+        Assert.IsFalse(obstacles.Length == 0, "The Spawn object has no obstacles assigned");
+        if(obstacles.Length == 1)
+            return 0;
         if(!_onlySpawnDownObs && _onlySpawnMidObs && !_onlySpawnUpObs) //Spawn Mid Obstacles
             return Random.Range(0 , 3);
         else if(_onlySpawnDownObs && !_onlySpawnMidObs && !_onlySpawnUpObs)//Spawn Down Obstacles
