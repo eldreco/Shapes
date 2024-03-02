@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    private const String ANIM_HPOS = "HPos";
+    private const String ANIM_VPOS = "VPos";
+
     public static PlayerController Instance;
 
     private Rigidbody _rb;
@@ -15,7 +19,7 @@ public class PlayerController : MonoBehaviour
     protected bool _isUp;
     protected bool _isDown;
     protected bool _gamePaused;
-    protected int _pos = 1;
+    protected int _hPos = 1;
 
     //Check Position of the swipe to do the check
     protected float _swipeStartTime;
@@ -158,79 +162,26 @@ public class PlayerController : MonoBehaviour
     }
 
     protected void GoDown(){ //When its up it goes down with isUpTimer()
-        if(!_isUp){ //if its in the middle
-            _isDown = true;
-            if(_pos == 0)
-                _anim.SetTrigger("LtoD");
-            else if(_pos == 1)
-                _anim.SetTrigger("MtoD");
-            else
-                _anim.SetTrigger("RtoD");
-        } else if(_isUp){ //if its up
-            _isUp = false;
-            if(_pos == 0)
-                _anim.SetTrigger("UtoL");
-            else if(_pos == 1)
-                _anim.SetTrigger("UtoM");
-            else
-                _anim.SetTrigger("UtoR");
-        }
+        _anim.SetFloat(ANIM_VPOS, _anim.GetFloat(ANIM_VPOS) - 1f);
     }
 
     protected void GoUP(){
-
-        if(_isDown){
-            _isDown = false;
-            if(_pos == 0)
-                _anim.SetTrigger("DtoL");
-            else if(_pos == 1)
-                _anim.SetTrigger("DtoM");
-            else
-                _anim.SetTrigger("DtoR");
-        }
-        else if(!_isUp){ //if its middle
-            if(_pos == 0)
-                _anim.SetTrigger("LtoU");
-            else if(_pos == 1)
-                _anim.SetTrigger("MtoU");
-            else
-                _anim.SetTrigger("RtoU");
-            _isUp = true;
-        }
+        _anim.SetFloat(ANIM_VPOS,_anim.GetFloat(ANIM_VPOS) + 1f);
     }
 
     protected void GoLeft(){ 
-        _pos--;
-        if(_isDown){
-            if(_pos == 1){
-                _anim.SetTrigger("RDtoMD");
-            }else if(_pos == 0)
-                _anim.SetTrigger("MDtoLD");
-        } else if(!_isUp){
-            if(_pos == 1){
-                _anim.SetTrigger("RtoM");
-            }else if(_pos == 0)
-                _anim.SetTrigger("MtoL");
-        }
+        _hPos--;
+        _anim.SetFloat(ANIM_HPOS,_anim.GetFloat(ANIM_HPOS) - 1f);
+        Debug.Log("GOLEFT");
     }
 
     protected void GoRight(){ 
-        _pos++;
-        if(_isDown){
-            if(_pos == 1){
-                _anim.SetTrigger("LDtoMD");
-            }else if(_pos == 2)
-                _anim.SetTrigger("MDtoRD");
-        } else if(!_isUp){
-            if(_pos == 1){
-                _anim.SetTrigger("LtoM");
-            }else if(_pos == 2)
-                _anim.SetTrigger("MtoR");
-        }
+        _hPos++;
+        _anim.SetFloat(ANIM_HPOS,_anim.GetFloat(ANIM_HPOS) + 1f);
     }
 
     protected void IsDownTimer(){
-        if(_isDown){
+        if(IsDown()){
             _timerDown -= Time.deltaTime;
             if(_timerDown <= 0){
                 GoUP(); //when down you can go to middle before the full animation
@@ -240,7 +191,7 @@ public class PlayerController : MonoBehaviour
     }
 
     protected void IsUpTimer(){
-        if(_isUp){
+        if(IsUp()){
             _timerUp -= Time.deltaTime;
             if(_timerUp <= 0){
                 GoDown();
@@ -250,10 +201,18 @@ public class PlayerController : MonoBehaviour
     }
 
     public void PosControl(){ //So if you swipe further it doesn't count
-        if(_pos < 0)
-            _pos = 0;
-        else if(_pos > 2)
-            _pos = 2;
+        if(_hPos < 0)
+            _hPos = 0;
+        else if(_hPos > 2)
+            _hPos = 2;
+    }
+
+    public bool IsUp(){
+        return _anim.GetFloat(ANIM_VPOS) == 1f;
+    }
+
+    public bool IsDown(){
+        return _anim.GetFloat(ANIM_VPOS) == -1f;
     }
 
     public void setPause(bool paused){
@@ -265,11 +224,11 @@ public class PlayerController : MonoBehaviour
     }
 
     public int getPos(){
-        return _pos;
+        return _hPos;
     }
 
     public void setPos(int position){
-        _pos = position;
+        _hPos = position;
     }
 
     public bool getIsDown(){
