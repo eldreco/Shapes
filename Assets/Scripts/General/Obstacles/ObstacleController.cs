@@ -17,6 +17,6 @@ public class ObstacleController : MonoBehaviour
     }
 
     protected void MoveObstacle(float speed){
-        _rb.velocity = new Vector3(speed , 0 , 0);
+        transform.position += speed * Time.deltaTime * transform.right;
     }
 }

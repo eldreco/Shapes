@@ -61,7 +61,6 @@ public class SpawnObstacles : MonoBehaviour
         if((obstacles.Length == 1 || _lastSpawnedIndex != obstacleIndex) && CanSpawnType(obstacleIndex)){
             ISpawnable spawnable = obstacles[obstacleIndex].GetComponent<ISpawnable>();
             spawnable.Spawn(_tf.position, _tf.rotation);
-            Debug.Log(obstacles[obstacleIndex].transform.rotation);
             _obstaclesSpawnedCount++;
             _lastSpawnedIndex = obstacleIndex; //Update the lastSpawnedIndex
         }else{
