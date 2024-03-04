@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject _player;
-    public PlayerController _playerController{get; private set;}
+    public PlayerController _playerController{get; protected set;}
 
     public bool _levelEnded {get; private set;}
     public float _obstacleVelocity {get; private set;}
@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     private void Awake() {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
+        SetUp();
+    }
+
+    protected void SetUp(){
         _playerController = _player.GetComponent<PlayerController>();
     }
 

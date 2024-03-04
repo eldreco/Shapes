@@ -29,6 +29,7 @@ public class SpawnObstacles : MonoBehaviour
     private void Start() {
         _tf = gameObject.transform; 
         _nextSpawn = Mathf.RoundToInt(Time.time);
+        Assert.IsFalse(obstacles.Length == 0, "The Spawn object has no obstacles assigned");
         SetUp();
     }
     
@@ -82,7 +83,6 @@ public class SpawnObstacles : MonoBehaviour
     
     protected int GenerateSpawnIndex(){
 
-        Assert.IsFalse(obstacles.Length == 0, "The Spawn object has no obstacles assigned");
         if(obstacles.Length == 1)
             return 0;
         if(!_onlySpawnDownObs && _onlySpawnMidObs && !_onlySpawnUpObs) //Spawn Mid Obstacles

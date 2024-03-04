@@ -161,23 +161,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    protected void GoDown(){ //When its up it goes down with isUpTimer()
-        _anim.SetFloat(ANIM_VPOS, _anim.GetFloat(ANIM_VPOS) - 1f);
+    protected void GoDown(){ 
+        if(_anim.GetFloat(ANIM_VPOS) > -1f)
+            _anim.SetFloat(ANIM_VPOS, _anim.GetFloat(ANIM_VPOS) - 1f);
     }
 
     protected void GoUP(){
-        _anim.SetFloat(ANIM_VPOS,_anim.GetFloat(ANIM_VPOS) + 1f);
+        if(_anim.GetFloat(ANIM_VPOS) < 1f)
+            _anim.SetFloat(ANIM_VPOS, _anim.GetFloat(ANIM_VPOS) + 1f);
     }
 
     protected void GoLeft(){ 
         _hPos--;
-        _anim.SetFloat(ANIM_HPOS,_anim.GetFloat(ANIM_HPOS) - 1f);
-        Debug.Log("GOLEFT");
+        if(_anim.GetFloat(ANIM_HPOS) > -1f)
+            _anim.SetFloat(ANIM_HPOS, _anim.GetFloat(ANIM_HPOS) - 1f);
     }
 
     protected void GoRight(){ 
         _hPos++;
-        _anim.SetFloat(ANIM_HPOS,_anim.GetFloat(ANIM_HPOS) + 1f);
+        if(_anim.GetFloat(ANIM_HPOS) < 1f)
+            _anim.SetFloat(ANIM_HPOS, _anim.GetFloat(ANIM_HPOS) + 1f);
     }
 
     protected void IsDownTimer(){
