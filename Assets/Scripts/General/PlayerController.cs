@@ -85,16 +85,17 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnTriggerExit(Collider other) { 
-        if(other.gameObject.tag == "Obstacle" && other.gameObject.name != _obsPassed){ //Second cond in order not to get 2 points for passing complex obs
-            _score++;
+        if(other.gameObject.CompareTag("Obstacle")){
+            if(other.gameObject.name != _obsPassed) //in order not to get 2 points for passing complex obs
+                _score++;
             if(_isDown) //if player is down make the player go Up after passing an obstacle
                 GoUP();
             else if(_isUp){
                 GoDown();
                 _timerUp = _timerUpValue;
             }
+            _obsPassed = other.gameObject.name;
         }
-        _obsPassed = other.gameObject.name;
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -162,11 +163,20 @@ public class PlayerController : MonoBehaviour
     }
 
     protected void GoDown(){ 
-        if(_anim.GetFloat(ANIM_VPOS) > -1f)
-            _anim.SetFloat(ANIM_VPOS, _anim.GetFloat(ANIM_VPOS) - 1f);
+        _isUp = false;
+        float vPos = _anim.GetFloat(ANIM_VPOS);
+        if(vPos == 0f)
+            _isDown = true;
+        if(vPos > -1f)
+            _anim.SetFloat(ANIM_VPOS, vPos - 1f);
+        
     }
 
     protected void GoUP(){
+        _isDown = false;
+        float vPos = _anim.GetFloat(ANIM_VPOS);
+        if(vPos == 0f)
+            _isUp = true;
         if(_anim.GetFloat(ANIM_VPOS) < 1f)
             _anim.SetFloat(ANIM_VPOS, _anim.GetFloat(ANIM_VPOS) + 1f);
     }
