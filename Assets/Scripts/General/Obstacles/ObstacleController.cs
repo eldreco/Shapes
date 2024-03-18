@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ObstacleController : MonoBehaviour
 {   
-    protected Rigidbody _rb;
-    protected Animator _anim;
+    protected Rigidbody rb;
+    protected Animator anim;
 
     protected void Start() {
-        _rb = GetComponent<Rigidbody>();
-        _anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     protected void Update() {
-        MoveObstacle(GameManager.Instance._obstacleVelocity);
+        MoveObstacle(GameManager.Instance.ObstacleVelocity);
     }
 
     protected void MoveObstacle(float speed){

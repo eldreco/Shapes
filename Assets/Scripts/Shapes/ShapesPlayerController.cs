@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder;
 using static ShapesManager;
 
 public class ShapesPlayerController : PlayerController
@@ -15,7 +12,7 @@ public class ShapesPlayerController : PlayerController
         Instance = this;
     }
 
-    private void Start() {
+    private new void Start() {
         Setup();
         _meshCollider = gameObject.GetComponent<MeshCollider>();
     }
@@ -23,6 +20,6 @@ public class ShapesPlayerController : PlayerController
     public void ChangeShape(Shape shape){
         Mesh newMesh = ShapesManager.Instance._shapeMeshMap[shape];
         _meshCollider.sharedMesh = newMesh;
-        _anim.SetTrigger(shape.ToString()); //Make sure anim trigger has exact same name as shape
+        anim.SetTrigger(shape.ToString()); //Make sure anim trigger has exact same name as shape
     }
 }

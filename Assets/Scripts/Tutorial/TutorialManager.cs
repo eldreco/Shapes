@@ -1,163 +1,108 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using static PlayerUtils.PlayerUtils;
+using TimerUtils;
+using TutorialUtils;
 
-public class TutorialManager : GameManager
+public class TutorialManager : MonoBehaviour
 {
-    public enum TutorialStage
-    {
-        Start,
-        MainObs,
-        DownObs,
-        UpObs,
-        End
-    }
+    public static TutorialManager Instance;
 
-    public static new TutorialManager Instance;
+    public bool CheckTimer {get; set;}
 
-    [SerializeField] private GameObject _spawn;
+    private readonly Timer playerRespawnTimer = new(5f);
 
-    public TutorialStage _activeStage{get;private set;}
+    [SerializeField] private GameObject[] stages;
 
-    public bool _checkTimer {get; set;} = false;
-    private float _timerDeadVal = 5f;
-    private float _timerDead = 0;
+    private int currentStageIndex;
 
-    private TutorialCanvasController _tutorialCanvasController;
-
-    private void Awake()
-    {
+    private void Awake(){
         if (Instance != null) Destroy(gameObject);
         Instance = this;
     }
 
-    void Start()
-    {
-        _timerDead = _timerDeadVal;
-        SetStart();
+    private void OnEnable() {
+        PlayerController.OnPlayerDied += ManagePlayerDied;
+        playerRespawnTimer.OnTimerFinished += ReloadStage;
+        PlayerController.OnPlayerMovedH += CheckValidHMovement;
+        PlayerController.OnPlayerMovedV += CheckValidVMovement;
     }
 
-    void Update()
-    {
-        UpdateStage();
+    private void OnDisable() {
+        PlayerController.OnPlayerDied -= ManagePlayerDied;
+        playerRespawnTimer.OnTimerFinished -= ReloadStage;
+        PlayerController.OnPlayerMovedH -= CheckValidHMovement;
+        PlayerController.OnPlayerMovedV -= CheckValidVMovement;
     }
 
-    public void UpdateStage(){
-        PlayerDeadTimer();
-        if(_activeStage == TutorialStage.Start){
-            if(PlayerController.Instance.getPos() == 0 || PlayerController.Instance.getPos() == 2)
-                SetMainObs();
-        }
-        else if(_activeStage == TutorialStage.DownObs){
-            if(PlayerController.Instance.getIsDown()){
-                Time.timeScale = 1;
-                PlayerTutorialController.Instance.SetMove(true);
-                TutorialCanvasController.Instance.DeActivateUI(TutorialCanvasController.Instance._secondStageUI);
-            }
-        }
-        else if(_activeStage == TutorialStage.UpObs){
-            if(PlayerController.Instance.getIsUp()){
-                PlayerTutorialController.Instance.SetMove(true);
-                Time.timeScale = 1;
-                TutorialCanvasController.Instance.DeActivateUI(TutorialCanvasController.Instance._thirdStageUI);
-            }
+    private void Start(){
+        SpawnObstacles.Instance.SetSpawnType(false, true, false);
+        foreach (var currentDelegate in PlayerController.OnObstaclePassed.GetInvocationList())
+            PlayerController.OnObstaclePassed = (Action)Delegate.Remove(PlayerController.OnObstaclePassed, currentDelegate);
+
+        currentStageIndex = 0;
+        stages[currentStageIndex].GetComponent<IStage>().ShowStageInstructions();
+    }
+
+    private void Update(){
+        if(CheckTimer) playerRespawnTimer.ExecuteTimer();
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(!other.CompareTag("Checkpoint")) return;
+        currentStageIndex++;
+        if(currentStageIndex < stages.Length) 
+            stages[currentStageIndex].GetComponent<IStage>().ShowStageInstructions();
+        else 
+            TutorialEnded();
+    }
+
+    private void CheckValidHMovement(HorizontalPos pos){
+        if(stages[currentStageIndex].GetComponent<IStage>().GetNeededMovement().Equals(pos.ToString())){
+            stages[currentStageIndex].GetComponent<IStage>().BeginStage();
         }
     }
 
-    public new void PauseGame(){
-        PlayerTutorialController.Instance.setPause(true);
+    private void CheckValidVMovement(VerticalPos pos){
+        if(stages[currentStageIndex].GetComponent<IStage>().GetNeededMovement().Equals(pos.ToString())){
+            stages[currentStageIndex].GetComponent<IStage>().BeginStage();
+        }
+    }
+
+    private void TutorialEnded(){
+        Debug.Log("Tutorial ended");
+    }
+
+    public void PauseGame(){
+        GameManager.Instance.IsGamePaused = true;
         Time.timeScale = 0;
         TutorialCanvasController.Instance.pauseGame();
-        Debug.Log("Game Paused");
     }
 
-    public new void ResumeGame(){
-        PlayerTutorialController.Instance.setPause(false);
+    public void ResumeGame(){
+        GameManager.Instance.IsGamePaused = false;
         TutorialCanvasController.Instance.resumeGame();
         Time.timeScale = 1;
     }
-
-    private void SetStart(){
-        _activeStage = TutorialStage.Start;
-        TutorialCanvasController.Instance.TutStartStage();
-        Time.timeScale = 0;
-    }
-
-    private void SetMainObs(){
-        _activeStage = TutorialStage.MainObs;
-        TutorialCanvasController.Instance.TutFirstStage();
-        Time.timeScale = 1;
-        SpawnTutorial.Instance.SetSpawnType(false, true, false);
-        SetBaseVelocity();
-        SpawnTutorial.Instance._isActive = true;
-    }
-
-    public void SetDownObs(){
-        _activeStage = TutorialStage.DownObs;
-        SpawnTutorial.Instance.SetSpawnType(true, false, false);
-        SpawnTutorial.Instance.ResetCount();
-        SetBaseVelocity();
-        SpawnTutorial.Instance._isActive = true;
-    }
-
-    public void SetUpObs(){
-        _activeStage = TutorialStage.UpObs;
-        SpawnTutorial.Instance.SetSpawnType(false, false, true);
-        SpawnTutorial.Instance.ResetCount();
-        SetBaseVelocity();
-        SpawnTutorial.Instance._isActive = true;
-    }
-
-    public void SetFinal(){
-        Time.timeScale = 0;
-        _activeStage = TutorialStage.End;
-        Debug.Log("Final Stage");
-    }
     
-    public void PlayerDead(){
-        _player.SetActive(false);
-        TutorialCanvasController.Instance.ActivateUI(_tutorialCanvasController._playerDiedUI);
-        TutorialCanvasController.Instance.GetComponent<Animator>().SetTrigger("PlayerDied");
-        SpawnTutorial.Instance.ResetCount();
-        _spawn.GetComponent<SpawnTutorial>().ResetCheckpoint();
+    public void ManagePlayerDied(){
+        PlayerController.Instance.gameObject.SetActive(false);
+        SpawnObstacles.Instance.ResetCount();
+        SpawnTutorial.Instance.ResetCheckpoint();
         GameObject[] obs = GameObject.FindGameObjectsWithTag("Obstacle");
         foreach(GameObject o in obs) Destroy(o);
         Destroy(GameObject.FindGameObjectWithTag("Checkpoint"));
-        _checkTimer = true;
-    }
-
-    private void PlayerDeadTimer(){
-        if(_checkTimer){
-            _timerDead -= Time.deltaTime;
-            if(_timerDead <= 0){
-                ReloadStage();
-                _checkTimer = false;
-                _timerDead = _timerDeadVal;
-            }
-        }
+        CheckTimer = true;
     }
 
     private void ReloadStage(){
-        _player.SetActive(true);
-        PlayerController.Instance.setPos(1);
-        SetTutorialStage(this._activeStage);
-        SetBaseVelocity();
-        _tutorialCanvasController.DeActivateUI(_tutorialCanvasController._playerDiedUI);
+        CheckTimer = false;
+        PlayerController.Instance.gameObject.SetActive(true);
+        PlayerController.Instance.HPos = HorizontalPos.MIDDLE;
+        GameManager.Instance.SetBaseVelocity();
+        GameManager.Instance.IsLevelEnded = false;
+        TutorialCanvasController.Instance.LevelStarted();
+        FloorController.Instance.Reset();
     }
 
-    public void SetTutorialStage(TutorialStage stage){
-        switch (stage)
-        {  
-            case TutorialStage.MainObs:
-                SetMainObs();
-                break;
-            case TutorialStage.DownObs:
-                SetDownObs();
-                break;
-            case TutorialStage.UpObs:
-                SetUpObs();
-                break;
-        }
-    }
 }

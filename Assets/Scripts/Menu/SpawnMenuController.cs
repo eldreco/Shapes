@@ -25,7 +25,7 @@ public class SpawnMenuController : MonoBehaviour
 
     private void Update() { 
         TimerController();
-        GameManager.Instance.SetVelocity(_menuVelocity);
+        GameManager.Instance.ObstacleVelocity = _menuVelocity;
     }
 
     private void TimerController(){

@@ -7,16 +7,18 @@ public class TutorialCanvasController : CanvasManager
 {
     public static TutorialCanvasController Instance;
 
-    [SerializeField] private Image _panel;
-    [SerializeField] private GameObject _gamePausedUI;
-    [SerializeField] private GameObject _pauseButton;
-    [SerializeField] public GameObject _playerDiedUI {get; private set;}
-    [SerializeField] public GameObject _secondStageUI {get; private set;}
-    [SerializeField] public GameObject _thirdStageUI {get; private set;}
-    [SerializeField] private GameObject _endUI;
-    [SerializeField] private GameObject _startStageUI;
+    [SerializeField] private Image panel;
+    [SerializeField] private GameObject gamePausedUI;
+    [SerializeField] private GameObject pauseButton;
+    [SerializeField] private GameObject playerDiedUI;
+    [SerializeField] private GameObject secondStageUI;
+    [SerializeField] private GameObject thirdStageUI;
+    [SerializeField] private GameObject endUI;
+    [SerializeField] private GameObject startStageUI;
 
     private bool gamePaused = false;
+
+    private Animator anim;
 
     private void Awake()
     {
@@ -24,62 +26,71 @@ public class TutorialCanvasController : CanvasManager
         Instance = this;
     }
 
+    private void OnEnable() {
+        PlayerController.OnPlayerDied += SetPlayerDiedUI;
+    }
+
+    private void OnDisable() {
+        PlayerController.OnPlayerDied -= SetPlayerDiedUI;
+    }
+
     private void Start() {
-        _startStageUI = _panel.transform.Find("Start Stage UI").gameObject;
-        _playerDiedUI = _panel.transform.Find("Player Died UI").gameObject;
-        _secondStageUI = _panel.transform.Find("Second Stage UI").gameObject;
-        _thirdStageUI = _panel.transform.Find("Third Stage UI").gameObject;
-        _endUI = _panel.transform.Find("End UI").gameObject;
+        // startStageUI = panel.transform.Find("Start Stage UI").gameObject;
+        // playerDiedUI = panel.transform.Find("Player Died UI").gameObject;
+        // secondStageUI = panel.transform.Find("Second Stage UI").gameObject;
+        // thirdStageUI = panel.transform.Find("Third Stage UI").gameObject;
+        endUI = panel.transform.Find("End UI").gameObject;
         LevelStarted();
+        anim = gameObject.GetComponent<Animator>();
     }
 
     private void Update() {
-        if(GameManager.Instance._levelEnded)
+        if(GameManager.Instance.IsLevelEnded)
             LevelEnded();
     }
 
     public void TutStartStage(){
-        ActivateUI(_startStageUI);
-        DeActivateUI(new GameObject[] {_pauseButton, _gamePausedUI, _endUI});
+        ActivateUI(startStageUI);
+        DeActivateUI(new GameObject[] {pauseButton, gamePausedUI, endUI});
     }
 
     public void TutFirstStage(){
-        ActivateUI(_pauseButton);
-        DeActivateUI(_startStageUI);
+        ActivateUI(pauseButton);
+        DeActivateUI(startStageUI);
     }
 
     public void tutSecondStage(){
-        ActivateUI(_secondStageUI);
+        ActivateUI(secondStageUI);
     }
 
     public void tutThirdStage(){
-        ActivateUI(_thirdStageUI);
+        ActivateUI(thirdStageUI);
     }
 
     public void EndUI(){
-        ActivateUI(_endUI);
+        ActivateUI(endUI);
     }
 
     public void playerIsDeadUI(){
-        ActivateUI(_playerDiedUI);
-        DeActivateUI(_pauseButton);
+        ActivateUI(playerDiedUI);
+        DeActivateUI(pauseButton);
     }
 
     public void LevelStarted(){
-        DeActivateUI(_gamePausedUI);
-        DeActivateUI(_playerDiedUI);
+        DeActivateUI(gamePausedUI);
+        DeActivateUI(playerDiedUI);
     }
 
     public void pauseGame(){
         gamePaused = true;
-        ActivateUI(_gamePausedUI);
-        DeActivateUI(_pauseButton);
+        ActivateUI(gamePausedUI);
+        DeActivateUI(pauseButton);
     }
 
     public void resumeGame(){
         gamePaused = false;
-        DeActivateUI(_gamePausedUI);
-        ActivateUI(_pauseButton);
+        DeActivateUI(gamePausedUI);
+        ActivateUI(pauseButton);
     }
     
     public bool gameIsPaused(){
@@ -87,6 +98,11 @@ public class TutorialCanvasController : CanvasManager
     }
 
     private void LevelEnded(){
-        _pauseButton.SetActive(false);
+        pauseButton.SetActive(false);
+    }
+
+    private void SetPlayerDiedUI(){
+        ActivateUI(playerDiedUI);
+        anim.SetTrigger("PlayerDied");
     }
 }

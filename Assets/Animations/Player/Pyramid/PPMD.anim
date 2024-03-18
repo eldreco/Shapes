@@ -37,7 +37,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 1, y: 0.5, z: 1}
+        value: {x: 1, y: 0.5, z: 0.9}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -53,7 +53,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 4300000, guid: b343a5f6103d73042b92f9aa1e86412e, type: 2}
+      value: {fileID: 4300000, guid: c827708a1d9616341b62844628b3fa55, type: 2}
     attribute: m_Mesh
     path: 
     classID: 33
@@ -94,7 +94,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 4300000, guid: b343a5f6103d73042b92f9aa1e86412e, type: 2}
+    - {fileID: 4300000, guid: c827708a1d9616341b62844628b3fa55, type: 2}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -227,7 +227,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.9
         inSlope: 0
         outSlope: 0
         tangentMode: 136

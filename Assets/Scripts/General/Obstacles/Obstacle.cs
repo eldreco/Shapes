@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] ISpawnable.Type type;
 
-    public ISpawnable.Type GetType()
+    public ISpawnable.Type GetObstacleType()
     {
         return type;
     }
