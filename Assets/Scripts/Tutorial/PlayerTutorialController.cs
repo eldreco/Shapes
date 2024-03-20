@@ -1,76 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTutorialController : PlayerController
+public class PlayerTutorialController : MonoBehaviour
 {
-    public static new PlayerTutorialController Instance;
+    public static PlayerTutorialController Instance;
 
-    private bool _move;
+    public bool IsAbleTomove {get; set;}
+
+    private void Awake() {
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
+    }
 
     private void Start() {
-        _move = true;
-        _anim = GetComponent<Animator>();
+        IsAbleTomove = true;
     }
 
-    private void Update() {
-        SwipeCheck();
-        PCControl();
-        PosControl();
-        IsDownTimer();
-        IsUpTimer();
-    }
-
-    //New SwipeControl to ignore parent one, checks the tutorialStage
-    public new void SwipeControl(){
-        Vector2 Length = _swipeEndPos - _swipeStartPos;
+    //New Move to ignore parent one, checks the tutorialStage
+    public void Move(Vector2 startPos, Vector2 endPos){
+        Vector2 Length = startPos - endPos;
         float xLength = Mathf.Abs(Length.x);
         float yLength = Mathf.Abs(Length.y);
 
-        if(!_gamePaused){
+        if(!GameManager.Instance.IsGamePaused){
             if(xLength > yLength){
-                if(Length.x > 0 && !_isUp && _move)
-                    GoRight();
-                else if( Length.x < 0 && !_isUp && _move)
-                    GoLeft();    
+                if(Length.x > 0 && !PlayerController.Instance.IsUp && IsAbleTomove)
+                PlayerController.Instance.GoRight();
+                else if( Length.x < 0 && !PlayerController.Instance.IsUp && IsAbleTomove)
+                PlayerController.Instance.GoLeft();    
             } else if(xLength < yLength){
-                if(Length.y > 0 && (IsActiveStage(TutorialManager.TutorialStage.UpObs) || _isDown))
-                    GoUP();
-                else if(Length.y < 0 && !_isDown && IsActiveStage(TutorialManager.TutorialStage.DownObs))
-                    GoDown();     
+                if(Length.y > 0 && (PlayerController.Instance.IsDown))
+                PlayerController.Instance.GoUP();
+                else if(Length.y < 0 && !PlayerController.Instance.IsDown)
+                PlayerController.Instance.GoDown();     
             }
         }
     }
 
-    private new void PCControl(){
-        if(!_gamePaused){
-            if(!_isUp && _move){
+    private void PCControl(){
+        if(!GameManager.Instance.IsGamePaused){
+            if(!PlayerController.Instance.IsUp && IsAbleTomove){
                 if(Input.GetKeyDown(KeyCode.LeftArrow))
-                    GoLeft();
+                PlayerController.Instance.GoLeft();
                 else if(Input.GetKeyDown(KeyCode.RightArrow))
-                    GoRight();
+                PlayerController.Instance.GoRight();
             }
-            if(Input.GetKeyDown(KeyCode.UpArrow)  && (IsActiveStage(TutorialManager.TutorialStage.UpObs) || _isDown))
-                GoUP();
-            else if(Input.GetKeyDown(KeyCode.DownArrow) && !_isDown && IsActiveStage(TutorialManager.TutorialStage.DownObs))
-                GoDown();
+            if(Input.GetKeyDown(KeyCode.UpArrow)  && ( PlayerController.Instance.IsDown))
+            PlayerController.Instance.GoUP();
+            else if(Input.GetKeyDown(KeyCode.DownArrow) && !PlayerController.Instance.IsDown)
+            PlayerController.Instance.GoDown();
         }
     }
 
     private void OnCollisionEnter(Collision other){
         Vector3 diePos = new Vector3(transform.position.x , 0.5f , transform.position.z);
         if(other.gameObject.tag == "Obstacle"){
-            Instantiate(_dieEffect , diePos , transform.rotation);
-            TutorialManager.Instance._checkTimer = true;
-            TutorialManager.Instance.PlayerDead();
+            Instantiate(PlayerController.Instance.dieEffect , diePos , transform.rotation);
+            TutorialManager.Instance.CheckTimer = true;
+            TutorialManager.Instance.ManagePlayerDied();
         }
-    }
-
-    private bool IsActiveStage(TutorialManager.TutorialStage stage){
-        return TutorialManager.Instance._activeStage == stage;
-    }
-
-    public void SetMove(bool val){
-        _move = val;
     }
 }

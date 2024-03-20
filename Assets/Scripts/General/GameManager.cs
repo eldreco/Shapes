@@ -1,98 +1,118 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static MobileControl.MobileControl;
+using TimerUtils;
+using static Constants.Constants;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public GameObject _player;
-    public PlayerController _playerController{get; private set;}
+    public bool IsLevelEnded {get; set;}
+    public bool IsGamePaused {get; set;}
+    public int Score {get; set;}
 
-    public bool _levelEnded {get; private set;}
-    public float _obstacleVelocity {get; private set;}
-    private float _topVelocity;
-    private float _acceleration = 0.5f;
-    private float _timer = 0;
-    private float _increaseInterval = 1.0f;
+    private float topObstacleVelocity;
+    public readonly float Acceleration = 1.02f;
+    private float obstacleVelocity = 5f;
+    public float ObstacleVelocity
+    {
+        get => obstacleVelocity;
+        set => obstacleVelocity = (value <= topObstacleVelocity) ? value : obstacleVelocity;
+    }
+    private Timer increaseVelocityTimer;
+
+    public event Action OnLevelEnded;
 
     private void Awake() {
         if (Instance != null) Destroy(gameObject);
         Instance = this;
-        _playerController = _player.GetComponent<PlayerController>();
     }
 
     private void Start() {
+        DataManager.Instance.LoadHighScore();
+        SwipeDistance = SceneManager.GetActiveScene().name.Equals(MAIN_MENU_SCENE) 
+            ? 25 
+            : 5;
+    }
+
+    private void OnEnable() {
+        increaseVelocityTimer = new(1f);
+        increaseVelocityTimer.OnTimerFinished += IncreaseVelocity;
+        PlayerController.OnObstaclePassed += UpdateScore;
         SetBaseVelocity();
     }
 
-    private void Update() {
-        UpdateGame();
+    private void OnDisable() {
+        increaseVelocityTimer.OnTimerFinished -= IncreaseVelocity;
+        PlayerController.OnObstaclePassed -= UpdateScore;
     }
-    
-    protected void UpdateGame(){
-        _levelEnded = _playerController._levelEnded;        
-        if(Time.time >= _timer && _obstacleVelocity <= _topVelocity){
-            _timer = (int)(Time.time + _increaseInterval);
-            _obstacleVelocity *= 1.01f ;
+
+    private void Update() {
+        increaseVelocityTimer.ExecuteTimer();
+    }
+
+    private void UpdateScore(){
+        Score++;
+        int highScore = DataManager.Instance.HighScore;
+        if(Score >= highScore){
+            highScore = Score;
+            DataManager.Instance.SetHighScore(highScore);
+            Debug.Log("Saved high score: " + DataManager.Instance.HighScore);
         }
-        if(_obstacleVelocity > _topVelocity)
-            _obstacleVelocity = _topVelocity;
-        if(_levelEnded)
-            _obstacleVelocity = 0;
+    }
+
+    private void IncreaseVelocity(){
+        ObstacleVelocity *= Acceleration;
+        increaseVelocityTimer.ResetTimer();
     }
 
     public void PauseGame(){
-        CanvasController.Instance.pauseGame();
-        _playerController.setPause(true);
+        IsGamePaused = true;
         Time.timeScale = 0;
     }
 
     public void ResumeGame(){
-        CanvasController.Instance.resumeGame();
-        _playerController.setPause(false);
+        IsGamePaused = false;
         Time.timeScale = 1;
     }
 
     public void ReloadCurrentLevel(){
-        if(_playerController._levelEnded || CanvasController.Instance._gamePaused){
-            Time.timeScale = 1; //Because of restarting when paused
+        if(IsLevelEnded || IsGamePaused){
+            Time.timeScale = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            CanvasController.Instance.LevelStarted();
         }
     }
 
+    public void LevelEnded(){
+        IsLevelEnded = true;
+        ObstacleVelocity = 0;
+        OnLevelEnded?.Invoke();
+    }
+
     public void OpenMainMenu(){
-        Time.timeScale = 1; //Because it's clicked when menus are opened
-        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(MAIN_MENU_SCENE, LoadSceneMode.Single);
     }
 
     public void OpenTutorial(){
-        Time.timeScale = 1; //Because it's clicked when menus are opened
-        SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(TUTORIAL_SCENE, LoadSceneMode.Single);
     }
 
     public void OpenClassic(){
-        Time.timeScale = 1; //Because it's clicked when menus are opened
-        SceneManager.LoadScene("Classic", LoadSceneMode.Single);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(CLASSIC_SCENE, LoadSceneMode.Single);
     }
 
     public void OpenShapes(){
-        Time.timeScale = 1; //Because it's clicked when menus are opened
-        SceneManager.LoadScene("Shapes", LoadSceneMode.Single);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SHAPES_SCENE, LoadSceneMode.Single);
     }
 
     public void SetBaseVelocity(){
-        _obstacleVelocity = 5f; //CHANGE IF NEEDED
-        _topVelocity = 15f;
-    }
-
-    public void SetVelocity(float v){
-        _obstacleVelocity = v;
-    }
-
-    public void SetTopVelocity(float v){
-        _topVelocity = v;
+        ObstacleVelocity = 5f;
+        topObstacleVelocity = 15f;
     }
 }

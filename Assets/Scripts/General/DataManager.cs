@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
@@ -7,11 +5,10 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
 
-    public int _highScore{get; private set;}
-    public bool _firstTime{get; private set;}
+    public int HighScore {get; private set;}
+    public bool IsFirstTimePlaying {get; private set;}
 
-    private void Awake()
-    {
+    private void Awake(){
         if (Instance != null) Destroy(gameObject);
         Instance = this;
         DontDestroyOnLoad(gameObject);
@@ -19,46 +16,43 @@ public class DataManager : MonoBehaviour
     }
 
     public void SetHighScore(int hs){
-        _highScore = hs;
+        HighScore = hs;
         SaveHighScore();
     }
 
     [System.Serializable]
     public class SaveData
     {
-        public bool firstTime;
-        public int highScore;
+        public bool IsFirstTimePlayingData;
+        public int HighScoreData;
     }
 
-    public void SaveHighScore()
-    {
+    public void SaveHighScore(){
         SaveData data = SaveRest();
-        data.highScore = _highScore;
+        data.HighScoreData = HighScore;
 
         string json = JsonUtility.ToJson(data);
-
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    public void LoadHighScore()
-    {
+    public void LoadHighScore(){
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            _highScore = data.highScore;
+            HighScore = data.HighScoreData;
         }
     }
 
     private SaveData SaveRest(){
-        SaveData d = new SaveData();
-        d.firstTime = _firstTime;
-        d.highScore = _highScore;
-        return d;
+        SaveData data = new()
+        {
+            IsFirstTimePlayingData = IsFirstTimePlaying,
+            HighScoreData = HighScore
+        };
+        return data;
     }
     
 }
-
-
