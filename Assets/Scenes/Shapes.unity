@@ -2925,7 +2925,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2507a90f59ddf854e87acff484d5bfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dieEffect: {fileID: 0}
+  dieEffect: {fileID: 5410792361581034529, guid: 4e20a88f64c04434888d2b5ce10dc51d,
+    type: 3}
 --- !u!64 &1430216844319230242
 MeshCollider:
   m_ObjectHideFlags: 0

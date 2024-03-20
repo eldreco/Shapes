@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7878935241841888143}
   - component: {fileID: 7376859666063020258}
   - component: {fileID: 2219634777422867586}
+  - component: {fileID: 109350625102303219}
   m_Layer: 0
   m_Name: Pyramid Mid
   m_TagString: Obstacle
@@ -33,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.95}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -432,3 +433,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+--- !u!33 &109350625102303219
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444591260452757326}
+  m_Mesh: {fileID: 0}

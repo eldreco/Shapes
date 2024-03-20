@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public int Score {get; set;}
 
     private float topObstacleVelocity;
-    public readonly float Acceleration = 1.01f;
+    public readonly float Acceleration = 1.02f;
     private float obstacleVelocity = 5f;
     public float ObstacleVelocity
     {
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
+        DataManager.Instance.LoadHighScore();
         SwipeDistance = SceneManager.GetActiveScene().name.Equals(MAIN_MENU_SCENE) 
             ? 25 
             : 5;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
         if(Score >= highScore){
             highScore = Score;
             DataManager.Instance.SetHighScore(highScore);
+            Debug.Log("Saved high score: " + DataManager.Instance.HighScore);
         }
     }
 

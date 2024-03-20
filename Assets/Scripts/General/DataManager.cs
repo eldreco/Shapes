@@ -8,8 +8,7 @@ public class DataManager : MonoBehaviour
     public int HighScore {get; private set;}
     public bool IsFirstTimePlaying {get; private set;}
 
-    private void Awake()
-    {
+    private void Awake(){
         if (Instance != null) Destroy(gameObject);
         Instance = this;
         DontDestroyOnLoad(gameObject);
@@ -24,22 +23,19 @@ public class DataManager : MonoBehaviour
     [System.Serializable]
     public class SaveData
     {
-        public bool IsFirstTimePlayingData {get; set;}
-        public int HighScoreData {get; set;}
+        public bool IsFirstTimePlayingData;
+        public int HighScoreData;
     }
 
-    public void SaveHighScore()
-    {
+    public void SaveHighScore(){
         SaveData data = SaveRest();
         data.HighScoreData = HighScore;
 
         string json = JsonUtility.ToJson(data);
-
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    public void LoadHighScore()
-    {
+    public void LoadHighScore(){
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
@@ -60,5 +56,3 @@ public class DataManager : MonoBehaviour
     }
     
 }
-
-
