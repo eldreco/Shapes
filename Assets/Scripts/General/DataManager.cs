@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using static Constants.Constants;
 
 public class DataManager : MonoBehaviour
 {
@@ -32,14 +33,13 @@ public class DataManager : MonoBehaviour
         data.HighScoreData = HighScore;
 
         string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        File.WriteAllText(SAVE_DATA_FILE_PATH, json);
     }
 
     public void LoadHighScore(){
-        string path = Application.persistentDataPath + "/savefile.json";
-        if (File.Exists(path))
+        if (File.Exists(SAVE_DATA_FILE_PATH))
         {
-            string json = File.ReadAllText(path);
+            string json = File.ReadAllText(SAVE_DATA_FILE_PATH);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             HighScore = data.HighScoreData;

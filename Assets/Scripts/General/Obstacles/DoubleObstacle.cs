@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObstacleT : Obstacle, ISpawnable
+public class DoubleObstacle : Obstacle, ISpawnable
 {
     public void Spawn(Vector3 spawnObjPos, Quaternion spawnObjRot)
     {

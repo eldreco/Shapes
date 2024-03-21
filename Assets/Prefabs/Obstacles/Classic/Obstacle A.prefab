@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7945080231614276923}
   - component: {fileID: 5160485051290758607}
   - component: {fileID: 4882675456579769719}
-  - component: {fileID: 4291800087220287975}
+  - component: {fileID: 6812850327531038391}
   m_Layer: 3
   m_Name: Obstacle A
   m_TagString: Obstacle
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695cc2786a6ede44c97fcc79771353c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4291800087220287975
+--- !u!114 &6812850327531038391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

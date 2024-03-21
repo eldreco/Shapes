@@ -18,7 +18,7 @@ public class SpawnObstacles : MonoBehaviour
     [SerializeField] private bool onlySpawnMidObs;
     [SerializeField] private bool onlySpawnUpObs;
 
-    public int obstaclesSpawnedCount;
+    public int ObstaclesSpawnedCount {get; set;}
 
     private Timer spawnTimer;
 
@@ -57,7 +57,7 @@ public class SpawnObstacles : MonoBehaviour
         if((obstacles.Length == 1 || lastSpawnedIndex != obstacleIndex) && CanSpawnType(obstacleIndex)){
             ISpawnable spawnable = obstacles[obstacleIndex].GetComponent<ISpawnable>();
             spawnable.Spawn(tf.position, tf.rotation);
-            obstaclesSpawnedCount++;
+            ObstaclesSpawnedCount++;
             lastSpawnedIndex = obstacleIndex;
             spawnTimer.TimerMaxValue *= 1 / GameManager.Instance.Acceleration;
             spawnTimer.ResetTimer();
@@ -81,6 +81,6 @@ public class SpawnObstacles : MonoBehaviour
     }
 
     public void ResetCount(){
-        obstaclesSpawnedCount = 0;
+        ObstaclesSpawnedCount = 0;
     }
 }

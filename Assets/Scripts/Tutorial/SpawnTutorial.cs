@@ -31,7 +31,7 @@ public class SpawnTutorial : MonoBehaviour
     }
 
     private void CheckShouldChangeStage(){
-        if(SpawnObstacles.Instance.obstaclesSpawnedCount == 10 && !spawnedCheckpoint){
+        if(SpawnObstacles.Instance.ObstaclesSpawnedCount == 10 && !spawnedCheckpoint){
             StartCoroutine(SpawnStage());
             SpawnObstacles.Instance.OnDisable();
             spawnedCheckpoint = true;

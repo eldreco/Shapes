@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObstacleL : Obstacle, ISpawnable
+public class FatObstacle : Obstacle, ISpawnable
 {
     private readonly float offsetZ = 0.25f;
 

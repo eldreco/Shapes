@@ -499,7 +499,6 @@ MonoBehaviour:
   onlySpawnDownObs: 0
   onlySpawnMidObs: 0
   onlySpawnUpObs: 0
-  obstaclesSpawnedCount: 0
 --- !u!4 &155950649
 Transform:
   m_ObjectHideFlags: 0
@@ -914,7 +913,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.02e-43, y: 4.29e-43, z: 6.275e-42, w: 3.587e-42}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 3.8e-44, z: 1.99e-42, w: 1.147944e-39}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -2376,7 +2375,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.02e-43, y: 5.25e-43, z: 3.537e-42, w: 3.587e-42}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 1.4e-44, z: 1.892e-42, w: -8.914128e-28}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

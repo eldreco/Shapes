@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObstacleUM : Obstacle, ISpawnable
+public class VerticalOffsetSpawnObstacle : Obstacle, ISpawnable
 {
     [SerializeField] private float offsetY;
 
