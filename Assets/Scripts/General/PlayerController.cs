@@ -91,8 +91,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        Vector3 diePos = new(transform.position.x , 0.5f , transform.position.z);
         if(other.gameObject.CompareTag("Obstacle")){
+            Vector3 diePos = new(transform.position.x , 0.5f , transform.position.z);
             Instantiate(dieEffect, diePos, transform.rotation);
             gameObject.SetActive(false);
             GameManager.Instance.LevelEnded();
