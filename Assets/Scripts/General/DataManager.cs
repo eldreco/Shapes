@@ -90,9 +90,5 @@ public class DataManager : MonoBehaviour
         };
         return data;
     }
-
-    private void ResetData(){
-        WriteData(new SaveData());
-    }
     
 }
