@@ -5,9 +5,9 @@ public interface ISpawnable
 {
     public enum Type
     {
-        UP,
-        MID,
-        DOWN
+        Up,
+        Mid,
+        Down
     }
 
     void Spawn(Vector3 spawnObjPos, Quaternion spawnObjRot);

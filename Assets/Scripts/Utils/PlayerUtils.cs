@@ -9,14 +9,14 @@ namespace PlayerUtils
 
         [Serializable]
         public enum HorizontalPos{
-            LEFT, 
-            MIDDLE, 
-            RIGHT
+            Left, 
+            Middle, 
+            Right
         }
 
         public enum VerticalPos{
-            UP,
-            DOWN
+            Up,
+            Down
         }
     }
     

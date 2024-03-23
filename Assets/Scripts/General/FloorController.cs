@@ -25,9 +25,9 @@ public class FloorController : MonoBehaviour
     }
 
     private void PlayerPosCheck(HorizontalPos pos){
-        leftRenderer.material.color = pos == HorizontalPos.LEFT ? Color.white : blackColor;
-        middleRenderer.material.color = pos == HorizontalPos.MIDDLE ? Color.white : blackColor;
-        rightRenderer.material.color = pos == HorizontalPos.RIGHT ? Color.white : blackColor;
+        leftRenderer.material.color = pos == HorizontalPos.Left ? Color.white : blackColor;
+        middleRenderer.material.color = pos == HorizontalPos.Middle ? Color.white : blackColor;
+        rightRenderer.material.color = pos == HorizontalPos.Right ? Color.white : blackColor;
     }
 
     public void Reset(){

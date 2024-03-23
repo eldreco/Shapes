@@ -5,9 +5,9 @@ public class ShapesManager : MonoBehaviour
 {
     public static ShapesManager Instance;
 
-    public enum Shape{CYLINDER, CUBE, PYRAMID};
-    public Shape _activeShape {get; private set;}
-    public Dictionary<Shape, Mesh> _shapeMeshMap {get; private set;} = new();
+    public enum Shape{Cylinder, Cube, Pyramid};
+    public Shape ActiveShape {get; private set;}
+    public Dictionary<Shape, Mesh> ShapeMeshMap {get; private set;} = new();
 
     [SerializeField] private Mesh cubeMesh;
     [SerializeField] private Mesh pyramidMesh;
@@ -19,28 +19,29 @@ public class ShapesManager : MonoBehaviour
     }
 
     private void Start() {
-        _shapeMeshMap.Add(Shape.CUBE, cubeMesh);
-        _shapeMeshMap.Add(Shape.PYRAMID, pyramidMesh);
-        _shapeMeshMap.Add(Shape.CYLINDER, cylinderMesh);
-        SetActiveShape(Shape.CUBE);
+        ShapeMeshMap.Add(Shape.Cube, cubeMesh);
+        ShapeMeshMap.Add(Shape.Pyramid, pyramidMesh);
+        ShapeMeshMap.Add(Shape.Cylinder, cylinderMesh);
+        SetActiveShape(Shape.Cube);
+        GameManager.Instance.ActiveGameMode = GameMode.Shapes;
     }
 
     public void SetActiveShape(Shape shape){
-        _activeShape = shape;
+        ActiveShape = shape;
     }
 
     public void PressCircle(){
-        SetActiveShape(Shape.CYLINDER);
-        ShapesPlayerController.Instance.ChangeShape(Shape.CYLINDER);
+        SetActiveShape(Shape.Cylinder);
+        ShapesPlayerController.Instance.ChangeShape(Shape.Cylinder);
     }
 
     public void PressSquare(){
-        SetActiveShape(Shape.CUBE);
-        ShapesPlayerController.Instance.ChangeShape(Shape.CUBE);
+        SetActiveShape(Shape.Cube);
+        ShapesPlayerController.Instance.ChangeShape(Shape.Cube);
     }
 
     public void PressTriangle(){
-        SetActiveShape(Shape.PYRAMID);
-        ShapesPlayerController.Instance.ChangeShape(Shape.PYRAMID);
+        SetActiveShape(Shape.Pyramid);
+        ShapesPlayerController.Instance.ChangeShape(Shape.Pyramid);
     }
 }

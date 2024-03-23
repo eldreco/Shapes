@@ -27,7 +27,7 @@ public class MainStage : MonoBehaviour, IStage
     }
 
     public string GetNeededMovement(){
-        return HorizontalPos.MIDDLE.ToString();
+        return HorizontalPos.Middle.ToString();
     }
 
     public void ShowInstructions(){

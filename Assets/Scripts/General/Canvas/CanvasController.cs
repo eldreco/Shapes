@@ -34,12 +34,12 @@ public class CanvasController : MonoBehaviour
     }
 
     private void UpdateScoreUI(){
-        score = GameManager.Instance.Score;
+        score = GameManager.Instance.currentScoreMap[GameManager.Instance.ActiveGameMode];
         scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = score.ToString();
     }
 
     private void UpdateHighScoreUI(){
-        int highScore = DataManager.Instance.HighScore;
+        int highScore = DataManager.Instance.GetHighScoreForMode(GameManager.Instance.ActiveGameMode);
         highScoreText.GetComponent<TMPro.TextMeshProUGUI>().text = highScore.ToString();
     }
 

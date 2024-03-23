@@ -18,7 +18,7 @@ public class ShapesPlayerController : PlayerController
     }
 
     public void ChangeShape(Shape shape){
-        Mesh newMesh = ShapesManager.Instance._shapeMeshMap[shape];
+        Mesh newMesh = ShapesManager.Instance.ShapeMeshMap[shape];
         _meshCollider.sharedMesh = newMesh;
         anim.SetTrigger(shape.ToString()); //Make sure anim trigger has exact same name as shape
     }

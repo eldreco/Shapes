@@ -98,7 +98,7 @@ public class TutorialManager : MonoBehaviour
     private void ReloadStage(){
         CheckTimer = false;
         PlayerController.Instance.gameObject.SetActive(true);
-        PlayerController.Instance.HPos = HorizontalPos.MIDDLE;
+        PlayerController.Instance.HPos = HorizontalPos.Middle;
         GameManager.Instance.SetBaseVelocity();
         GameManager.Instance.IsLevelEnded = false;
         TutorialCanvasController.Instance.LevelStarted();

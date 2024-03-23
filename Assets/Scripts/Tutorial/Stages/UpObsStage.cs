@@ -21,7 +21,7 @@ public class UpObsStage : MonoBehaviour, IStage
     }
 
     public string GetNeededMovement(){
-        return VerticalPos.UP.ToString();
+        return VerticalPos.Up.ToString();
     }
 
     void IStage.ShowInstructions(){

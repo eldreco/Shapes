@@ -23,7 +23,7 @@ public class DownObsStage : MonoBehaviour, IStage
     }
 
     public string GetNeededMovement(){
-        return VerticalPos.DOWN.ToString();
+        return VerticalPos.Down.ToString();
     }
 
     void IStage.ShowInstructions(){

@@ -69,9 +69,9 @@ public class SpawnObstacles : MonoBehaviour
 
     private bool CanSpawnType(int obstacleIndex){
         ISpawnable.Type obsType = obstacles[obstacleIndex].GetComponent<Obstacle>().GetObstacleType();
-        return !(onlySpawnDownObs && obsType != ISpawnable.Type.DOWN
-            || onlySpawnMidObs && obsType != ISpawnable.Type.MID
-            || onlySpawnUpObs && obsType != ISpawnable.Type.UP);
+        return !(onlySpawnDownObs && obsType != ISpawnable.Type.Down
+            || onlySpawnMidObs && obsType != ISpawnable.Type.Mid
+            || onlySpawnUpObs && obsType != ISpawnable.Type.Up);
     }
 
     public void SetSpawnType(bool spawnDown, bool spawnMid, bool spawnUp){ //For other classes, i.e tutorial

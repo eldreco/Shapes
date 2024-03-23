@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using static MobileControl.MobileControl;
 using TimerUtils;
 using static Constants.Constants;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     public bool IsLevelEnded {get; set;}
     public bool IsGamePaused {get; set;}
-    public int Score {get; set;}
 
     private float topObstacleVelocity;
     public readonly float Acceleration = 1.02f;
@@ -21,9 +21,17 @@ public class GameManager : MonoBehaviour
         get => obstacleVelocity;
         set => obstacleVelocity = (value <= topObstacleVelocity) ? value : obstacleVelocity;
     }
+
     private Timer increaseVelocityTimer;
 
     public event Action OnLevelEnded;
+
+    public GameMode ActiveGameMode {get; set;} = GameMode.Classic;
+    public Dictionary<GameMode, int> currentScoreMap = new()
+    {
+        {GameMode.Classic, 0},
+        {GameMode.Shapes, 0}
+    };
 
     private void Awake() {
         if (Instance != null) Destroy(gameObject);
@@ -31,7 +39,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        DataManager.Instance.LoadHighScore();
+        DataManager.Instance.LoadData();
         SwipeDistance = SceneManager.GetActiveScene().name.Equals(MAIN_MENU_SCENE) 
             ? 25 
             : 5;
@@ -54,12 +62,12 @@ public class GameManager : MonoBehaviour
     }
 
     private void UpdateScore(){
-        Score++;
-        int highScore = DataManager.Instance.HighScore;
-        if(Score >= highScore){
-            highScore = Score;
-            DataManager.Instance.SetHighScore(highScore);
-            Debug.Log("Saved high score: " + DataManager.Instance.HighScore);
+        currentScoreMap[ActiveGameMode]++;
+        int score = currentScoreMap[ActiveGameMode];
+        int highScore = DataManager.Instance.GetHighScoreForMode(ActiveGameMode);
+        if(score >= highScore){
+            highScore = score;
+            DataManager.Instance.UpdateScore(ActiveGameMode, highScore);
         }
     }
 

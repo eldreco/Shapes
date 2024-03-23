@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsUp {get; set;} //Refactor isUp and isDown to use new VerticalPos
     public bool IsDown {get; set;}
-    public HorizontalPos HPos {get; set;} = HorizontalPos.MIDDLE;
+    public HorizontalPos HPos {get; set;} = HorizontalPos.Middle;
 
     [SerializeField] public GameObject dieEffect;
 
@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
         float vPos = anim.GetFloat(ANIM_VPOS);
         if(vPos == 0f){
             IsDown = true;
-            OnPlayerMovedV?.Invoke(VerticalPos.DOWN);
+            OnPlayerMovedV?.Invoke(VerticalPos.Down);
         }
         if(vPos > -1f)
             anim.SetFloat(ANIM_VPOS, vPos - 1f);
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
         float vPos = anim.GetFloat(ANIM_VPOS);
         if(vPos == 0f){
             IsUp = true;
-            OnPlayerMovedV?.Invoke(VerticalPos.DOWN);
+            OnPlayerMovedV?.Invoke(VerticalPos.Down);
         }
         if(anim.GetFloat(ANIM_VPOS) < 1f)
             anim.SetFloat(ANIM_VPOS, anim.GetFloat(ANIM_VPOS) + 1f);
@@ -177,13 +177,13 @@ public class PlayerController : MonoBehaviour
         switch (anim.GetFloat(ANIM_HPOS))
         {
             case -1f:
-                HPos = HorizontalPos.LEFT;
+                HPos = HorizontalPos.Left;
                 break;
             case 0f:
-                HPos = HorizontalPos.MIDDLE;
+                HPos = HorizontalPos.Middle;
                 break;
             case 1f:
-                HPos = HorizontalPos.RIGHT;
+                HPos = HorizontalPos.Right;
                 break;
         }
         
