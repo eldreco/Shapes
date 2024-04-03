@@ -9,5 +9,6 @@ namespace Constants
         public const string CLASSIC_SCENE = "Classic";
         public const string SHAPES_SCENE = "Shapes";
         public static string SAVE_DATA_FILE_PATH = Application.persistentDataPath + "/savefile.json";
+        public const float MIN_SPAWN_INTERVAL = 1f;
     }
 }

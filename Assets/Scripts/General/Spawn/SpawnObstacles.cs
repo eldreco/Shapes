@@ -1,5 +1,6 @@
 ﻿using System;
 using TimerUtils;
+using static Constants.Constants;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -59,12 +60,17 @@ public class SpawnObstacles : MonoBehaviour
             spawnable.Spawn(tf.position, tf.rotation);
             ObstaclesSpawnedCount++;
             lastSpawnedIndex = obstacleIndex;
-            spawnTimer.TimerMaxValue *= 1 / GameManager.Instance.Acceleration;
-            spawnTimer.ResetTimer();
+            HandleTimer();
             OnSpawnedObstacle?.Invoke();
         }else{
             Spawn(); //Repeat if its the same index
         }
+    }
+
+    private void HandleTimer(){
+        if (spawnTimer.TimerMaxValue >= MIN_SPAWN_INTERVAL)
+            spawnTimer.TimerMaxValue *= 1 / GameManager.Instance.Acceleration;
+        spawnTimer.ResetTimer();
     }
 
     private bool CanSpawnType(int obstacleIndex){
