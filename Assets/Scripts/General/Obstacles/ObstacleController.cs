@@ -10,11 +10,11 @@ public class ObstacleController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    protected void Update() {
+    protected void FixedUpdate() {
         MoveObstacle(GameManager.Instance.ObstacleVelocity);
     }
 
     protected void MoveObstacle(float speed){
-        transform.position += speed * Time.deltaTime * transform.right;
+        rb.MovePosition(transform.position + speed * Time.deltaTime * transform.right);
     }
 }

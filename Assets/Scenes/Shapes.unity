@@ -483,17 +483,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles:
-  - {fileID: 7945080231614276920, guid: 9f5b9697c553cf14dbdea788235ab7a0, type: 3}
-  - {fileID: 17793902453122039, guid: 16753753dc79b384489fd5b08e5c9c96, type: 3}
-  - {fileID: 4040624392445210621, guid: 1c5f26d3e899b9940b76354381ab2224, type: 3}
-  - {fileID: 8545577923715099570, guid: cbeee485367ce5b459c5c8d36a79c512, type: 3}
-  - {fileID: 7945080231614276920, guid: 37f78d8d707ffe24cad8224fea2e73fd, type: 3}
-  - {fileID: 7945080231614276920, guid: 1d4f570a666aa014eb0ad3f8519ed18f, type: 3}
-  - {fileID: 2747706805556344601, guid: 7481c0bb3debce84fb93423215893af4, type: 3}
-  - {fileID: 8545577923715099570, guid: c60861ede3023f945a26fe9b9f5c538c, type: 3}
-  - {fileID: 2747706805556344601, guid: 9a5cca7c5346f94429806020b8aadee2, type: 3}
-  - {fileID: 8545577923715099570, guid: e86d632c4cbec2749bda2a1da4fdcd79, type: 3}
-  - {fileID: 8545577923715099570, guid: ed93c5bd2a5cc114a93b814033c57987, type: 3}
   - {fileID: 1444591260452757326, guid: 3bcf4f364ad3b8b4caa737e56a842ac5, type: 3}
   - {fileID: 6727110302954211078, guid: 41d6d92e725d30d4691999ba5669cb38, type: 3}
   - {fileID: 6727110302954211078, guid: dcda1905b4d7bb543b80e96bf92dd205, type: 3}
@@ -2061,7 +2050,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4296666060136768411}
   - component: {fileID: 3867801505454591463}
   - component: {fileID: 6625118412565439713}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pyramid Mid Up
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
