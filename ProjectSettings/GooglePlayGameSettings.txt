@@ -1,2 +1,11 @@
 lastUpgrade=01101
 proj.pluginVersion=0.11.01
+proj.AppId=51110714669
+and.BundleId=com.Dreco.Shapes
+proj.classDir=Assets
+proj.ConstantsClassName=Scripts.GooglePlay.GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e51110714669%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.Dreco.Shapes%3c%2fstring%3e%0d%0a++%3c%21--achievement+10+Pointer--%3e%0d%0a++%3cstring+name%3d%22achievement_10_pointer%22+translatable%3d%22false%22%3eCgkIrbq-s74BEAIQAQ%3c%2fstring%3e%0d%0a++%3c%21--event+Set+new+HighScore--%3e%0d%0a++%3cstring+name%3d%22event_set_new_highscore%22+translatable%3d%22false%22%3eCgkIrbq-s74BEAIQAw%3c%2fstring%3e%0d%0a++%3c%21--leaderboard+HighScore--%3e%0d%0a++%3cstring+name%3d%22leaderboard_highscore%22+translatable%3d%22false%22%3eCgkIrbq-s74BEAIQAg%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=51110714669-64doufu6439mg1q75g3g1a1tuk8896m5.apps.googleusercontent.com
+android.SetupDone=true
+App.NearbdServiceId=com.Dreco.Shapes
+android.NearbySetupDone=true
