@@ -5,58 +5,42 @@ using UnityEngine;
 using static Scripts.GooglePlay.GPGSIds;
 using UnityEngine.Networking;
 
-public class GPServicesManager : MonoBehaviour
+public static class GPServicesManager
 {
-    public static GPServicesManager Instance;
+    public static string UserName {get; private set;}
+    public static Sprite UserProfilePic {get; private set;}
+    public static bool IsAuthenticated {get; private set;}
 
-    public string UserName {get; private set;}
-    public Sprite UserProfilePic {get; private set;}
-    public bool IsAuthenticated {get; private set;}
-
-    private void Awake(){
-        if (Instance != null) Destroy(gameObject);
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    public void OnEnable() {
-        SignIn();
-    }
-
-    public void SignIn(){
+    public static void SignIn(){
+        Debug.Log("Signing in");
         PlayGamesPlatform.Activate();
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
     }
 
-    internal void ProcessAuthentication(SignInStatus status) {
-        Debug.Log("ProcessAuthentication: " + status);
+    internal static void ProcessAuthentication(SignInStatus status) {
         if (status == SignInStatus.Success) {
-            AssignUserData();
+            UserName = PlayGamesPlatform.Instance.GetUserDisplayName();
             IsAuthenticated = true;
         } else {
             IsAuthenticated = false;
         }
+        Debug.Log("ProcessAuthentication: " + status);
     }
 
-    public void UpdateLeaderboard(int score) {
+    public static void UpdateLeaderboard(int score) {
         HandleAchievements(score);
         Social.ReportScore(score, leaderboard_highscore, (bool success) => {
             Debug.Log("UpdateLeaderboard: " + success);
         });
     }
 
-    private void AssignUserData(){
-        StartCoroutine(LoadImageFromUrl(PlayGamesPlatform.Instance.GetUserImageUrl()));
-        UserName = PlayGamesPlatform.Instance.GetUserDisplayName();
-    }
-
-    private void HandleAchievements(int score){
+    private static void HandleAchievements(int score){
         if(score >= 10){
             UnlockAchievement(achievement_10_pointer);
         }
     }
 
-    private void UnlockAchievement(string achievementId) {
+    private static void UnlockAchievement(string achievementId) {
         Social.ReportProgress(achievementId, 100.0f, (bool success) => {
             Debug.Log("UnlockAchievement: " + success);
             if(success)
@@ -64,17 +48,18 @@ public class GPServicesManager : MonoBehaviour
         });
     }
 
-    public void ShowLeaderboard() {
-        SignIn();
+    public static void ShowLeaderboard() {
         Social.ShowLeaderboardUI();
     }
 
-    public void ShowAchievements() {
-        SignIn();
+    public static void ShowAchievements() {
         Social.ShowAchievementsUI();
     }
 
-    private IEnumerator LoadImageFromUrl (string url) {
+    public static IEnumerator LoadProfilePic() {
+        Debug.Log("Loading profile pic");
+        yield return new WaitUntil(() => PlayGamesPlatform.Instance.IsAuthenticated());
+        var url = PlayGamesPlatform.Instance.GetUserImageUrl();
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
 
@@ -84,6 +69,7 @@ public class GPServicesManager : MonoBehaviour
         } else {
             Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
             UserProfilePic = Sprite.Create(texture, new (0, 0, texture.width, texture.height), new(0.5f, 0.5f));
+            Debug.Log("Profile pic loaded");
         }
     }
 }

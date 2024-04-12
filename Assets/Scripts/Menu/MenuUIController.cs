@@ -12,18 +12,29 @@ public class MenuUIController : MonoBehaviour
     private void Awake(){
         if (Instance != null) Destroy(gameObject);
         Instance = this;
+        GPServicesManager.SignIn();
+        StartCoroutine(GPServicesManager.LoadProfilePic());
     }
 
     public void HandleAuthenticatedUI(){
-        if(GPServicesManager.Instance.IsAuthenticated)
+        Debug.Log("Is auth:" + GPServicesManager.IsAuthenticated);
+        if(GPServicesManager.IsAuthenticated)
             ShowAuthenticatedUI();
         else
             ShowNotAuthenticatedUI();
     }
 
+    public void ShowAchievementsUI(){
+        GPServicesManager.ShowAchievements();
+    }
+
+    public void ShowLeaderboardUI(){
+        GPServicesManager.ShowLeaderboard();
+    }
+
     private void ShowAuthenticatedUI(){
-        profilePic.sprite = GPServicesManager.Instance.UserProfilePic;
-        userNameText.text = GPServicesManager.Instance.UserName;
+        profilePic.sprite = GPServicesManager.UserProfilePic;
+        userNameText.text = GPServicesManager.UserName;
     }
 
     private void ShowNotAuthenticatedUI(){

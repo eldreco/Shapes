@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         if(score > highScore){
             highScore = score;
             DataManager.Instance.UpdateScore(ActiveGameMode, highScore);
-            GPServicesManager.Instance.UpdateLeaderboard(highScore);
+            GPServicesManager.UpdateLeaderboard(highScore);
         }
     }
 
@@ -123,13 +123,5 @@ public class GameManager : MonoBehaviour
     public void SetBaseVelocity(){
         ObstacleVelocity = 5f;
         topObstacleVelocity = 15f;
-    }
-
-    public void ShowLeaderboardUI(){
-        GPServicesManager.Instance.ShowLeaderboard();
-    }
-
-    public void ShowAchievementsUI(){
-        GPServicesManager.Instance.ShowAchievements();
     }
 }
