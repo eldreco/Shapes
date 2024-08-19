@@ -817,7 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66988bb01c1ccb44832ccba65c506cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexagonMesh: {fileID: 4300000, guid: 9066f493be5ada6478eb7e085567e78b, type: 2}
+  hexagonMesh: {fileID: 4300000, guid: 7597cac7455c8bb438a9bac5d320c177, type: 2}
   pyramidMesh: {fileID: 4300000, guid: c827708a1d9616341b62844628b3fa55, type: 2}
   cylinderMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &668094642
@@ -4141,7 +4141,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430216844319230229}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 7597cac7455c8bb438a9bac5d320c177, type: 2}
 --- !u!65 &1607615917561345755
 BoxCollider:
   m_ObjectHideFlags: 0
