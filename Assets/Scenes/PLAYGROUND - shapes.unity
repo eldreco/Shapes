@@ -196,9 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles:
-  - {fileID: 1444591260452757326, guid: 3bcf4f364ad3b8b4caa737e56a842ac5, type: 3}
-  - {fileID: 6727110302954211078, guid: 41d6d92e725d30d4691999ba5669cb38, type: 3}
-  - {fileID: 6727110302954211078, guid: dcda1905b4d7bb543b80e96bf92dd205, type: 3}
+  - {fileID: 7945080231614276920, guid: 1d4f570a666aa014eb0ad3f8519ed18f, type: 3}
   onlySpawnDownObs: 0
   onlySpawnMidObs: 0
   onlySpawnUpObs: 0
@@ -557,7 +555,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 230, y: 230}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &467961347
 MonoBehaviour:
@@ -635,8 +633,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0dff211c630066b4db62c410de434933, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -817,7 +815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66988bb01c1ccb44832ccba65c506cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexagonMesh: {fileID: 4300000, guid: 7597cac7455c8bb438a9bac5d320c177, type: 2}
+  hexagonMesh: {fileID: 4300000, guid: 9066f493be5ada6478eb7e085567e78b, type: 2}
   pyramidMesh: {fileID: 4300000, guid: c827708a1d9616341b62844628b3fa55, type: 2}
   cylinderMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &668094642
@@ -2709,7 +2707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 0}
+  m_AnchoredPosition: {x: -350, y: 0.0000038146973}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1666196714
@@ -4141,7 +4139,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430216844319230229}
-  m_Mesh: {fileID: 4300000, guid: 7597cac7455c8bb438a9bac5d320c177, type: 2}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &1607615917561345755
 BoxCollider:
   m_ObjectHideFlags: 0

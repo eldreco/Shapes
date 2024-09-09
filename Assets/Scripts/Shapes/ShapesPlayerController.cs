@@ -15,11 +15,14 @@ public class ShapesPlayerController : PlayerController
     private new void Start() {
         Setup();
         _meshCollider = gameObject.GetComponent<MeshCollider>();
+        ChangeShape(Shape.Hexagon);
     }
 
     public void ChangeShape(Shape shape){
-        Mesh newMesh = ShapesManager.Instance.ShapeMeshMap[shape];
-        _meshCollider.sharedMesh = newMesh;
-        anim.SetTrigger(shape.ToString()); //Make sure anim trigger has exact same name as shape
+        Mesh nextMesh = ShapesManager.Instance.ShapeMeshMap[shape];
+        _meshCollider.sharedMesh = nextMesh;
+        //Make sure anim trigger has exact same name as shape
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName(shape.ToString()))
+            anim.SetTrigger(shape.ToString());
     }
 }

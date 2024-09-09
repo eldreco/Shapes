@@ -37,7 +37,7 @@ BlendTree:
   m_Name: Cube
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 816b2a13ab067ad4081a7fe68f8d830e, type: 2}
+    m_Motion: {fileID: 7400000, guid: 00147d4baea19774b92454e8ed813494, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -45,7 +45,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 20dabce2b46db214793456903c3c484e, type: 2}
+    m_Motion: {fileID: 7400000, guid: e45d93d88a72fb34fb1a56e488c0b399, type: 2}
     m_Threshold: 0.095703125
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -53,7 +53,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 596b03ccee059974394050afe1d4533e, type: 2}
+    m_Motion: {fileID: 7400000, guid: 49470132979c912458da7274694ed456, type: 2}
     m_Threshold: 0.19140625
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -61,7 +61,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: fe997a2398f8d1145b9c8260de7a48fb, type: 2}
+    m_Motion: {fileID: 7400000, guid: eed8e6de9bb782047bd99f1b1036d74e, type: 2}
     m_Threshold: 0.28710938
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -69,7 +69,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: c4a34570eba2d724697d1b805757d39f, type: 2}
+    m_Motion: {fileID: 7400000, guid: 3c30717fde49a004aacc5108b4d44fce, type: 2}
     m_Threshold: 0.3828125
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
@@ -77,7 +77,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: cf305980a9b16e14db72b4234ca76a3c, type: 2}
+    m_Motion: {fileID: 7400000, guid: 16f6cf712ab04b247abe51625e1be9ad, type: 2}
     m_Threshold: 0.47851562
     m_Position: {x: -1, y: 1}
     m_TimeScale: 1
@@ -85,7 +85,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 7e5a5f44e1f1dcb47bc8e062c09017ff, type: 2}
+    m_Motion: {fileID: 7400000, guid: 121812fe523a5b94e8783689474ff105, type: 2}
     m_Threshold: 0.57421875
     m_Position: {x: -1, y: -1}
     m_TimeScale: 1
@@ -93,7 +93,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f6e5f4489b92c1f49ac7f30e4e0db6b7, type: 2}
+    m_Motion: {fileID: 7400000, guid: e401e5b456d7c3c4c8e3ffc43a0357b1, type: 2}
     m_Threshold: 0.6699219
     m_Position: {x: 1, y: 1}
     m_TimeScale: 1
@@ -101,7 +101,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 8fa8935ad5510ac4fa32802e1ab0edd3, type: 2}
+    m_Motion: {fileID: 7400000, guid: 190f79eb7d03a6f488ac9e550c7ff618, type: 2}
     m_Threshold: 0.765625
     m_Position: {x: 1, y: -1}
     m_TimeScale: 1
@@ -154,31 +154,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: VPos
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Pyramid
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Cube
+    m_Controller: {fileID: 9100000}
+  - m_Name: Hexagon
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Cylinder
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -199,7 +199,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cube
+  m_Name: Hexagon
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -307,7 +307,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Cube
+    m_ConditionEvent: Hexagon
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 571810764886442714}
@@ -581,7 +581,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Cube
+    m_ConditionEvent: Hexagon
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 571810764886442714}
