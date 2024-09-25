@@ -196,7 +196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles:
-  - {fileID: 1444591260452757326, guid: 28886fc3ab83fce4cbd3b609f2894fdf, type: 3}
+  - {fileID: 6727110302954211078, guid: 65ae5f03b48c0504590068752d8fc77a, type: 3}
+  - {fileID: 6727110302954211078, guid: 4a93512df7596e849ae500d3bed1d79e, type: 3}
   onlySpawnDownObs: 0
   onlySpawnMidObs: 0
   onlySpawnUpObs: 0
@@ -1054,7 +1055,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.01e-43, y: 3.4e-44, z: 0, w: 1.6518454e+31}
+  m_BoundingSphereOverride: {x: 0, y: NaN, z: 4.5697343e-37, w: -2.7581823e-37}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -3742,7 +3743,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0.25, y: 6e-44, z: 4.523e-42, w: 1.6518105e+31}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 2.06e-43, z: 5.38e-42, w: NaN}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
