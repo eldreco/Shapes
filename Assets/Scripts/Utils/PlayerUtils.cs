@@ -22,7 +22,6 @@ namespace Utils
         
         public enum PlayerShape
         {
-            Square,
             Hexagon,
             Triangle,
             Circle

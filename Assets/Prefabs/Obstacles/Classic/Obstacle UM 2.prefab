@@ -221,7 +221,6 @@ GameObject:
   - component: {fileID: 1566220581781154042}
   - component: {fileID: 7010109006573479520}
   - component: {fileID: 7094848663971114121}
-  - component: {fileID: -1481452543620361862}
   - component: {fileID: -3764202545767319328}
   m_Layer: 3
   m_Name: Obstacle UM 2
@@ -287,19 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695cc2786a6ede44c97fcc79771353c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1481452543620361862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8545577923715099570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abcadbd6ece6e10418c4d150579b24ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
 --- !u!114 &-3764202545767319328
 MonoBehaviour:
   m_ObjectHideFlags: 0

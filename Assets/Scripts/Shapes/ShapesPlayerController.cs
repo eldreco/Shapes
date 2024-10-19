@@ -1,5 +1,7 @@
 using System.Linq;
+using General.Obstacles.Types;
 using UnityEngine;
+using Utils;
 using static Utils.PlayerUtils;
 
 public class ShapesPlayerController : PlayerController {
@@ -40,7 +42,7 @@ public class ShapesPlayerController : PlayerController {
     }
 
     public void ChangeShape(PlayerShape shape) {
-        state.Shape = shape;
+        state = ShapesPlayerState.GetDefaultShapesState();
         var nextMesh = ShapesManager.Instance.ShapeMeshMap[shape];
         _meshCollider.sharedMesh = nextMesh;
 
@@ -52,7 +54,7 @@ public class ShapesPlayerController : PlayerController {
 
     private bool HasPlayerCollided(Collider other) {
 
-        var obstacle = other.gameObject.GetComponent<Obstacle>();
+        var obstacle = other.gameObject.GetComponent<ShapesObstacle>();
 
         return obstacle.NonCollidingStateList.All(nonCollidingState => !nonCollidingState.Equals(state));
     }

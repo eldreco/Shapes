@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1131336514605033758}
   - component: {fileID: 4296666060136768411}
   - component: {fileID: 6625118412565439713}
+  - component: {fileID: -4883355003575643457}
   m_Layer: 3
   m_Name: Pyramid UL
   m_TagString: Obstacle
@@ -950,11 +951,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2b420416dd06c448d9fbdaa8c3803b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleNonCollidingState: 1
-  nonCollidingState:
-    HPos: 0
-    VPos: 0
-    Shape: 2
 --- !u!33 &6625118412565439713
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -963,3 +959,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6727110302954211078}
   m_Mesh: {fileID: 0}
+--- !u!114 &-4883355003575643457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727110302954211078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c423b4c199094bd386e41c3dc7b53668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonCollidingStateList:
+  - HPos: 0
+    VPos: 0
+    Shape: 1

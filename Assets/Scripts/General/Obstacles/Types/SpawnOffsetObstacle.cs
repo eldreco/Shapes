@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace General.Obstacles.Types
 {
-    [RequireComponent(typeof(Obstacle))]
-    public class SpawnOffset : MonoBehaviour, ISpawnable
+    public class SpawnOffsetObstacle : Obstacle, ISpawnable
     {
         [SerializeField] private float verticalOffset;
         [SerializeField] private float horizontalOffset;

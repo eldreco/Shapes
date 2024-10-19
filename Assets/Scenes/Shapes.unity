@@ -196,8 +196,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles:
+  - {fileID: 6727110302954211078, guid: 4a93512df7596e849ae500d3bed1d79e, type: 3}
+  - {fileID: 6727110302954211078, guid: 65ae5f03b48c0504590068752d8fc77a, type: 3}
+  - {fileID: 1444591260452757326, guid: 9483d701b7fddd547a387735455d0386, type: 3}
+  - {fileID: 6727110302954211078, guid: 41d6d92e725d30d4691999ba5669cb38, type: 3}
+  - {fileID: 6727110302954211078, guid: 0e98387b3d05d6b4a9eaab7c09fcab51, type: 3}
+  - {fileID: 6727110302954211078, guid: dcda1905b4d7bb543b80e96bf92dd205, type: 3}
   - {fileID: 6727110302954211078, guid: 0f928f815f90f4c4eb5fc6ea9ed199a6, type: 3}
   - {fileID: 6727110302954211078, guid: 6e3e31e78dd4f3f468a683ddb6aa30c5, type: 3}
+  - {fileID: 6727110302954211078, guid: c8a6e92b17a09864db68adec32f4a6f8, type: 3}
+  - {fileID: 6727110302954211078, guid: 2cfc33bd7efe1de4babca051a22cfde4, type: 3}
+  - {fileID: 30291764909593642, guid: dac4d724573bc9b41963c64272d83360, type: 3}
   onlySpawnDownObs: 0
   onlySpawnMidObs: 0
   onlySpawnUpObs: 0
@@ -1055,7 +1064,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 6e-44, z: 1.92e-43, w: 1.2263e-41}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 0, z: 0, w: 3.6995067e+30}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -3743,7 +3752,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 7.06e-43, y: 1e-45, z: 0, w: -8.027173e-14}
+  m_BoundingSphereOverride: {x: 6.66e-43, y: -9.0102245e+24, z: 6.64e-43, w: 3.093e-42}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -4112,7 +4121,6 @@ MonoBehaviour:
   state:
     HPos: 0
     VPos: 0
-    Shape: 0
   dieEffect: {fileID: 5410792361581034529, guid: 4e20a88f64c04434888d2b5ce10dc51d,
     type: 3}
 --- !u!64 &1430216844319230242
