@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Utils.PlayerUtils;
 
 public class PlayerTutorialController : MonoBehaviour
 {
@@ -23,14 +24,14 @@ public class PlayerTutorialController : MonoBehaviour
 
         if(!GameManager.Instance.IsGamePaused){
             if(xLength > yLength){
-                if(Length.x > 0 && !PlayerController.Instance.IsUp && IsAbleTomove)
+                if(Length.x > 0 && PlayerController.Instance.state.VPos != VerticalPos.Up && IsAbleTomove)
                 PlayerController.Instance.GoRight();
-                else if( Length.x < 0 && !PlayerController.Instance.IsUp && IsAbleTomove)
+                else if( Length.x < 0 && PlayerController.Instance.state.VPos != VerticalPos.Up && IsAbleTomove)
                 PlayerController.Instance.GoLeft();    
             } else if(xLength < yLength){
-                if(Length.y > 0 && (PlayerController.Instance.IsDown))
+                if(Length.y > 0 && (PlayerController.Instance.state.VPos == VerticalPos.Down))
                 PlayerController.Instance.GoUP();
-                else if(Length.y < 0 && !PlayerController.Instance.IsDown)
+                else if(Length.y < 0 && PlayerController.Instance.state.VPos != VerticalPos.Down)
                 PlayerController.Instance.GoDown();     
             }
         }
@@ -38,15 +39,15 @@ public class PlayerTutorialController : MonoBehaviour
 
     private void PCControl(){
         if(!GameManager.Instance.IsGamePaused){
-            if(!PlayerController.Instance.IsUp && IsAbleTomove){
+            if(PlayerController.Instance.state.VPos != VerticalPos.Up && IsAbleTomove){
                 if(Input.GetKeyDown(KeyCode.LeftArrow))
                 PlayerController.Instance.GoLeft();
                 else if(Input.GetKeyDown(KeyCode.RightArrow))
                 PlayerController.Instance.GoRight();
             }
-            if(Input.GetKeyDown(KeyCode.UpArrow)  && ( PlayerController.Instance.IsDown))
+            if(Input.GetKeyDown(KeyCode.UpArrow)  && ( PlayerController.Instance.state.VPos == VerticalPos.Down))
             PlayerController.Instance.GoUP();
-            else if(Input.GetKeyDown(KeyCode.DownArrow) && !PlayerController.Instance.IsDown)
+            else if(Input.GetKeyDown(KeyCode.DownArrow) && PlayerController.Instance.state.VPos != VerticalPos.Down)
             PlayerController.Instance.GoDown();
         }
     }

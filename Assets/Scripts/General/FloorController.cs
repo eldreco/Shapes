@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using static PlayerUtils.PlayerUtils;
+using static Utils.PlayerUtils;
 
 public class FloorController : MonoBehaviour
 {

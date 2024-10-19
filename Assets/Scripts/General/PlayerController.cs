@@ -1,19 +1,18 @@
 ﻿using System;
 using UnityEngine;
-using static PlayerUtils.PlayerUtils;
+using static Utils.PlayerUtils;
 using static MobileControl.MobileControl;
 using TimerUtils;
+using Utils;
 
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
     protected Animator anim;
-
-    public bool IsUp {get; set;} //Refactor isUp and isDown to use new VerticalPos
-    public bool IsDown {get; set;}
-    public HorizontalPos HPos {get; set;} = HorizontalPos.Middle;
-
+    
+    public PlayerState state;
+    
     [SerializeField] public GameObject dieEffect;
 
     private string obsPassed = "";
@@ -54,6 +53,7 @@ public class PlayerController : MonoBehaviour
     protected void Setup(){
         CanMove = true;
         anim = GetComponent<Animator>();
+        state = PlayerState.GetDefaultClassicState();
     }
 
     protected void Update() {
@@ -61,9 +61,9 @@ public class PlayerController : MonoBehaviour
             SwipeCheck();
             PCControl();
 
-            if(IsDown)
+            if(state.VPos == VerticalPos.Down)
                 timerDown.ExecuteTimer();
-            else if (IsUp)
+            else if (state.VPos == VerticalPos.Up)
                 timerUp.ExecuteTimer();
         }
     }
@@ -81,28 +81,34 @@ public class PlayerController : MonoBehaviour
             if(other.gameObject.name != obsPassed) //in order not to get 2 points for passing complex obs
                 OnObstaclePassed?.Invoke();
 
-            if(IsDown) //if player is down make the player go Up after passing an obstacle
+            if(state.VPos == VerticalPos.Down) //if player is down make the player go Up after passing an obstacle
                 GoUP();
-            else if(IsUp)
+            else if(state.VPos == VerticalPos.Up)
                 GoDown();
                 
             obsPassed = other.gameObject.name;
         }
     }
 
-    private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.CompareTag("Obstacle")){
-            Vector3 diePos = new(transform.position.x , 0.5f , transform.position.z);
-            Instantiate(dieEffect, diePos, transform.rotation);
-            gameObject.SetActive(false);
-            GameManager.Instance.LevelEnded();
-            OnPlayerDied?.Invoke();
+    protected void OnCollisionEnter(Collision other) {
+        if(other.gameObject.CompareTag("Obstacle"))
+        {
+            HandlePlayerDeath();
         }
+    }
+
+    protected void HandlePlayerDeath()
+    {
+        Vector3 diePos = new(transform.position.x , 0.5f , transform.position.z);
+        Instantiate(dieEffect, diePos, transform.rotation);
+        gameObject.SetActive(false);
+        GameManager.Instance.LevelEnded();
+        OnPlayerDied?.Invoke();
     }
 
     protected void PCControl(){
         if(!GameManager.Instance.IsGamePaused){
-            if(!IsUp){
+            if(state.VPos != VerticalPos.Up){
                 if(Input.GetKeyDown(KeyCode.LeftArrow))
                     GoLeft();
                 else if(Input.GetKeyDown(KeyCode.RightArrow))
@@ -122,41 +128,48 @@ public class PlayerController : MonoBehaviour
 
         if(!GameManager.Instance.IsGamePaused){
             if(xLength > yLength){
-                if(Length.x > SwipeDistance && !IsUp)
+                if(Length.x > SwipeDistance && state.VPos != VerticalPos.Up)
                     GoRight();
-                else if( Length.x < - SwipeDistance && !IsUp)
+                else if( Length.x < - SwipeDistance && state.VPos != VerticalPos.Up)
                     GoLeft();
                 
             } else if(xLength < yLength){
                 if(Length.y > SwipeDistance)
                     GoUP();
-                else if(Length.y < - SwipeDistance && !IsDown)
+                else if(Length.y < - SwipeDistance && state.VPos != VerticalPos.Down)
                     GoDown();
             }
         }
     }
 
     public void GoDown(){ 
-        IsUp = false;
         timerUp.ResetTimer();
-        float vPos = anim.GetFloat(ANIM_VPOS);
-        if(vPos == 0f){
-            IsDown = true;
-            OnPlayerMovedV?.Invoke(VerticalPos.Down);
+        switch (state.VPos) {
+            case VerticalPos.Middle:
+                state.VPos = VerticalPos.Down;
+                OnPlayerMovedV?.Invoke(VerticalPos.Down);
+                break;
+            case VerticalPos.Up:
+                state.VPos = VerticalPos.Middle;
+                break;
         }
-        if(vPos > -1f)
-            anim.SetFloat(ANIM_VPOS, vPos - 1f);
+        if(anim.GetFloat(ANIM_VPOS) > -1f)
+            anim.SetFloat(ANIM_VPOS, anim.GetFloat(ANIM_VPOS) - 1f);
         
     }
 
     public void GoUP(){
-        IsDown = false;
         timerDown.ResetTimer();
-        float vPos = anim.GetFloat(ANIM_VPOS);
-        if(vPos == 0f){
-            IsUp = true;
-            OnPlayerMovedV?.Invoke(VerticalPos.Down);
+        switch (state.VPos) {
+            case VerticalPos.Middle:
+                state.VPos = VerticalPos.Up;
+                OnPlayerMovedV?.Invoke(VerticalPos.Down);
+                break;
+            case VerticalPos.Down:
+                state.VPos = VerticalPos.Middle;
+                break;
         }
+        float animVPos = anim.GetFloat(ANIM_VPOS);
         if(anim.GetFloat(ANIM_VPOS) < 1f)
             anim.SetFloat(ANIM_VPOS, anim.GetFloat(ANIM_VPOS) + 1f);
     }
@@ -177,16 +190,16 @@ public class PlayerController : MonoBehaviour
         switch (anim.GetFloat(ANIM_HPOS))
         {
             case -1f:
-                HPos = HorizontalPos.Left;
+                state.HPos = HorizontalPos.Left;
                 break;
             case 0f:
-                HPos = HorizontalPos.Middle;
+                state.HPos = HorizontalPos.Middle;
                 break;
             case 1f:
-                HPos = HorizontalPos.Right;
+                state.HPos = HorizontalPos.Right;
                 break;
         }
         
-        OnPlayerMovedH?.Invoke(HPos);
+        OnPlayerMovedH?.Invoke(state.HPos);
     }
 }

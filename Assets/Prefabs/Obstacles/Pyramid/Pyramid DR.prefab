@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 6213602252157929843}
   - component: {fileID: 4811024558175699746}
   - component: {fileID: 7559411147821792388}
-  - component: {fileID: 3867801505454591463}
+  - component: {fileID: 9152358650815631055}
   - component: {fileID: 396198090709641895}
-  - component: {fileID: 1582885141731835830}
+  - component: {fileID: -8235591915384951895}
+  - component: {fileID: 4178818740978725204}
   m_Layer: 3
   m_Name: Pyramid DR
   m_TagString: Obstacle
@@ -412,7 +413,7 @@ MonoBehaviour:
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
-  m_SelectedVertices: 160000001700000018000000190000000100000005000000
+  m_SelectedVertices: 
 --- !u!114 &8459904490682874349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,8 +519,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
---- !u!64 &3867801505454591463
-MeshCollider:
+--- !u!65 &9152358650815631055
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -536,10 +537,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.48095062, y: 1.5044336, z: 1.9921483}
+  m_Center: {x: 0, y: 0, z: 0.99607426}
 --- !u!33 &396198090709641895
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -548,7 +548,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6727110302954211078}
   m_Mesh: {fileID: 0}
---- !u!114 &1582885141731835830
+--- !u!114 &-8235591915384951895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -557,8 +557,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6727110302954211078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da5d34250c2bf544934aeff922cbb40, type: 3}
+  m_Script: {fileID: 11500000, guid: abcadbd6ece6e10418c4d150579b24ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
-  offsetZ: -1
+  singleNonCollidingState: 1
+  nonCollidingState:
+    HPos: 2
+    VPos: 2
+    Shape: 2
+--- !u!114 &4178818740978725204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727110302954211078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa1238b97564d90acb2fb5f9dbc513c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalOffset: 0
+  horizontalOffset: -1

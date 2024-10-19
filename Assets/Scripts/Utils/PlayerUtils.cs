@@ -1,6 +1,6 @@
 using System;
 
-namespace PlayerUtils
+namespace Utils
 {
     public static class PlayerUtils
     {
@@ -16,7 +16,16 @@ namespace PlayerUtils
 
         public enum VerticalPos{
             Up,
+            Middle,
             Down
+        }
+        
+        public enum PlayerShape
+        {
+            Square,
+            Hexagon,
+            Triangle,
+            Circle
         }
     }
     

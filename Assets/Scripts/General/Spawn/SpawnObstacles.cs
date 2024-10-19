@@ -3,6 +3,7 @@ using TimerUtils;
 using static Constants.Constants;
 using UnityEngine;
 using UnityEngine.Assertions;
+using static Utils.PlayerUtils;
 
 public class SpawnObstacles : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class SpawnObstacles : MonoBehaviour
 
         obstacleIndex = UnityEngine.Random.Range(0 , obstacles.Length);
             
-        if((obstacles.Length == 1 || lastSpawnedIndex != obstacleIndex) && CanSpawnType(obstacleIndex)){
+        if((obstacles.Length == 1 || lastSpawnedIndex != obstacleIndex)){
             ISpawnable spawnable = obstacles[obstacleIndex].GetComponent<ISpawnable>();
             spawnable.Spawn(tf.position, tf.rotation);
             ObstaclesSpawnedCount++;
@@ -71,13 +72,6 @@ public class SpawnObstacles : MonoBehaviour
         if (spawnTimer.TimerMaxValue >= MIN_SPAWN_INTERVAL)
             spawnTimer.TimerMaxValue *= 1 / GameManager.Instance.Acceleration;
         spawnTimer.ResetTimer();
-    }
-
-    private bool CanSpawnType(int obstacleIndex){
-        ISpawnable.Type obsType = obstacles[obstacleIndex].GetComponent<Obstacle>().GetObstacleType();
-        return !(onlySpawnDownObs && obsType != ISpawnable.Type.Down
-            || onlySpawnMidObs && obsType != ISpawnable.Type.Mid
-            || onlySpawnUpObs && obsType != ISpawnable.Type.Up);
     }
 
     public void SetSpawnType(bool spawnDown, bool spawnMid, bool spawnUp){ //For other classes, i.e tutorial

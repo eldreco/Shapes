@@ -1,7 +1,7 @@
 using TutorialUtils;
 using UnityEngine;
 using UnityEngine.UI;
-using static PlayerUtils.PlayerUtils;
+using static Utils.PlayerUtils;
 
 public class UpObsStage : MonoBehaviour, IStage
 {

@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using static PlayerUtils.PlayerUtils;
+using static Utils.PlayerUtils;
 using TimerUtils;
 using TutorialUtils;
 
@@ -98,7 +98,7 @@ public class TutorialManager : MonoBehaviour
     private void ReloadStage(){
         CheckTimer = false;
         PlayerController.Instance.gameObject.SetActive(true);
-        PlayerController.Instance.HPos = HorizontalPos.Middle;
+        PlayerController.Instance.state.HPos = HorizontalPos.Middle;
         GameManager.Instance.SetBaseVelocity();
         GameManager.Instance.IsLevelEnded = false;
         TutorialCanvasController.Instance.LevelStarted();

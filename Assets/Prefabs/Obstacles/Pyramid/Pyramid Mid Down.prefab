@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 6213602252157929843}
   - component: {fileID: 4811024558175699746}
   - component: {fileID: 7559411147821792388}
-  - component: {fileID: 4296666060136768411}
-  - component: {fileID: 3867801505454591463}
+  - component: {fileID: 8186144730775638756}
   - component: {fileID: 3709796359953368726}
+  - component: {fileID: 4296666060136768411}
   m_Layer: 3
   m_Name: Pyramid Mid Down
   m_TagString: Obstacle
@@ -398,21 +398,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
---- !u!114 &4296666060136768411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6727110302954211078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2b420416dd06c448d9fbdaa8c3803b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
---- !u!64 &3867801505454591463
-MeshCollider:
+--- !u!65 &8186144730775638756
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -429,10 +416,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.48089445, y: 1.4999999, z: 0.9999999}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &3709796359953368726
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -441,3 +427,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6727110302954211078}
   m_Mesh: {fileID: 0}
+--- !u!114 &4296666060136768411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727110302954211078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2b420416dd06c448d9fbdaa8c3803b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singleNonCollidingState: 0
+  nonCollidingState:
+    HPos: 1
+    VPos: 2
+    Shape: 2

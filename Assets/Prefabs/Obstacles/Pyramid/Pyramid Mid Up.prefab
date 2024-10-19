@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 6213602252157929843}
   - component: {fileID: 4811024558175699746}
   - component: {fileID: 7559411147821792388}
+  - component: {fileID: 17927992102128819}
   - component: {fileID: 4296666060136768411}
-  - component: {fileID: 3867801505454591463}
   - component: {fileID: 6625118412565439713}
   m_Layer: 3
   m_Name: Pyramid Mid Up
@@ -875,21 +875,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
---- !u!114 &4296666060136768411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6727110302954211078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2b420416dd06c448d9fbdaa8c3803b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
---- !u!64 &3867801505454591463
-MeshCollider:
+--- !u!65 &17927992102128819
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -906,10 +893,26 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.48089445, y: 1.5222855, z: 1.0001794}
+  m_Center: {x: 0, y: 0.031145573, z: 0.00008982419}
+--- !u!114 &4296666060136768411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727110302954211078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2b420416dd06c448d9fbdaa8c3803b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singleNonCollidingState: 0
+  nonCollidingState:
+    HPos: 1
+    VPos: 0
+    Shape: 2
 --- !u!33 &6625118412565439713
 MeshFilter:
   m_ObjectHideFlags: 0

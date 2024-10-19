@@ -1,11 +1,26 @@
 using UnityEngine;
+using Utils;
 
-public class Obstacle : MonoBehaviour
-{
-    [SerializeField] ISpawnable.Type type;
+[DisallowMultipleComponent]
+public class Obstacle : MonoBehaviour {
 
-    public ISpawnable.Type GetObstacleType()
-    {
-        return type;
+    [SerializeField] private bool singleNonCollidingState;
+    [SerializeField] protected PlayerState nonCollidingState;
+
+    public PlayerState NonCollidingState { get => nonCollidingState; set => nonCollidingState = value; }
+    public PlayerState[] NonCollidingStateList { get; set; }
+
+    protected void Start() {
+        if (singleNonCollidingState) {
+            NonCollidingStateList = new[] { NonCollidingState };
+        } else {
+            NonCollidingStateList = PlayerState.GetAllStatesExcluding(
+                PlayerState.GetCollidingStatesForMultipleNonCollidingStatesObstacle(
+                    nonCollidingState.HPos,
+                    nonCollidingState.VPos,
+                    nonCollidingState.Shape
+                )
+            );
+        }
     }
 }

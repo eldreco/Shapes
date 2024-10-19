@@ -176,7 +176,6 @@ GameObject:
   m_Component:
   - component: {fileID: 155950649}
   - component: {fileID: 155950648}
-  - component: {fileID: 155950650}
   m_Layer: 0
   m_Name: Spawn
   m_TagString: Untagged
@@ -216,20 +215,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &155950650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155950647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da5d34250c2bf544934aeff922cbb40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  offsetZ: 0
 --- !u!1 &165004875
 GameObject:
   m_ObjectHideFlags: 0
