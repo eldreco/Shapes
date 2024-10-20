@@ -695,4 +695,7 @@ MonoBehaviour:
   nonCollidingStateList:
   - HPos: 1
     VPos: 1
-    Shape: 2
+    Shape: 1
+  - HPos: 1
+    VPos: 2
+    Shape: 1
