@@ -32,6 +32,15 @@ public class ShapesPlayerController : PlayerController {
 
         base.OnTriggerEnter(other);
 
+        HandleCollision(other);
+    }
+
+    private void OnTriggerStay(Collider other) {
+        HandleCollision(other);
+    }
+
+    private void HandleCollision(Collider other) {
+
         if (other.gameObject.GetComponent<Obstacle>() == null) {
             return;
         }
