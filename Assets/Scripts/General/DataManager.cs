@@ -1,94 +1,87 @@
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using static Constants.Constants;
+using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.Assertions;
+using Utils;
+using static Utils.Constants;
 
-public class DataManager : MonoBehaviour
-{
-    public static DataManager Instance;
+namespace General {
+    public class DataManager : MonoBehaviour {
+        public static DataManager Instance;
 
-    private int classicHighScore;
-    private int shapesHighScore;
+        private HighScoresDictionary _highScores = new()
+        {
+            { GameMode.Classic, 0 },
+            { GameMode.Shapes, 0 }
+        };
 
-    public bool IsFirstTimePlaying {get; private set;}
+        private bool IsFirstTimePlaying { get; set; }
 
-    private void Awake(){
-        if (Instance != null) Destroy(gameObject);
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        LoadData();
-    }
+        private void Awake() {
+            if (Instance != null) {
+                Destroy(gameObject);
+            }
+            
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadData();
+        }
 
-    public void UpdateScore(GameMode mode, int hs){
-        switch (mode){
-            case GameMode.Classic:
-                classicHighScore = hs;
-                SaveClassicHighScore();
-                break;
-            case GameMode.Shapes:
-                shapesHighScore = hs;
-                SaveShapesHighScore();
-                break;
+        public void UpdateHighScore(GameMode gameMode, int newHighScore) {
+            _highScores[gameMode] = newHighScore;
+            SaveHighScores();
+        }
+
+        public int GetHighScore(GameMode mode) {
+            return _highScores[mode];
+        }
+
+        public void LoadData() {
+            Assert.IsTrue(File.Exists(SaveDataFilePath), "Save data file not found");
+
+            if (File.Exists(SaveDataFilePath)) {
+                string json = File.ReadAllText(SaveDataFilePath);
+                var data = JsonUtility.FromJson<SaveData>(json);
+
+                if (data.highScoreData == null || data.highScoreData.Count == 0) {
+                    data.highScoreData = new HighScoresDictionary
+                    {
+                        { GameMode.Classic, 0 },
+                        { GameMode.Shapes, 0 }
+                    };
+                }
+                IsFirstTimePlaying = data.isFirstTimePlayingData;
+                _highScores = data.highScoreData;
+            }
+        }
+
+        private void SaveHighScores() {
+            var data = SaveRest();
+            data.highScoreData = _highScores;
+
+            WriteData(data);
+        }
+
+        private void WriteData(SaveData data) {
+            string json = JsonUtility.ToJson(data);
+            File.WriteAllText(SaveDataFilePath, json);
+        }
+
+        private SaveData SaveRest() {
+            SaveData data = new()
+            {
+                isFirstTimePlayingData = IsFirstTimePlaying,
+                highScoreData = _highScores
+            };
+            return data;
+        }
+
+        [Serializable]
+        public class SaveData {
+            public bool isFirstTimePlayingData;
+            [NotNull] public HighScoresDictionary highScoreData;
         }
     }
-
-    public int GetHighScoreForMode(GameMode mode){
-        return mode switch
-        {
-            GameMode.Classic => classicHighScore,
-            GameMode.Shapes => shapesHighScore,
-            _ => -1,
-        };
-    }
-
-    [System.Serializable]
-    public class SaveData
-    {
-        public bool IsFirstTimePlayingData;
-        public int ClassicHighScoreData;
-        public int ShapesHighScoreData;
-    }
-
-    public void SaveClassicHighScore(){
-        SaveData data = SaveRest();
-        data.ClassicHighScoreData = classicHighScore;
-
-        WriteData(data);
-    }
-
-    public void SaveShapesHighScore(){
-        SaveData data = SaveRest();
-        data.ShapesHighScoreData = shapesHighScore;
-
-        WriteData(data);
-    }
-
-    public void LoadData(){
-        Assert.IsTrue(File.Exists(SAVE_DATA_FILE_PATH), "Save data file not found");
-        if (File.Exists(SAVE_DATA_FILE_PATH))
-        {
-            string json = File.ReadAllText(SAVE_DATA_FILE_PATH);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-            classicHighScore = data.ClassicHighScoreData;
-            IsFirstTimePlaying = data.IsFirstTimePlayingData;
-            shapesHighScore = data.ShapesHighScoreData;
-        }
-    }
-
-    private void WriteData(SaveData data){
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(SAVE_DATA_FILE_PATH, json);
-    }
-
-    private SaveData SaveRest(){
-        SaveData data = new()
-        {
-            IsFirstTimePlayingData = IsFirstTimePlaying,
-            ClassicHighScoreData = classicHighScore,
-            ShapesHighScoreData = shapesHighScore
-        };
-        return data;
-    }
-    
 }

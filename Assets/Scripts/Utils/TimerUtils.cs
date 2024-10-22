@@ -1,54 +1,60 @@
-
 using System;
 using UnityEngine;
 
-namespace TimerUtils
-{
+namespace Utils {
+
     /// <summary>
-    /// Timer class for Unity, can be used as a timer or as a countdown timer.
-    /// How to use:
-    /// <example>
-    /// 1) In OnEnable method create a new timer.  
-    /// 2) Subscribe to the OnTimerFinished event with the method you want to trigger.
-    /// 3) On Update call timer.ExecuteTimer();
-    /// 4) Remember to call timer.ResetTimer() when you want to restart the timer.
-    /// 5) Remember to unsubscribe from the event when you don't need it, in OnDisable.
-    /// </example>
+    ///     Timer class for Unity, can be used as a timer or as a countdown timer.
     /// </summary>
-    public class Timer
-    {
-        private float timerMaxValue;
-        public float TimerMaxValue 
-        {
-            get => timerMaxValue;
-            set => timerMaxValue = (value > 0) ? value : timerMaxValue;
+    /// <remarks>
+    ///     How to use:
+    ///     <list type="number">
+    ///         <item>
+    ///             <description>In OnEnable method create a new timer using the constructor.</description>
+    ///         </item>
+    ///         <item>
+    ///             <description>Subscribe to the OnTimerFinished event with the method you want to trigger.</description>
+    ///         </item>
+    ///         <item>
+    ///             <description>On Update call ExecuteTimer();</description>
+    ///         </item>
+    ///         <item>
+    ///             <description>Remember to call ResetTimer() when you want to restart the timer.</description>
+    ///         </item>
+    ///         <item>
+    ///             <description>Remember to unsubscribe from the event when you don't need it, in OnDisable.</description>
+    ///         </item>
+    ///     </list>
+    /// </remarks>
+    public class Timer {
+
+        private float _timerCurrentValue;
+        private float _timerMaxValue;
+
+        public Timer(float timerMaxValue) {
+            TimerMaxValue = timerMaxValue;
+            _timerCurrentValue = TimerMaxValue;
         }
-        private float timerCurrentValue;
+
+        public float TimerMaxValue
+        {
+            get => _timerMaxValue;
+            set => _timerMaxValue = value > 0 ? value : _timerMaxValue;
+        }
 
         public event Action OnTimerFinished;
 
+        public void ExecuteTimer() {
+            _timerCurrentValue -= Time.deltaTime;
 
-        public Timer(float timerMaxValue)
-        {
-            TimerMaxValue = timerMaxValue;
-            timerCurrentValue = TimerMaxValue;
-        }
-
-        public void ExecuteTimer()
-        {
-            timerCurrentValue -= Time.deltaTime;
-            if (timerCurrentValue <= 0)
-            {
+            if (_timerCurrentValue <= 0) {
                 OnTimerFinished?.Invoke();
                 ResetTimer();
             }
         }
 
-        public void ResetTimer()
-        {
-            timerCurrentValue = TimerMaxValue;
+        public void ResetTimer() {
+            _timerCurrentValue = TimerMaxValue;
         }
     }
-
 }
-

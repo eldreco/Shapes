@@ -693,6 +693,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nonCollidingStateList:
-  - HPos: 1
-    VPos: 2
-    Shape: 1
+  - hPos: 1
+    vPos: 2
+    shape: 1

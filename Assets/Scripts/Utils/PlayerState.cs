@@ -6,12 +6,12 @@ namespace Utils {
     [Serializable]
     public class PlayerState {
 
-        public HorizontalPos HPos;
-        public VerticalPos VPos;
+        public HorizontalPos hPos;
+        public VerticalPos vPos;
 
         public PlayerState(HorizontalPos hPos, VerticalPos vPos) {
-            HPos = hPos;
-            VPos = vPos;
+            this.hPos = hPos;
+            this.vPos = vPos;
         }
 
         public static PlayerState GetDefaultClassicState() {
@@ -19,7 +19,7 @@ namespace Utils {
         }
 
         protected bool Equals(PlayerState other) {
-            return HPos == other.HPos && VPos == other.VPos;
+            return hPos == other.hPos && vPos == other.vPos;
         }
 
         public override bool Equals(object obj) {
@@ -35,7 +35,7 @@ namespace Utils {
         }
 
         public override int GetHashCode() {
-            return HashCode.Combine((int)HPos, (int)VPos);
+            return HashCode.Combine((int)hPos, (int)vPos);
         }
     }
 }

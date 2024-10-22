@@ -1,205 +1,212 @@
 ﻿using System;
 using UnityEngine;
-using static Utils.PlayerUtils;
-using static MobileControl.MobileControl;
-using TimerUtils;
 using Utils;
+using static Utils.PlayerUtils;
+using static Utils.MobileControl;
 
-public class PlayerController : MonoBehaviour
-{
-    public static PlayerController Instance;
+namespace General {
+    public class PlayerController : MonoBehaviour {
 
-    protected Animator anim;
-    
-    public PlayerState state;
-    
-    [SerializeField] public GameObject dieEffect;
+        public static Action OnObstaclePassed;
+        public static event Action<HorizontalPos> OnPlayerMovedH;
 
-    private string obsPassed = "";
+        [SerializeField] public GameObject dieEffect;
 
-    public bool CanMove {get; set;}
+        public PlayerState state;
 
-    public static event Action<HorizontalPos> OnPlayerMovedH;
-    public static event Action<VerticalPos> OnPlayerMovedV;
-    public static event Action OnPlayerDied;
-    public static Action OnObstaclePassed;
+        private string _obsPassed = "";
+        private Timer _timerDown;
+        private Timer _timerUp;
 
-    private Timer timerUp;
-    private Timer timerDown;
+        protected Animator Anim;
 
-    private void Awake() {
-        if (Instance != null) Destroy(gameObject);
-        Instance = this;
-    }
+        protected void Start() {
+            Setup();
+        }
 
-    protected void OnEnable() {
-        OnSwipe += Move;
-        timerDown = new(1f);
-        timerUp = new(1f);
-        timerDown.OnTimerFinished += GoUP;
-        timerUp.OnTimerFinished += GoDown;
-    }
-
-    private void OnDisable() {
-        OnSwipe -= Move;
-        timerDown.OnTimerFinished -= GoUP;
-        timerUp.OnTimerFinished -= GoDown;
-    }
-
-    protected void Start() {
-        Setup();
-    }
-
-    protected void Setup(){
-        CanMove = true;
-        anim = GetComponent<Animator>();
-        state = PlayerState.GetDefaultClassicState();
-    }
-
-    protected void Update() {
-        if(CanMove){
+        protected void Update() {
             SwipeCheck();
             PCControl();
 
-            if(state.VPos == VerticalPos.Down)
-                timerDown.ExecuteTimer();
-            else if (state.VPos == VerticalPos.Up)
-                timerUp.ExecuteTimer();
+            UpdateUpAndDownTimers();
         }
-    }
 
-    public void OnTriggerEnter(Collider other) {
-        if(other.gameObject.CompareTag("Obstacle")){
-            timerDown.ResetTimer();
-            timerUp.ResetTimer();
+        protected void OnEnable() {
+            _timerDown = new Timer(1f);
+            _timerUp = new Timer(1f);
+            OnSwipe += Move;
+            _timerDown.OnTimerFinished += GoUp;
+            _timerUp.OnTimerFinished += GoDown;
         }
-    }
 
-    public void OnTriggerExit(Collider other) { 
-        if(other.gameObject.CompareTag("Obstacle")){
+        private void OnDisable() {
+            OnSwipe -= Move;
+            _timerDown.OnTimerFinished -= GoUp;
+            _timerUp.OnTimerFinished -= GoDown;
+        }
 
-            if(other.gameObject.name != obsPassed) //in order not to get 2 points for passing complex obs
+        protected void OnCollisionEnter(Collision other) {
+            if (other.gameObject.CompareTag("Obstacle")) {
+                HandlePlayerDeath();
+            }
+        }
+
+        public void OnTriggerEnter(Collider other) {
+            if (other.gameObject.CompareTag("Obstacle")) {
+                _timerDown.ResetTimer();
+                _timerUp.ResetTimer();
+            }
+        }
+
+        public void OnTriggerExit(Collider other) {
+            if (!other.gameObject.CompareTag("Obstacle")) {
+                return;
+            }
+
+            if (other.gameObject.name != _obsPassed) //in order not to get 2 points for passing complex obs
+            {
                 OnObstaclePassed?.Invoke();
-
-            if(state.VPos == VerticalPos.Down) //if player is down make the player go Up after passing an obstacle
-                GoUP();
-            else if(state.VPos == VerticalPos.Up)
-                GoDown();
-                
-            obsPassed = other.gameObject.name;
-        }
-    }
-
-    protected void OnCollisionEnter(Collision other) {
-        if(other.gameObject.CompareTag("Obstacle"))
-        {
-            HandlePlayerDeath();
-        }
-    }
-
-    protected void HandlePlayerDeath()
-    {
-        Vector3 diePos = new(transform.position.x , 0.5f , transform.position.z);
-        Instantiate(dieEffect, diePos, transform.rotation);
-        gameObject.SetActive(false);
-        GameManager.Instance.LevelEnded();
-        OnPlayerDied?.Invoke();
-    }
-
-    protected void PCControl(){
-        if(!GameManager.Instance.IsGamePaused){
-            if(state.VPos != VerticalPos.Up){
-                if(Input.GetKeyDown(KeyCode.LeftArrow))
-                    GoLeft();
-                else if(Input.GetKeyDown(KeyCode.RightArrow))
-                    GoRight();
             }
-            if(Input.GetKeyDown(KeyCode.UpArrow))
-                GoUP();
-            else if(Input.GetKeyDown(KeyCode.DownArrow))
-                GoDown();
-        }
-    }
 
-    public void Move(Vector2 startPos , Vector2 endPos){
-        Vector2 Length = endPos - startPos;
-        float xLength = Mathf.Abs(Length.x);
-        float yLength = Mathf.Abs(Length.y);
+            switch (state.vPos) {
 
-        if(!GameManager.Instance.IsGamePaused){
-            if(xLength > yLength){
-                if(Length.x > SwipeDistance && state.VPos != VerticalPos.Up)
-                    GoRight();
-                else if( Length.x < - SwipeDistance && state.VPos != VerticalPos.Up)
-                    GoLeft();
-                
-            } else if(xLength < yLength){
-                if(Length.y > SwipeDistance)
-                    GoUP();
-                else if(Length.y < - SwipeDistance && state.VPos != VerticalPos.Down)
+                case VerticalPos.Down:
+                    GoUp();
+                    break;
+                case VerticalPos.Up:
                     GoDown();
+                    break;
+            }
+
+            _obsPassed = other.gameObject.name;
+        }
+
+        protected void Setup() {
+            Anim = GetComponent<Animator>();
+            state = PlayerState.GetDefaultClassicState();
+        }
+
+        protected void HandlePlayerDeath() {
+            Vector3 diePos = new(transform.position.x, 0.5f, transform.position.z);
+            Instantiate(dieEffect, diePos, transform.rotation);
+            gameObject.SetActive(false);
+            GameManager.Instance.LevelEnded();
+        }
+
+        private void PCControl() {
+            if (GameManager.Instance.IsGamePaused) {
+                return;
+            }
+
+            if (state.vPos != VerticalPos.Up) {
+                if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                    GoLeft();
+                } else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                    GoRight();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                GoUp();
+            } else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+                GoDown();
             }
         }
-    }
 
-    public void GoDown(){ 
-        timerUp.ResetTimer();
-        switch (state.VPos) {
-            case VerticalPos.Middle:
-                state.VPos = VerticalPos.Down;
-                OnPlayerMovedV?.Invoke(VerticalPos.Down);
-                break;
-            case VerticalPos.Up:
-                state.VPos = VerticalPos.Middle;
-                break;
+        private void Move(Vector2 startPos, Vector2 endPos) {
+            var length = endPos - startPos;
+            float xLength = Mathf.Abs(length.x);
+            float yLength = Mathf.Abs(length.y);
+
+            if (GameManager.Instance.IsGamePaused) {
+                return;
+            }
+
+            if (xLength > yLength) {
+                if (length.x > SwipeDistance
+                    && state.vPos != VerticalPos.Up) {
+                    GoRight();
+                } else if (length.x < -SwipeDistance && state.vPos != VerticalPos.Up) {
+                    GoLeft();
+                }
+
+            } else if (xLength < yLength) {
+                if (length.y > SwipeDistance) {
+                    GoUp();
+                } else if (length.y < -SwipeDistance && state.vPos != VerticalPos.Down) {
+                    GoDown();
+                }
+            }
         }
-        if(anim.GetFloat(ANIM_VPOS) > -1f)
-            anim.SetFloat(ANIM_VPOS, anim.GetFloat(ANIM_VPOS) - 1f);
-        
-    }
 
-    public void GoUP(){
-        timerDown.ResetTimer();
-        switch (state.VPos) {
-            case VerticalPos.Middle:
-                state.VPos = VerticalPos.Up;
-                OnPlayerMovedV?.Invoke(VerticalPos.Down);
-                break;
-            case VerticalPos.Down:
-                state.VPos = VerticalPos.Middle;
-                break;
+        private void GoDown() {
+            _timerUp.ResetTimer();
+
+            state.vPos = state.vPos switch
+            {
+                VerticalPos.Up => VerticalPos.Middle,
+                VerticalPos.Middle => VerticalPos.Down,
+                _ => state.vPos
+            };
+
+            if (Anim.GetFloat(ANIM_VPOS) > -1f) {
+                Anim.SetFloat(ANIM_VPOS, Anim.GetFloat(ANIM_VPOS) - 1f);
+            }
         }
-        float animVPos = anim.GetFloat(ANIM_VPOS);
-        if(anim.GetFloat(ANIM_VPOS) < 1f)
-            anim.SetFloat(ANIM_VPOS, anim.GetFloat(ANIM_VPOS) + 1f);
-    }
 
-    public void GoLeft(){ 
-        if(anim.GetFloat(ANIM_HPOS) > -1f)
-            anim.SetFloat(ANIM_HPOS, anim.GetFloat(ANIM_HPOS) - 1f);
-        UpdateHPos();
-    }
+        private void GoUp() {
+            _timerDown.ResetTimer();
 
-    public void GoRight(){ 
-        if(anim.GetFloat(ANIM_HPOS) < 1f)
-            anim.SetFloat(ANIM_HPOS, anim.GetFloat(ANIM_HPOS) + 1f);
-        UpdateHPos();
-    }
-
-    private void UpdateHPos(){
-        switch (anim.GetFloat(ANIM_HPOS))
-        {
-            case -1f:
-                state.HPos = HorizontalPos.Left;
-                break;
-            case 0f:
-                state.HPos = HorizontalPos.Middle;
-                break;
-            case 1f:
-                state.HPos = HorizontalPos.Right;
-                break;
+            state.vPos = state.vPos switch
+            {
+                VerticalPos.Middle => VerticalPos.Up,
+                VerticalPos.Down => VerticalPos.Middle,
+                _ => state.vPos
+            };
+            
+            if (Anim.GetFloat(ANIM_VPOS) < 1f) {
+                Anim.SetFloat(ANIM_VPOS, Anim.GetFloat(ANIM_VPOS) + 1f);
+            }
         }
-        
-        OnPlayerMovedH?.Invoke(state.HPos);
+
+        private void GoLeft() {
+            if (Anim.GetFloat(ANIM_HPOS) > -1f) {
+                Anim.SetFloat(ANIM_HPOS, Anim.GetFloat(ANIM_HPOS) - 1f);
+            }
+
+            UpdateHPos();
+        }
+
+        private void GoRight() {
+            if (Anim.GetFloat(ANIM_HPOS) < 1f) {
+                Anim.SetFloat(ANIM_HPOS, Anim.GetFloat(ANIM_HPOS) + 1f);
+            }
+
+            UpdateHPos();
+        }
+
+        private void UpdateHPos() {
+            state.hPos = Anim.GetFloat(ANIM_HPOS) switch
+            {
+                -1f => HorizontalPos.Left,
+                0f => HorizontalPos.Middle,
+                1f => HorizontalPos.Right,
+                _ => state.hPos
+            };
+
+            OnPlayerMovedH?.Invoke(state.hPos);
+        }
+
+        private void UpdateUpAndDownTimers() {
+
+            switch (state.vPos) {
+                case VerticalPos.Down:
+                    _timerDown.ExecuteTimer();
+                    break;
+                case VerticalPos.Up:
+                    _timerUp.ExecuteTimer();
+                    break;
+            }
+        }
     }
 }

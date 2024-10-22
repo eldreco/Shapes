@@ -1,5 +1,6 @@
-public enum GameMode
-{
-    Classic,
-    Shapes
+namespace Utils {
+    public enum GameMode {
+        Classic,
+        Shapes
+    }
 }

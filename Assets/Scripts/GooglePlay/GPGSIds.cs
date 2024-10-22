@@ -21,13 +21,10 @@
 /// Resources.
 ///
 
-namespace Scripts.GooglePlay
-{
-public static class GPGSIds
-{
+namespace GooglePlay {
+    public static class GPGSIds {
         public const string achievement_10_pointer = "CgkIrbq-s74BEAIQAQ"; // <GPGSID>
         public const string event_set_new_highscore = "CgkIrbq-s74BEAIQAw"; // <GPGSID>
         public const string leaderboard_highscore = "CgkIrbq-s74BEAIQAg"; // <GPGSID>
-
-}
+    }
 }

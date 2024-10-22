@@ -1,47 +1,46 @@
 using System.Collections.Generic;
+using General;
 using UnityEngine;
+using Utils;
 using static Utils.PlayerUtils;
 
-public class ShapesManager : MonoBehaviour
-{
-    public static ShapesManager Instance;
+namespace Shapes {
 
-    public PlayerShape ActiveShape {get; private set;}
-    public Dictionary<PlayerShape, Mesh> ShapeMeshMap {get; private set;} = new();
+    [DisallowMultipleComponent]
+    public class ShapesManager : MonoBehaviour {
+        public static ShapesManager Instance;
 
-    [SerializeField] private Mesh hexagonMesh;
-    [SerializeField] private Mesh pyramidMesh;
-    [SerializeField] private Mesh cylinderMesh;
+        [SerializeField] private Mesh hexagonMesh;
+        [SerializeField] private Mesh pyramidMesh;
+        [SerializeField] private Mesh cylinderMesh;
 
-    private void Awake() {
-        if (Instance != null) Destroy(gameObject);
-        Instance = this;
-    }
+        public Dictionary<PlayerShape, Mesh> ShapeMeshMap { get; } = new();
 
-    private void Start() {
-        ShapeMeshMap.Add(PlayerShape.Hexagon, hexagonMesh);
-        ShapeMeshMap.Add(PlayerShape.Triangle, pyramidMesh);
-        ShapeMeshMap.Add(PlayerShape.Circle, cylinderMesh);
-        SetActiveShape(PlayerShape.Hexagon);
-        GameManager.Instance.ActiveGameMode = GameMode.Shapes;
-    }
+        private void Awake() {
+            if (Instance != null) {
+                Destroy(gameObject);
+            }
 
-    public void SetActiveShape(PlayerShape shape){
-        ActiveShape = shape;
-    }
+            Instance = this;
+        }
 
-    public void PressCircle(){
-        SetActiveShape(PlayerShape.Circle);
-        ShapesPlayerController.Instance.ChangeShape(PlayerShape.Circle);
-    }
+        private void Start() {
+            ShapeMeshMap.Add(PlayerShape.Hexagon, hexagonMesh);
+            ShapeMeshMap.Add(PlayerShape.Triangle, pyramidMesh);
+            ShapeMeshMap.Add(PlayerShape.Circle, cylinderMesh);
+            GameManager.Instance.ActiveGameMode = GameMode.Shapes;
+        }
 
-    public void PressHexagon(){
-        SetActiveShape(PlayerShape.Hexagon);
-        ShapesPlayerController.Instance.ChangeShape(PlayerShape.Hexagon);
-    }
+        public void PressCircle() {
+            ShapesPlayerController.Instance.ChangeShape(PlayerShape.Circle);
+        }
 
-    public void PressTriangle(){
-        SetActiveShape(PlayerShape.Triangle);
-        ShapesPlayerController.Instance.ChangeShape(PlayerShape.Triangle);
+        public void PressHexagon() {
+            ShapesPlayerController.Instance.ChangeShape(PlayerShape.Hexagon);
+        }
+
+        public void PressTriangle() {
+            ShapesPlayerController.Instance.ChangeShape(PlayerShape.Triangle);
+        }
     }
 }

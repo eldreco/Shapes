@@ -2,14 +2,14 @@ using System;
 using static Utils.PlayerUtils;
 
 namespace Utils {
-    
+
     [Serializable]
     public class ShapesPlayerState : PlayerState {
 
-        public PlayerShape Shape;
+        public PlayerShape shape;
 
         public ShapesPlayerState(HorizontalPos hPos, VerticalPos vPos, PlayerShape shape) : base(hPos, vPos) {
-            Shape = shape;
+            this.shape = shape;
         }
 
         public static ShapesPlayerState GetDefaultShapesState() {

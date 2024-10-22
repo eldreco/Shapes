@@ -561,9 +561,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nonCollidingStateList:
-  - HPos: 2
-    VPos: 2
-    Shape: 1
+  - hPos: 2
+    vPos: 2
+    shape: 1
 --- !u!114 &3129873400072582307
 MonoBehaviour:
   m_ObjectHideFlags: 0

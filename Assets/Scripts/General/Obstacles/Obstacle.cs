@@ -1,5 +1,7 @@
 using UnityEngine;
 
-[DisallowMultipleComponent]
-public abstract class Obstacle : MonoBehaviour {
+namespace General.Obstacles {
+    [DisallowMultipleComponent]
+    public abstract class Obstacle : MonoBehaviour {
+    }
 }

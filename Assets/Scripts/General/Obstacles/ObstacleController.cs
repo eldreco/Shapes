@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
 
-public class ObstacleController : MonoBehaviour
-{   
-    protected Rigidbody rb;
-    protected Animator anim;
+namespace General.Obstacles {
+    public class ObstacleController : MonoBehaviour {
+        private Rigidbody _rb;
 
-    protected void Start() {
-        rb = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
-    }
+        protected void Start() {
+            _rb = GetComponent<Rigidbody>();
+        }
 
-    protected void FixedUpdate() {
-        MoveObstacle(GameManager.Instance.ObstacleVelocity);
-    }
+        protected void FixedUpdate() {
+            MoveObstacle(GameManager.Instance.ObstacleVelocity);
+        }
 
-    protected void MoveObstacle(float speed){
-        rb.MovePosition(transform.position + speed * Time.deltaTime * transform.right);
+        private void MoveObstacle(float speed) {
+            _rb.MovePosition(transform.position + speed * Time.deltaTime * transform.right);
+        }
     }
 }
