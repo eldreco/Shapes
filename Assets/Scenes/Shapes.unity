@@ -207,9 +207,6 @@ MonoBehaviour:
   - {fileID: 6727110302954211078, guid: c8a6e92b17a09864db68adec32f4a6f8, type: 3}
   - {fileID: 6727110302954211078, guid: 2cfc33bd7efe1de4babca051a22cfde4, type: 3}
   - {fileID: 30291764909593642, guid: dac4d724573bc9b41963c64272d83360, type: 3}
-  onlySpawnDownObs: 0
-  onlySpawnMidObs: 0
-  onlySpawnUpObs: 0
 --- !u!4 &155950649
 Transform:
   m_ObjectHideFlags: 0
@@ -4118,11 +4115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2507a90f59ddf854e87acff484d5bfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state:
-    HPos: 0
-    VPos: 0
   dieEffect: {fileID: 5410792361581034529, guid: 4e20a88f64c04434888d2b5ce10dc51d,
     type: 3}
+  state:
+    hPos: 0
+    vPos: 0
 --- !u!64 &1430216844319230242
 MeshCollider:
   m_ObjectHideFlags: 0

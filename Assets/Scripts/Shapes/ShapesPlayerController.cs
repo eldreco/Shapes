@@ -54,7 +54,7 @@ namespace Shapes {
         }
 
         public void ChangeShape(PlayerShape shape) {
-            state = ShapesPlayerState.GetDefaultShapesState();
+            state = new ShapesPlayerState(state.hPos, state.vPos, shape);
             var nextMesh = ShapesManager.Instance.ShapeMeshMap[shape];
             _meshCollider.sharedMesh = nextMesh;
 

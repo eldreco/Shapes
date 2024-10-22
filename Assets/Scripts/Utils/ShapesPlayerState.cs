@@ -15,5 +15,25 @@ namespace Utils {
         public static ShapesPlayerState GetDefaultShapesState() {
             return new ShapesPlayerState(HorizontalPos.Middle, VerticalPos.Middle, PlayerShape.Hexagon);
         }
+
+        protected bool Equals(ShapesPlayerState other) {
+            return vPos == other.vPos && hPos == other.hPos && shape == other.shape;
+        }
+
+        public override bool Equals(object obj) {
+            if (obj is null) {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+
+            return obj.GetType() == GetType() && Equals((ShapesPlayerState)obj);
+        }
+
+        public override int GetHashCode() {
+           return HashCode.Combine((int)hPos, (int)vPos, (int)shape);
+        }
     }
 }
